@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story Bank — Luke</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Archivo+Narrow:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orchid:#CB6CE6;
+    --blossom:#F4CBFF;
+    --parchment:#FAF8F4;
+    --plum:#1E1620;
+    --plum-2:#271C2B;
+    --ink-soft:#E9DCEE;
+    --muted:#A98FB3;
+    --line:rgba(244,203,255,0.16);
+    --display:"Fraunces",Georgia,serif;
+    --body:"Archivo Narrow",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--plum);
+    color:var(--ink-soft);
+    font-family:var(--body);
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px;}
+
+  /* Labels / eyebrows */
+  .label{
+    font-family:var(--body);
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-size:12px;
+    color:var(--orchid);
+  }
+
+  /* ---------- Cover ---------- */
+  header.cover{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .brandline{
+    font-family:var(--body);
+    text-transform:uppercase;
+    letter-spacing:0.24em;
+    font-size:12px;
+    font-weight:700;
+    color:var(--muted);
+  }
+  .brandline b{color:var(--blossom);font-weight:700;}
+  h1.title{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(42px,9vw,72px);
+    line-height:1.02;
+    margin:20px 0 6px;
+    color:var(--parchment);
+    letter-spacing:-0.01em;
+  }
+  h1.title em{color:var(--orchid);font-style:italic;}
+  .cover .sub{
+    font-family:var(--display);
+    font-style:italic;
+    font-size:clamp(20px,4vw,26px);
+    color:var(--blossom);
+    margin:0 0 22px;
+    font-weight:400;
+  }
+  .frame{
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:60ch;
+  }
+  .frame strong{color:var(--parchment);font-weight:700;}
+
+  /* ---------- How to use ---------- */
+  .howto{
+    margin:34px 0 0;
+    padding:22px 24px;
+    background:var(--plum-2);
+    border:1px solid var(--line);
+    border-radius:14px;
+  }
+  .howto p{margin:8px 0 0;font-size:15.5px;color:var(--ink-soft);}
+  .howto p:first-of-type{margin-top:14px;}
+  .howto .label{margin:0;}
+
+  /* ---------- Section heads ---------- */
+  section{padding:54px 0;border-bottom:1px solid var(--line);}
+  .seam{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:6px;
+  }
+  .seam .no{
+    font-family:var(--display);
+    font-size:15px;color:var(--orchid);font-weight:600;
+    border:1px solid var(--orchid);border-radius:50%;
+    width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+    flex:none;font-style:italic;
+  }
+  h2{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(28px,5.4vw,40px);
+    line-height:1.08;
+    color:var(--parchment);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .story-meta{
+    margin:14px 0 0;
+    font-size:14.5px;
+    color:var(--muted);
+  }
+  .story-meta b{color:var(--blossom);font-weight:700;}
+  .typetag{
+    display:inline-block;margin-top:14px;
+    font-family:var(--body);font-weight:700;text-transform:uppercase;
+    letter-spacing:0.16em;font-size:11.5px;color:var(--plum);
+    background:var(--orchid);padding:5px 11px;border-radius:20px;
+  }
+  .typetag.conv{background:var(--blossom);}
+
+  /* ---------- Format blocks ---------- */
+  .fmt{margin-top:30px;}
+  .fmt > .label{display:block;margin-bottom:12px;}
+  .hooks{
+    list-style:none;padding:0;margin:0 0 4px;
+  }
+  .hooks li{
+    font-family:var(--display);
+    font-style:italic;
+    font-size:19px;
+    color:var(--parchment);
+    padding:9px 0 9px 18px;
+    border-left:2px solid var(--orchid);
+    margin-bottom:8px;
+    line-height:1.35;
+  }
+  .slides{counter-reset:slide;list-style:none;padding:0;margin:0;}
+  .slides li{
+    counter-increment:slide;
+    position:relative;
+    padding:12px 0 12px 46px;
+    border-bottom:1px dashed var(--line);
+    font-size:16.5px;
+  }
+  .slides li::before{
+    content:counter(slide);
+    position:absolute;left:0;top:12px;
+    font-family:var(--display);font-style:italic;
+    color:var(--orchid);font-size:14px;
+    width:30px;height:30px;border:1px solid var(--line);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .slides li.turn::before,.slides li.offer::before{color:var(--blossom);border-color:var(--blossom);}
+  .slides li .role{
+    display:block;font-family:var(--body);font-weight:700;text-transform:uppercase;
+    letter-spacing:0.16em;font-size:10.5px;color:var(--muted);margin-bottom:2px;
+  }
+  .copyblock{
+    background:var(--plum-2);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 20px;
+    font-size:16px;
+    color:var(--ink-soft);
+    white-space:pre-line;
+  }
+  .copyblock.script{font-family:var(--body);}
+  .oneliner{
+    font-family:var(--display);
+    font-weight:600;
+    font-size:clamp(22px,4.6vw,30px);
+    color:var(--parchment);
+    line-height:1.2;
+    padding:8px 0 0;
+  }
+  .flag{
+    margin-top:18px;font-size:14px;color:var(--muted);
+    background:rgba(203,108,230,0.08);
+    border:1px solid rgba(203,108,230,0.28);
+    border-radius:10px;padding:12px 15px;
+  }
+  .flag b{color:var(--orchid);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-size:12px;}
+  .loop{margin-top:16px;font-size:14px;color:var(--muted);line-height:1.55;}
+  .loop b{color:var(--blossom);font-weight:700;}
+  .ph{color:var(--orchid);font-style:italic;}
+
+  .note-omit{
+    margin-top:8px;font-size:14px;color:var(--muted);font-style:italic;
+  }
+
+  /* ---------- Pipeline ---------- */
+  .pipe{list-style:none;padding:0;margin:22px 0 0;}
+  .pipe li{
+    padding:18px 0;border-bottom:1px solid var(--line);
+  }
+  .pipe h3{
+    font-family:var(--display);font-weight:600;font-size:21px;color:var(--parchment);
+    margin:0 0 4px;
+  }
+  .pipe p{margin:0;font-size:15px;color:var(--muted);}
+  .pipe .need{color:var(--orchid);font-style:italic;}
+
+  /* ---------- Footer ---------- */
+  footer{padding:48px 0 70px;text-align:center;border-bottom:none;}
+  footer .mark{
+    font-family:var(--display);font-style:italic;font-size:22px;color:var(--blossom);
+    margin-bottom:10px;
+  }
+  footer .meta{
+    font-family:var(--body);text-transform:uppercase;letter-spacing:0.2em;
+    font-size:11.5px;color:var(--muted);font-weight:700;
+  }
+  footer .meta b{color:var(--orchid);}
+  a{color:var(--orchid);}
+  ::selection{background:var(--orchid);color:var(--plum);}
+  @media (max-width:520px){
+    body{font-size:17px;}
+    .hooks li{font-size:17.5px;}
+    section{padding:44px 0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ============ COVER ============ -->
+  <header class="cover">
+    <div class="brandline">Kindra Morse &nbsp;·&nbsp; Founder Story Coach &nbsp;·&nbsp; <b>@kindramariemorse</b></div>
+    <h1 class="title">Story Bank<br><em>Luke</em></h1>
+    <p class="sub">The stories you've been discounting are the ones that sell.</p>
+    <p class="frame">You spent 25 years learning to make complicated systems disappear. You're surrounded by people half your age who learned the word "automation" last week. <strong>The work is not the problem. The telling is.</strong> What follows is your lived experience, built into stories you can post, in every format they can take.</p>
+
+    <div class="howto">
+      <span class="label">How to use this</span>
+      <p>Each story is built once and shown in every format it can wear: carousel, conviction post, talking-head reel, static line, b-roll caption. Pick the format that fits the day, not a new idea every time.</p>
+      <p>Anything in <span class="ph">orchid italic</span> is a placeholder. It is a real number or detail only you can confirm. Swap it in before posting. Do not guess it.</p>
+      <p>The villain in every story stays a force, never a named person or company. It is safer, and it is truer.</p>
+    </div>
+  </header>
+
+  <!-- ============ MEET LUKE ============ -->
+  <section id="meet">
+    <span class="label">Highlight sequence</span>
+    <div class="seam" style="margin-top:8px;">
+      <h2>Meet Luke</h2>
+    </div>
+    <p class="story-meta">Open on the reader's fear, not your origin. They have to feel the hole before you become the answer. <b>Format: pinned carousel or profile highlight.</b></p>
+
+    <div class="fmt">
+      <span class="label">The sequence</span>
+      <ol class="slides">
+        <li><span class="role">Hole — their pain</span>You built it to <span class="ph">[$2M]</span> on grit. Now grit is the thing breaking you.</li>
+        <li>Every quote, every approval, every fire still routes through you. Put one ball down and three hit the floor.</li>
+        <li>You can't hand it off, because none of it is written down. It lives in your head, and your head is the bottleneck.</li>
+        <li><span class="role">Turn — Luke arrives</span>I spent 25 years inside systems that moved billions. I know exactly where the work is hiding.</li>
+        <li>I find the task quietly eating a month of your year, and I take it off your plate. Not with a buzzword. With a fix.</li>
+        <li><span class="role">Proof of character</span>Sometimes that fix is AI. Sometimes it's a one-page report and the truth that you were about to overbuild. I'll tell you which.</li>
+        <li><span class="role">Offer</span><span class="ph">[Luke's one-line offer]</span>. <span class="ph">[Comment KEYWORD / DM me]</span></li>
+      </ol>
+      <div class="flag"><b>Note</b> &nbsp;This follows the client-hole-first arc: their current pain leads, your résumé rides underneath as proof. Your origin (the square peg who chose computers, the 2,000-mile move) belongs in the credibility layer, not the open. It is in the pipeline below for when you've earned the audience to care.</div>
+    </div>
+  </section>
+
+  <!-- ============ STORY 1 ============ -->
+  <section id="s1">
+    <div class="seam">
+      <span class="no">1</span>
+      <h2>Automated my way out of a job</h2>
+    </div>
+    <p class="story-meta"><b>Trait revealed:</b> makes himself indispensable by making the work unnecessary. <b>Fork:</b> leave the ceiling or accept it. <b>Cost:</b> he was so good at killing the busywork that the role stopped needing to exist. <b>Contradiction:</b> a company clearing billions called a reclaimed month of labor a rounding error.</p>
+    <span class="typetag">Signature story · full arc</span>
+
+    <div class="fmt">
+      <span class="label">Hook options</span>
+      <ul class="hooks">
+        <li>The reason I lost my job is the reason I can make your business more money.</li>
+        <li>I was so good at my job that the job stopped existing.</li>
+        <li>I saved them a month of work a year. They called it a rounding error.</li>
+      </ul>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Carousel</span>
+      <ol class="slides">
+        <li>The reason I lost my job is the reason I can make your business more money.</li>
+        <li>One task at that company ate <span class="ph">[20 to 30 hours]</span> a week. <span class="ph">[confirm the task is safe to name]</span></li>
+        <li>I rebuilt how it ran. By the time I left, it took about <span class="ph">[10 minutes]</span> a day.</li>
+        <li>Ninety-five percent of the work. Gone.</li>
+        <li>The company cleared <span class="ph">[billions]</span> a year. A reclaimed month of labor barely moved a line on the spreadsheet.</li>
+        <li>So the better I made it, the less reason there was to keep me.</li>
+        <li>At that size, you are a rounding error. The same fix at a smaller shop is the difference between drowning and breathing.</li>
+        <li class="turn"><span class="role">Turn to the reader</span>If you run something where one reclaimed month would change your whole year.</li>
+        <li class="offer"><span class="role">Offer</span><span class="ph">[Luke's one-line offer]</span>. <span class="ph">[Comment KEYWORD]</span></li>
+      </ol>
+      <div class="loop"><b>Loop check.</b> Stakes: his job, with a clock ("by the time I left"). Question: how does being good get you fired. Head fake: the better he did it, the less they needed him, shown on slide 6, not announced. Rehook: every line leans into the next.</div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Conviction cut (single image + caption)</span>
+      <div class="oneliner">To a billion-dollar company, the hour you save someone rounds to zero. To the person living that hour, it's dinner with their kids.</div>
+      <div class="copyblock">Somebody out there spends four hours a day on quotes. Half their working life, gone to a task a machine could do in minutes.
+
+At a company doing billions, nobody notices that time. It rounds to zero. But this isn't a billion-dollar company. It's one person, and those four hours are their evenings, their weekends, the reason they stopped loving the thing they built.
+
+I won't call that time nothing. Handing one human back their week is not a rounding error to them. It's the whole point.
+
+If you're the one drowning in a task that shouldn't need a person at all.
+
+<span class="ph">[Luke's offer]</span>. <span class="ph">[Comment KEYWORD]</span></div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Talking-head reel (script)</span>
+      <div class="copyblock script">The reason I lost my job is the same reason I can make your business money.
+
+There was one task at the company that took twenty, thirty hours a week. I rebuilt it. By the time I left, it took about ten minutes a day.
+
+Here's the thing nobody tells you. At a company that size, saving them a month of labor a year doesn't even register. You're a rounding error.
+
+But at a business your size? That same fix is the difference between drowning and breathing.
+
+<span class="ph">[Luke's offer + CTA]</span></div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Static image line</span>
+      <div class="oneliner">I made the work disappear. Then they didn't need me. Now I do it for people who can feel the difference.</div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">B-roll caption (footage of him working / screen / drive)</span>
+      <div class="copyblock">I automated a task so completely that the task, then the role, then me, stopped being necessary.
+
+Ninety-five percent of the hours, gone. At a company doing <span class="ph">[billions]</span>, that barely moved a number on a page.
+
+I'm not bitter about it. That's just what scale does. It can't feel the month it just got back.
+
+A business small enough to feel it? That month changes the year. That's the work I do now.
+
+If you've got a task quietly eating a month of your year and you're tired of pretending it's fine, <span class="ph">[comment KEYWORD]</span>.</div>
+    </div>
+
+    <div class="flag"><b>Confirm before posting</b> &nbsp;the real hours (before and after), the company's scale, and that the task itself is safe to describe. Keep the employer unnamed. The villain is "scale that can't see the people saving it money," not the company.</div>
+  </section>
+
+  <!-- ============ STORY 2 ============ -->
+  <section id="s2">
+    <div class="seam">
+      <span class="no">2</span>
+      <h2>Nobody wakes up wanting more AI</h2>
+    </div>
+    <p class="story-meta"><b>Trait revealed:</b> diagnoses before he prescribes; won't sell the buzzword over the fix. <b>The thing he won't accept:</b> selling someone a solution before finding the actual leak.</p>
+    <span class="typetag conv">Conviction · no arc</span>
+    <p class="note-omit">Conviction post. Runs on clarity, not story. Barely touch the loop engine here.</p>
+
+    <div class="fmt">
+      <span class="label">Hook options</span>
+      <ul class="hooks">
+        <li>No one wakes up at 3am wishing they had more AI in their business.</li>
+        <li>Nobody has an AI problem. They have a drowning problem.</li>
+        <li>If I don't know I can fix it, I have no business telling you to hire me.</li>
+      </ul>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Conviction post (static or text-on-screen)</span>
+      <div class="copyblock">Nobody wakes up at 3 in the morning wishing they had more AI in their business.
+
+They wake up because the quoting still isn't done. Because every email still routes through one person. Because the thing drowning them has a name, and the name is not "I need AI."
+
+Selling someone AI before you've found the real leak is just a more expensive way to waste their money. Prescription without diagnosis is malpractice.
+
+I would rather tell you that you need a one-page report, not a robot, and be right, than sell you the robot and look impressive.
+
+<span class="ph">[Luke's offer / how to start]</span>.</div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Talking-head reel (script)</span>
+      <div class="copyblock script">Nobody wakes up at 3am wishing they had more AI.
+
+They wake up because the quotes aren't done. Because every decision in the company still runs through them. Because they're drowning and the water has a name.
+
+AI is a tool. Sometimes it's the right one. Sometimes the right answer is a simple report and the truth that you were about to overbuild.
+
+Prescription without diagnosis is malpractice. I'll diagnose first. Even when it costs me the sale.</div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Static image line</span>
+      <div class="oneliner">Nobody has an AI problem. They have a drowning problem.</div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">B-roll caption</span>
+      <div class="copyblock">"We could automate this with AI." Maybe. Or maybe you need a report and a clear head.
+
+I've walked into businesses ready to build something elaborate, looked at the actual problem, and said: you don't need to boil the ocean. You need this one small thing fixed.
+
+That's the difference between someone selling a buzzword and someone solving your problem.
+
+<span class="ph">[Comment KEYWORD if you're tired of being sold the buzzword]</span>.</div>
+    </div>
+
+    <div class="flag"><b>Watch the attribution</b> &nbsp;"prescription without diagnosis is malpractice" is a line Luke borrows from his mentor. Fine to use, but it's stronger long-term if he eventually lands his own phrasing for it. Flag for a future session.</div>
+  </section>
+
+  <!-- ============ STORY 3 ============ -->
+  <section id="s3">
+    <div class="seam">
+      <span class="no">3</span>
+      <h2>The CFO left with the company in his head</h2>
+    </div>
+    <p class="story-meta"><b>Trait revealed:</b> rebuilds the missing structure others didn't know they were standing on. <b>Fork:</b> patch around the hole or close it for good. <b>Cost / stakes:</b> a growing company suddenly unsellable and barely runnable. <b>Contradiction:</b> the business grew 3x and got more fragile, not less.</p>
+    <span class="typetag">Client story · full arc</span>
+
+    <div class="fmt">
+      <span class="label">Hook options</span>
+      <ul class="hooks">
+        <li>"My CFO quit, and the entire company walked out the door with him."</li>
+        <li>They went from 20 people to 70. Then one person left and it nearly stopped.</li>
+        <li>Every process that mattered lived in one person's head. Then he gave notice.</li>
+      </ul>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Carousel</span>
+      <ol class="slides">
+        <li><span class="role">Open in the scene, his words in quotes</span>"My CFO just gave notice. I think half of how this company runs was in his head."</li>
+        <li>The business had gone from <span class="ph">[20]</span> people to <span class="ph">[70]</span> in a couple of years. Real growth. Real momentum.</li>
+        <li>And not one of the processes that ran it was written down. They lived in one person. Now that person was leaving.</li>
+        <li>The bigger the company had gotten, the more it depended on a single head that was about to walk.</li>
+        <li>We didn't panic-document everything. We found the handful of processes the business actually couldn't run without.</li>
+        <li>One by one, we got them out of his head and onto something the next person could pick up.</li>
+        <li><span class="ph">[The win, in a concrete line: what the owner can now do that he couldn't before]</span></li>
+        <li class="turn"><span class="role">Turn to the reader</span>If your business would seize up the day one specific person quit, that person is a risk, not a backup plan.</li>
+        <li class="offer"><span class="role">Offer</span><span class="ph">[Luke's one-line offer]</span>. <span class="ph">[Comment KEYWORD]</span></li>
+      </ol>
+      <div class="loop"><b>Loop check.</b> Stakes: a 70-person company on one person's memory, clock: he's already given notice. Question: can they get it out in time. Head fake: growth made them more fragile, not safer. Rehook intact across slides.</div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Conviction cut (single image + caption)</span>
+      <div class="oneliner">If your company would stop the day one person quit, you don't have a team. You have a hostage situation.</div>
+      <div class="copyblock">A business I worked with grew from <span class="ph">[20]</span> to <span class="ph">[70]</span> people. Looked unstoppable. Then the one person who held the processes in his head gave notice, and you could see the floor disappear.
+
+Growth hides this. The bigger you get on brute force, the more you're betting the whole thing on a few people's memory.
+
+Get it out of their heads. While they're still here.
+
+<span class="ph">[Luke's offer]</span>. <span class="ph">[Comment KEYWORD]</span></div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Talking-head reel (script)</span>
+      <div class="copyblock script">A guy I worked with built his company from twenty people to seventy. Then his CFO quit, and half of how the business actually ran walked out the door with him.
+
+None of it was written down. It all lived in one head.
+
+Here's what most owners miss: the faster you grow on grit, the more fragile you get. You're one resignation away from chaos.
+
+We pulled the critical processes out of his head before he left. <span class="ph">[the result]</span>.
+
+If one person leaving would freeze your business, that's the first thing to fix.</div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">Static image line</span>
+      <div class="oneliner">They grew 3x. Then one resignation nearly ended it. The processes were never on paper.</div>
+    </div>
+
+    <div class="fmt">
+      <span class="label">B-roll caption</span>
+      <div class="copyblock">"My CFO left and took the company in his head."
+
+That's close to a direct quote from an owner who'd just tripled his headcount. All that growth, and the thing holding it together was one person's memory.
+
+We didn't try to document the universe. We found the few processes the business genuinely could not run without, and got those out first.
+
+The day a single person's notice can freeze your whole operation is the day you learn what was never really built.
+
+<span class="ph">[Comment KEYWORD if too much of your business lives in one head]</span>.</div>
+    </div>
+
+    <div class="flag"><b>Permission required</b> &nbsp;this is a real client. Get Luke's okay before posting, keep both the owner and the CFO unnamed, blur the industry if it's identifiable, and confirm the headcount numbers and the actual outcome. The villain is "knowledge trapped in one person," not the CFO who left.</div>
+  </section>
+
+  <!-- ============ PIPELINE ============ -->
+  <section id="pipeline">
+    <span class="label">Pipeline</span>
+    <div class="seam" style="margin-top:8px;">
+      <h2>Six veins to mine next</h2>
+    </div>
+    <p class="story-meta">Real material from the session that isn't built yet. Each needs one more thing: a number, a permission, or a deeper dig into the fork and the cost.</p>
+
+    <ol class="pipe">
+      <li>
+        <h3>The $800k stuck in the pipeline</h3>
+        <p>A <span class="ph">[$2M]</span> business with <span class="ph">[$800k]</span> in orders jammed in processing. The hook is real, but it isn't a story until there's an after. <span class="need">Need: the dollar amount freed once it converts. Build it the day that number exists.</span></p>
+      </li>
+      <li>
+        <h3>Two thousand miles and two ninety-pound dogs</h3>
+        <p>The 2022 move from the northern plains to Western Canada to chase a ceiling he refused to accept. <span class="need">Need: a dig into the fork (what he gave up to go) and the cost. Origin-grade story, not a lead post until there's an audience.</span></p>
+      </li>
+      <li>
+        <h3>I knew the mentor before he was the mentor</h3>
+        <p>The co-op student and the contractor in the old Jetta, years before the name and the following. <span class="need">Need: Luke's permission, and a clear decision on whether to name a real public figure. Powerful, but handle with care.</span></p>
+      </li>
+      <li>
+        <h3>The square peg who picked computers</h3>
+        <p>Thirteen years old in a small town, choosing the work that let him make money before he had to deal with people. <span class="need">Need: belongs in the credibility layer, used after he's helping the reader, not before. Reveals the systems-thinker root.</span></p>
+      </li>
+      <li>
+        <h3>The owner whose email is the single point of failure</h3>
+        <p>Everything routes through one inbox. The day that account closes, the business can't be sold or even run. <span class="need">Need: one concrete client moment to anchor it. Strong "built to sell" conviction angle.</span></p>
+      </li>
+      <li>
+        <h3>Picking the person</h3>
+        <p>The avatar he hasn't committed to yet. Clear on the problem, not yet on who he's solving it for. <span class="need">Need: the decision itself. Once he picks the $1-5M owner out loud, every post above gets a sharper call-out. This is the next session's real work.</span></p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="mark">What's your throughline?</div>
+    <div class="meta">Built with the Throughline Method &nbsp;·&nbsp; <b>Kindra Morse</b> &nbsp;·&nbsp; Founder Story Coach</div>
+  </footer>
+
+</div>
+</body>
+</html>
