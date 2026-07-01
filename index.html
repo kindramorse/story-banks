@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam's Story Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Archivo+Narrow:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#17111E; --panel:#1F1828; --panel2:#251C30;
+    --orchid:#CB6CE6; --blossom:#F4CBFF; --parch:#FAF8F4;
+    --muted:#B7A9C4; --faint:#7C6E8A; --line:#352A44;
+    --display:'Fraunces',Georgia,serif; --body:'Archivo Narrow',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--plum); color:var(--parch);
+    font-family:var(--body); font-size:18px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:64px 24px 120px;}
+
+  /* Header */
+  .eyebrow{font-family:var(--body); text-transform:uppercase; letter-spacing:.28em;
+    font-weight:700; font-size:12px; color:var(--orchid);}
+  h1{font-family:var(--display); font-weight:400; font-size:54px; line-height:1.04;
+    margin:16px 0 14px; letter-spacing:-.01em;}
+  h1 em{font-style:italic; color:var(--blossom);}
+  .lede{color:var(--muted); font-size:18px; max-width:60ch; margin:0 0 10px;}
+  .howto{background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:22px 24px; margin:34px 0 8px;}
+  .howto h2{font-family:var(--body); text-transform:uppercase; letter-spacing:.2em;
+    font-size:12px; font-weight:700; color:var(--orchid); margin:0 0 12px;}
+  .howto p{margin:0 0 10px; color:var(--muted); font-size:16.5px;}
+  .howto p:last-child{margin-bottom:0;}
+  .howto b{color:var(--parch); font-weight:500;}
+
+  .sectionlabel{font-family:var(--body); text-transform:uppercase; letter-spacing:.24em;
+    font-weight:700; font-size:12px; color:var(--faint); margin:56px 0 18px;
+    border-bottom:1px solid var(--line); padding-bottom:10px;}
+
+  /* Story panel */
+  details.story{background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    margin:0 0 18px; overflow:hidden;}
+  details.story[open]{border-color:#4a3a5e;}
+  summary{list-style:none; cursor:pointer; padding:24px 26px; display:flex; gap:18px;
+    align-items:baseline; transition:background .2s;}
+  summary::-webkit-details-marker{display:none;}
+  summary:hover{background:var(--panel2);}
+  .num{font-family:var(--display); font-style:italic; font-size:26px; color:var(--orchid);
+    flex:0 0 auto; line-height:1;}
+  .sumtext{flex:1;}
+  .sumtitle{font-family:var(--display); font-size:25px; line-height:1.15; color:var(--parch);}
+  .tag{display:inline-block; margin-top:9px; font-family:var(--body); text-transform:uppercase;
+    letter-spacing:.18em; font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:20px;}
+  .tag.story-t{background:rgba(203,108,230,.16); color:var(--blossom);}
+  .tag.conv-t{background:rgba(244,203,255,.12); color:var(--blossom);}
+  .tag.build-t{background:rgba(124,110,138,.18); color:var(--muted);}
+  .chev{flex:0 0 auto; color:var(--faint); font-size:14px; transition:transform .25s; margin-top:6px;}
+  details[open] .chev{transform:rotate(90deg);}
+
+  .body{padding:4px 26px 30px;}
+
+  /* The Story block */
+  .core{background:var(--panel2); border-left:3px solid var(--orchid); border-radius:0 10px 10px 0;
+    padding:18px 22px; margin:6px 0 30px;}
+  .core .lbl{font-family:var(--body); text-transform:uppercase; letter-spacing:.2em;
+    font-size:11px; font-weight:700; color:var(--orchid); margin-bottom:10px;}
+  .core p{margin:0 0 12px; color:var(--parch); font-size:17px;}
+  .core p:last-child{margin-bottom:0;}
+  .core .said{color:var(--blossom); font-style:italic;}
+
+  /* Format cards */
+  .fmt{border-top:1px solid var(--line); padding:24px 0 4px;}
+  .fmt:first-of-type{border-top:none;}
+  .fmt .flabel{font-family:var(--body); text-transform:uppercase; letter-spacing:.2em;
+    font-size:11px; font-weight:700; color:var(--blossom); margin-bottom:4px;}
+  .fmt .fnote{color:var(--faint); font-size:14px; font-style:italic; margin:0 0 16px;}
+  .fmt p{margin:0 0 12px;}
+  .cardtag{font-family:var(--body); text-transform:uppercase; letter-spacing:.18em; font-size:10px;
+    font-weight:700; color:var(--orchid); margin:0 0 7px;}
+  .cardtag.cap{color:var(--faint);}
+
+  /* carousel slides */
+  ol.slides{list-style:none; counter-reset:s; margin:0; padding:0;}
+  ol.slides li{counter-increment:s; position:relative; padding:11px 0 11px 44px; border-bottom:1px solid var(--line);
+    color:var(--parch); font-size:16.5px;}
+  ol.slides li:last-child{border-bottom:none;}
+  ol.slides li::before{content:counter(s,decimal-leading-zero); position:absolute; left:0; top:11px;
+    font-family:var(--display); font-style:italic; color:var(--orchid); font-size:15px;}
+  .addnote{color:var(--faint); font-style:italic;}
+
+  /* on-image line */
+  .imgline{background:linear-gradient(135deg,#2a1c38,#1d1526); border:1px solid #4a3a5e; border-radius:12px;
+    padding:26px 24px; font-family:var(--display); font-size:23px; line-height:1.3; color:var(--parch);
+    text-align:center; margin:4px 0 14px;}
+  .imgline em{font-style:italic; color:var(--blossom);}
+
+  /* caption */
+  .caption{background:#16101d; border:1px solid var(--line); border-radius:10px; padding:18px 20px;
+    color:var(--muted); font-size:16px;}
+  .caption p{margin:0 0 11px; color:var(--muted);}
+  .caption p:last-child{margin-bottom:0;}
+  .caption .open{color:var(--parch);}
+
+  /* reel beats */
+  .beats{margin:0; padding:0; list-style:none;}
+  .beats li{padding:10px 0; border-bottom:1px dashed var(--line); display:flex; gap:14px;}
+  .beats li:last-child{border-bottom:none;}
+  .beats .cue{flex:0 0 96px; font-family:var(--body); text-transform:uppercase; letter-spacing:.12em;
+    font-size:10.5px; font-weight:700; color:var(--orchid); padding-top:4px;}
+  .beats .say{flex:1; color:var(--parch); font-size:16.5px;}
+  .beats .say.hook{font-family:var(--display); font-size:19px;}
+
+  /* flags */
+  .flags{margin-top:24px; background:#1a1322; border:1px dashed #4a3a5e; border-radius:10px; padding:16px 20px;}
+  .flags .lbl{font-family:var(--body); text-transform:uppercase; letter-spacing:.2em; font-size:10.5px;
+    font-weight:700; color:var(--orchid); margin-bottom:10px;}
+  .flags ul{margin:0; padding-left:18px;}
+  .flags li{color:var(--muted); font-size:15px; margin-bottom:9px;}
+  .flags li:last-child{margin-bottom:0;}
+
+  /* pipeline placeholder */
+  details.story.pipe{opacity:.92;}
+  .pipe .core{border-left-color:var(--faint);}
+  .pipe .pconcept{color:var(--parch); font-size:16.5px; margin:0 0 14px;}
+  .formats-line{font-family:var(--body); text-transform:uppercase; letter-spacing:.14em; font-size:11px;
+    font-weight:700; color:var(--faint);}
+  .formats-line span{color:var(--blossom);}
+  .status{margin-top:14px; color:var(--muted); font-size:15px; font-style:italic;}
+
+  /* template */
+  .template{background:var(--panel); border:1px dashed var(--line); border-radius:14px; padding:24px 26px; margin-top:14px;}
+  .template .flabel{color:var(--orchid);}
+  .template ul{margin:8px 0 0; padding-left:18px; color:var(--muted); font-size:15.5px;}
+  .template li{margin-bottom:7px;}
+
+  footer{margin-top:60px; text-align:center; color:var(--faint); font-size:14px;
+    border-top:1px solid var(--line); padding-top:26px;}
+  footer em{font-family:var(--display); font-style:italic; color:var(--muted); font-size:16px;}
+
+  @media (max-width:560px){
+    h1{font-size:40px;} .wrap{padding:44px 16px 90px;}
+    summary{padding:20px 18px; gap:12px;} .body{padding:4px 18px 26px;}
+    .beats li{flex-direction:column; gap:3px;} .beats .cue{padding-top:0;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Aligned &amp; Ascending &middot; Story Bank</div>
+  <h1>Adam's <em>Story Bank</em></h1>
+  <p class="lede">Your core stories, each one built out into every format it can take. One story, many ways to tell it, so you never run out of content and never have to start from a blank page.</p>
+
+  <div class="howto">
+    <h2>How to use this</h2>
+    <p>Each panel below is one <b>core story</b> from your life and work. Open it and you'll find the story told once in full, then a set of <b>formats</b>: a carousel, a conviction post, a talking-head reel, a single static image, a b-roll caption. Same story, different shape, different job.</p>
+    <p>Pick the format that fits the week. Telling a full story? Use the carousel or reel. Want to plant a flag on what you believe? Use the conviction post or static line. They all pull from the same well.</p>
+    <p>This document <b>grows</b>. We add a new core story each time we find one, and you keep it after we're done working together. It's yours.</p>
+    <p><b>One quick convention.</b> Any line shown in a framed box is text that goes ON the image or video. The grey box beneath it is the caption you paste into the post.</p>
+  </div>
+
+  <div class="sectionlabel">Core Stories &middot; Ready to use</div>
+
+  <!-- STORY: why i walked away -->
+  <details class="story">
+    <summary>
+      <span class="num">01</span>
+      <span class="sumtext"><span class="sumtitle">Why I Walked Away</span><br>
+      <span class="tag story-t">Full story &middot; all formats</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Story</div>
+        <p>At a high-volume firm, he watched a case worth millions get readied for a $135,000 settlement that wouldn't even cover the client's medical bills. He said, out loud, that it was wrong. Around the same time his daughter was born and he asked for three weeks to be home with her. That was the moment it turned: his cases started disappearing from his desk, his paralegal was reassigned, and the message was fall in line or else. So he walked. He gave up an estimated quarter million to half a million dollars in cases he'd already built, with a mortgage, two kids, and no idea where the next paycheck would come from. He was 40. It felt like his last chance to do it right.</p>
+        <p><b>The trait it reveals:</b> he does the right thing when it costs him everything. <b>Villain:</b> the volume model that treats people like inventory, never a named firm or person.</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Carousel</div>
+        <p class="fnote">The full story, slide by slide. Ends on the leap.</p>
+        <ol class="slides">
+          <li>A case worth millions was about to settle for $135,000. It wouldn't have covered the client's medical bills.</li>
+          <li>I was at a firm that ran on volume. The more cases on the conveyor belt, the better. The people attached to them were almost beside the point.</li>
+          <li>I said it was wrong. Out loud. To the people who signed my checks.</li>
+          <li>Around the same time, my daughter was born, and I asked for three weeks to be home with her.</li>
+          <li>That was the moment it turned. My cases started disappearing off my desk. My paralegal got reassigned. The message was simple: fall in line, or else.</li>
+          <li>So I added up what leaving would cost me. Cases I'd built, worth a quarter million to half a million dollars in my first year alone. I still have the spreadsheet.</li>
+          <li>I had a mortgage, two kids, and no idea where the next paycheck would come from. I was 40. It felt like my last chance to get it right.</li>
+          <li>I walked anyway.</li>
+          <li>I still have that spreadsheet. The one with everything I gave up on it. I keep it where I can see it.</li>
+          <li>If you're hurt, and you can feel the other side just wants you to take the easy money and go quiet.</li>
+          <li>That's the fight I want. <span class="addnote">(Send a message)</span></li>
+        </ol>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Conviction Post</div>
+        <p class="fnote">The stance underneath the story. One static image plus caption.</p>
+        <div class="imgline">They told me to fall in line. <em>I built my own firm instead.</em></div>
+        <div class="caption">
+          <p class="open">A case worth millions was about to settle for $135,000, not even enough to cover the client's medical bills. I said it was wrong.</p>
+          <p>Then I asked for three weeks home with my newborn. That's when the cases started disappearing from my desk. So I left, and gave up a quarter million dollars in work I'd built, with a mortgage and two kids and no safety net.</p>
+          <p>I'd do it again tomorrow. You can't represent people like they matter from inside a place that treats them like inventory.</p>
+          <p>I still have the spreadsheet of what walking away cost me. I keep it where I can see it.</p>
+        </div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera. Flat hook, slow landing.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"A case worth millions settled for a hundred and thirty-five thousand dollars."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"It didn't even cover the client's medical bills. I told them it was wrong."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Around the same time, my daughter was born, and I asked for three weeks to be home with her."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"That's when they started taking my cases away."</span></li>
+          <li><span class="cue">Land, slow</span><span class="say">"So I walked. I gave up a quarter million in work I'd built, with a mortgage and two kids and no idea how I'd pay for any of it."</span></li>
+          <li><span class="cue">Landing</span><span class="say">"I still have the spreadsheet of everything it cost me. I keep it where I can see it."</span></li>
+        </ul>
+        <p class="fnote" style="margin-top:14px;">On-screen text for the hook frame: "$135,000. It didn't cover his medical bills."</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <div class="imgline">I gave up a quarter million dollars <em>to practice law the right way. I'd do it again tomorrow.</em></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 5 &middot; B-Roll Caption</div>
+        <p class="fnote">Over quiet b-roll.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">They said fall in line. <em>I left instead.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>A case worth millions was about to settle for a fraction of its value. I said it was wrong, and I asked for three weeks home with my newborn. They started taking my cases away.</p>
+          <p>So I left. I gave up a quarter million dollars in work, with a mortgage and two kids and no safety net. It was the best decision I've ever made.</p>
+          <p>I still have the spreadsheet of what it cost me. I keep it where I can see it.</p>
+        </div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">Only post if you are at peace with it</div>
+        <ul>
+          <li>OFF LIMITS in any content: the confidential discrimination matter he is not allowed to discuss publicly. It stays out entirely, context only, never copy.</li>
+          <li>The family-leave detail and the money are powerful but personal. This goes to you for review. Post only the parts you are at peace sharing.</li>
+          <li>Never name the firm. "A high-volume firm," never the name. The villain is the model, not a person.</li>
+          <li>Confirm the $135,000 and the quarter-million figures are okay to cite, kept anonymized.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+<!-- STORY 1 -->
+  <details class="story" open>
+    <summary>
+      <span class="num">02</span>
+      <span class="sumtext">
+        <span class="sumtitle">The Silver Platter</span><br>
+        <span class="tag story-t">Full story &middot; all formats</span>
+      </span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+
+      <div class="core">
+        <div class="lbl">The Story</div>
+        <p>Early in his career, a newspaper wrote that the only reason he had his job as a rookie deputy city attorney was his last name, that he should go earn his spurs somewhere his father wasn't calling the shots. To take that job, he'd already given up his own small firm and the clients paying him. There were meetings among city officials about whether he should keep it at all. The man who recruited him said, <span class="said">"Well, I guess we'll find out if you still have a job."</span> He figured he'd be gone within the week.</p>
+        <p>What no one saw: his dad coached him his whole childhood and expected more of him than anyone on the team. He once hit a home run, and the whole drive home, all his dad talked about was the throw he missed from shortstop. He didn't fully understand it as a kid, but it was teaching him that you earn your place every time and nobody hands it to you. So being told he hadn't earned this one wasn't new. He didn't wait for the doubt to lift. He assumed everyone was waiting for him to mess up, and made sure he didn't. He won or settled every case he had there, negotiated the big deals, and argued an appellate motion most lawyers never get to touch. He won that too. The doubt never really flipped. He just out-worked it until there was nothing left to say.</p>
+        <p><b>The trait it reveals:</b> he does his best work when he's underestimated, and he credits the father who raised him to earn every inch. <b>Villain:</b> public assumption, never a person.</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Carousel</div>
+        <p class="fnote">The full story, slide by slide. Already built and ready to post.</p>
+        <ol class="slides">
+          <li>A newspaper once wrote that I should have to go earn my spurs somewhere my father wasn't calling the shots.</li>
+          <li>I had just started as a rookie deputy city attorney. To take the job, I'd given up my own small firm and the clients already paying me.</li>
+          <li>The paper's point was simple: the only reason I was there was my last name.</li>
+          <li>There were meetings among city officials about whether I should keep the job at all. The man who recruited me said, "Well, I guess we'll find out if you still have one." I figured I'd be gone within the week.</li>
+          <li>Here's what none of them knew about me.</li>
+          <li>My dad coached me my whole childhood, and he expected more from me than anyone on the team. Back then I didn't always understand it. I once hit a home run, and the whole drive home, all we talked about was the throw I missed from shortstop.</li>
+          <li>I get it now. He was teaching me that you earn your place every time, and nobody hands it to you. So when the headlines came, I didn't wait for the doubt to lift. I assumed everyone was waiting for me to mess up, and I made sure I didn't.</li>
+          <li>I won or settled every case I had there. I problem-solved, I negotiated the big deals, and near the end I argued an appellate motion most lawyers never get to touch. I won that too.</li>
+          <li>The doubt never really flipped. I just out-worked it until there was nothing left to say.</li>
+          <li>If you've been underestimated, or told you didn't earn your seat at the table.</li>
+          <li>That's the fight I want. <span class="addnote">(Add: send me a message)</span></li>
+        </ol>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Conviction Post</div>
+        <p class="fnote">The same story compressed to the stance underneath it. No arc. One static image plus caption.</p>
+        <div class="imgline">They said I only belonged because of my last name. <em>So I stopped waiting to be believed and started making it impossible not to.</em></div>
+        <div class="caption">
+          <p class="open">A newspaper once wrote that I should go earn my spurs somewhere my father wasn't calling the shots.</p>
+          <p>Here's what I've learned about being underestimated. You don't win it back with an argument. You win it back with a record.</p>
+          <p>I stopped trying to change what people assumed and just made sure that every case, every negotiation, every motion left less and less to say. The doubt didn't lift. It got buried.</p>
+          <p>If you've ever been told you didn't earn your seat, you already know. The only answer is the work.</p>
+        </div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera, 30 to 40 seconds. Keep the hook flat and direct.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"A newspaper once said I only got my job because of my dad."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"I'd just started as a deputy city attorney. I'd given up my own firm to take it. And there were actual meetings about whether I should keep it."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"So I made a decision. I wasn't going to argue with them. I assumed everyone was waiting for me to mess up, and I just made sure I didn't."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"I won or settled every case I had. Argued an appellate motion most lawyers never touch. Won that too."</span></li>
+          <li><span class="cue">Land, slow</span><span class="say">"The doubt never really flipped. I just out-worked it until there was nothing left to say."</span></li>
+          <li><span class="cue">Turn</span><span class="say">"If you've been underestimated, that's the fight I want."</span></li>
+        </ul>
+        <p class="fnote" style="margin-top:14px;">On-screen text for the hook frame: "You only got it because of your dad."</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <p class="fnote">One frame, scroll-stopping. For a quick post or a story slide.</p>
+        <div class="imgline">"The doubt never flipped. <em>I just out-worked it until there was nothing left to say.</em>"</div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 5 &middot; B-Roll Caption</div>
+        <p class="fnote">Quiet footage (walking into the office, at your desk, courthouse steps).</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">They said I only got the job <em>because of my dad.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>A newspaper once said I only got my first job because of my dad.</p>
+          <p>I'd given up my own firm to take it. There were meetings about whether I'd keep it. So I stopped waiting to be believed. I won or settled every case I had, argued an appellate motion most lawyers never get to, and won. The doubt didn't lift. I just out-worked it.</p>
+          <p>If you've been told you didn't earn your seat, that's the fight I want.</p>
+        </div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">Before this story goes live</div>
+        <ul>
+          <li>This is built on a real article that named your father in a nepotism story. Confirm you're at peace resurfacing it, even as your comeback. Some people love reclaiming it; some would rather leave it be.</li>
+          <li>The "earn his spurs" line is quoted closely from the article and framed as "a newspaper wrote," with no paper or author named, so the villain stays the public assumption.</li>
+          <li>Optional upgrade: one concrete detail from the appellate win or an Escondido case would turn the "I won everything" beat from a list into a single sharp image.</li>
+        </ul>
+      </div>
+
+    </div>
+  </details>
+
+<!-- STORY 8: HIGHLIGHT SEQUENCE -->
+  <details class="story">
+    <summary>
+      <span class="num">03</span>
+      <span class="sumtext"><span class="sumtitle">The Meet Adam Highlight</span><br>
+      <span class="tag conv-t">Pinned story sequence &middot; 8 frames</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Arc</div>
+        <p>This is the pinned "Meet Adam" highlight, told as a sequence rather than a single post. It opens in the client's world (hurt, scared, ignored) and makes Adam's story the answer to it. Eight frames pulling the real material from the other stories (the tire, the dad, the cases) so the introduction shows who he is instead of stating it.</p>
+        <p><b>The trait it reveals:</b> he knows the client's exact fear from the inside, and built his firm to answer it. <b>Villain:</b> the machine that treats people as numbers, never a person.</p>
+        <p class="formats-line">Read each frame as: <span>framed line = on the screen &middot; grey box = the caption.</span></p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Frame 1</div>
+        <div class="imgline">Getting hurt is scary. <em>Getting ignored after is worse.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption"><p>You're in pain, the bills are stacking up, and the one person who's supposed to be fighting for you won't return a call. You start to feel like a case number instead of a person.</p></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Frame 2</div>
+        <div class="imgline">I know that feeling <em>from the other side.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption"><p>At 20, I was thrown from a car when a tire blew. The insurance company told me it was fine and I signed. Three weeks later the same tire flipped my car four times. I learned early how it feels to be brushed off by the people who are supposed to help.</p></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Frame 3</div>
+        <div class="imgline">I was built for this <em>under pressure.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption"><p>My dad coached me my whole childhood and expected more from me than anyone. I once hit a home run, and the whole ride home all he talked about was the throw I missed. I didn't get it then. He was teaching me to make every play count, and I'm grateful for it. It's the reason I fight the way I do now.</p></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Frame 4</div>
+        <div class="imgline">Then I hit a wall <em>I couldn't ignore.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption"><p>I watched a firm treat clients like case numbers, ready to settle a life-changing case for a fraction of what it was worth. When I stood up for doing it right, and asked for three weeks to be home with my newborn, they started taking my cases away.</p></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Frame 5</div>
+        <div class="imgline">So I did <em>the terrifying thing.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption"><p>So I walked away. I gave up a quarter of a million dollars in cases I'd already built, with a mortgage, two kids, and no idea where the money would come from. But for the first time, I knew exactly who I was fighting for.</p></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Frame 6</div>
+        <div class="imgline">And the people everyone passed on <em>started winning.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption"><p>The case another lawyer valued at $15,000, I found the policy nobody pulled. The widow every firm called unwinnable. The family told there was nothing there. Those are the ones I take hardest.</p></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Frame 7</div>
+        <div class="imgline">Now my clients get <em>what I always wanted.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption"><p>Someone who picks up the phone. Who treats them like a person, not a file. Personal, powerful advocacy, not a call center. And I get to be there for my own family's important moments too.</p></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Frame 8</div>
+        <div class="imgline">You deserve to be seen, <em>not numbered.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption"><p>If you're injured and scared, you deserve someone who sees you, not just a case number. Tell me your story. DM me CRASH to see if we can help.</p></div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">Before this goes live</div>
+        <ul>
+          <li>Frames 2, 3, and 6 pull from the origin story, the dad, and real client cases. They carry the same permission notes already logged, especially the seatbelt detail and the widow's case. Confirm before publishing.</li>
+          <li>This is a sequence for the pinned highlight, not a feed carousel. Each frame is one story slide, in order.</li>
+          <li>This version opens on the client's hole (frames 1 and 2) and closes the loop on it (frame 8), so the whole arc points at the injured viewer, not at Adam. It serves the personal-injury client first; the pure founder version of his story can live as its own separate piece for a future attorney-coaching audience.</li>
+          <li>Frames 1 and 8 would be even stronger in his clients' real words. If his NPS reviews name the fear of being forgotten, use that phrasing.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+<!-- STORY 6 -->
+  <details class="story">
+    <summary>
+      <span class="num">04</span>
+      <span class="sumtext"><span class="sumtitle">The Case Everyone Passed On</span><br>
+      <span class="tag story-t">Full story &middot; carousel built</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Story</div>
+        <p>A car came through the wall of a man's hotel room while he slept. A long-haul trucker, he was left with PTSD he never shook, then pneumonia, and he died just over a year after the crash. Every lawyer his widow called said the same thing: no connection, unwinnable, not worth the fight. He took it anyway, which meant she had to relive the worst year of her life out loud. For months he couldn't promise it would be worth it. He just kept building the line from the crash to the pneumonia. The day it settled, her whole family was in the room.</p>
+        <p><b>The trait it reveals:</b> he takes the longshot when it matters to a person. <b>Villain:</b> the "unwinnable" calculus, never the lawyers who passed.</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Carousel</div>
+        <p class="fnote">9 slides. Stays in the uncertainty, told from before he knew it would work. Ends on an image.</p>
+        <ol class="slides">
+          <li>A car came through the wall of his hotel room while he slept. Thirteen months later he was gone.</li>
+          <li>He was a long-haul trucker. The crash left him with PTSD he never shook.</li>
+          <li>Then came pneumonia. He died from it, just over a year after the accident.</li>
+          <li>Every lawyer his widow called said the same thing. No connection. Unwinnable. Not worth the fight.</li>
+          <li>They weren't wrong that it was a longshot. A crash and a case of pneumonia, a year apart.</li>
+          <li>I took it anyway. Which meant she had to relive the worst year of her life, out loud, after she'd already buried him.</li>
+          <li>For months, I couldn't promise her it would be worth it. I just kept building the line from the crash to the pneumonia.</li>
+          <li>The day it settled, her whole extended family was in the room. So was I.</li>
+          <li>Her husband never got to see that day. She did.</li>
+          <li>If you've been told your case is too hard, too strange, too far gone.</li>
+          <li>Those are the ones I look at hardest. <span class="addnote">(Send a message @sdaccidentlaw)</span></li>
+        </ol>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Conviction Post</div>
+        <p class="fnote">The stance underneath the story. One static image plus caption.</p>
+        <div class="imgline">Every lawyer she called said it was unwinnable. <em>Unwinnable is just the word they use when it's hard.</em></div>
+        <div class="caption">
+          <p class="open">A car came through the wall while he slept. A year later he was gone.</p>
+          <p>Every lawyer his widow called said the same word: unwinnable. I've learned that unwinnable usually just means hard, and hard is not the same as impossible.</p>
+          <p>The cases everyone passes on are the ones I read hardest. Sometimes the connection no one wanted to trace is the whole case.</p>
+        </div>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera. Stay in the uncertainty, land quietly.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"A car came through the wall of his hotel room while he slept."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"He was a long-haul trucker. The crash left him with PTSD he never shook. Then pneumonia. He died just over a year later."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Every lawyer his widow called said the same thing. No connection. Unwinnable."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"I took it anyway. For months I couldn't promise her it would be worth reliving."</span></li>
+          <li><span class="cue">Land, slow</span><span class="say">"The day it settled, her whole family was in the room. So was I."</span></li>
+          <li><span class="cue">Landing</span><span class="say">"Her husband never got to see that day. She did."</span></li>
+          <li><span class="cue">Turn</span><span class="say">"If you've been told your case is too hard, those are the ones I look at hardest."</span></li>
+        </ul>
+        <p class="fnote" style="margin-top:14px;">On-screen text for the hook frame: "Every lawyer said: unwinnable."</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <div class="imgline">"Unwinnable" <em>is just the word they use when it's hard.</em></div>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 5 &middot; B-Roll Caption</div>
+        <p class="fnote">Over quiet b-roll.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">Every lawyer said <em>the same word: unwinnable.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>A car came through the wall of his hotel room while he slept. Thirteen months later, he was gone.</p>
+          <p>Every lawyer his widow called said the same thing. No connection. Unwinnable. Not worth the fight.</p>
+          <p>I took it anyway. For months I couldn't promise her it would be worth reliving. The day it settled, her whole family was in the room. Her husband never got to see that day. She did.</p>
+          <p>If you've been told your case is too hard, too strange, too far gone, those are the ones I look at hardest.</p>
+        </div>
+      </div>
+      <div class="flags">
+        <div class="lbl">Before this story goes live</div>
+        <ul>
+          <li>Real grief and a real widow. Get her permission and handle every detail with care.</li>
+          <li>Slides 6 and 7 are the cost, told before he knew the outcome. That uncertainty is the trust. Don't shortcut to the win.</li>
+          <li>Double-check the PTSD-to-pneumonia medical phrasing with him.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+<!-- STORY 7 -->
+  <details class="story">
+    <summary>
+      <span class="num">05</span>
+      <span class="sumtext"><span class="sumtitle">The Verdict I Can't Forget</span><br>
+      <span class="tag story-t">Full story &middot; carousel built</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Story</div>
+        <p>He's won millions in a single case and can barely remember those. The biggest verdicts went to large organizations, numbers moving from one account to another. The one he thinks about most was a fraction of the size, $375,000, and it went to one person who had nearly lost everything. It never made the news. It paid off a house. It kept a life intact.</p>
+        <p><b>The trait it reveals:</b> he measures a win by the life it changed, not the check it cashed. <b>Villain:</b> the headline calculus that says bigger is better.</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Carousel</div>
+        <p class="fnote">7 slides. Opens on the seam (the contradiction), built for depth. Ends on what the money did.</p>
+        <ol class="slides">
+          <li>I've won millions in a single case. I can barely remember those.</li>
+          <li>The biggest verdicts went to large organizations. Numbers moving from one account to another.</li>
+          <li>The one I think about most was a fraction of the size. $375,000.</li>
+          <li>It went to one person. Someone who had nearly lost everything.</li>
+          <li>It never made the news. It paid off a house. It kept a life intact.</li>
+          <li>If your case will never make a headline but it's everything to you.</li>
+          <li>That's the kind I take most seriously. <span class="addnote">(Send a message @sdaccidentlaw)</span></li>
+        </ol>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Conviction Post (alternate)</div>
+        <p class="fnote">If a sharper single moment won't surface, this works just as well as a stance: the seam line plus the conviction, delivered to camera.</p>
+        <div class="imgline">I've won millions in a single case. <em>I can barely remember those.</em></div>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera. Open on the contradiction, land on what the money did.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"I've won millions in a single case. I can barely remember those."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"The biggest verdicts went to big organizations. Numbers moving from one account to another."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"The one I think about most was a fraction of the size. Three hundred and seventy-five thousand dollars."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"It went to one person who had nearly lost everything."</span></li>
+          <li><span class="cue">Land, slow</span><span class="say">"It never made the news. It paid off a house. It kept a life intact."</span></li>
+          <li><span class="cue">Turn</span><span class="say">"If your case will never make a headline but it's everything to you, that's the kind I take most seriously."</span></li>
+        </ul>
+        <p class="fnote" style="margin-top:14px;">On-screen text for the hook frame: "I've won millions. I barely remember them."</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <div class="imgline">It never made the news. <em>It paid off a house. It kept a life intact.</em></div>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 5 &middot; B-Roll Caption</div>
+        <p class="fnote">Over quiet b-roll.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">I've won millions. <em>I barely remember them.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>I've won millions in a single case. I can barely remember those.</p>
+          <p>The one I think about most was $375,000. It never made the news. It paid off a house and kept a life intact.</p>
+          <p>If your case will never make a headline but it's everything to you, that's the kind I take most seriously.</p>
+        </div>
+      </div>
+      <div class="flags">
+        <div class="lbl">Before this story goes live</div>
+        <ul>
+          <li>This is the same case as "The Case Everyone Passed On." Run them as a two-part series, never the same week.</li>
+          <li>"Paid off a house, kept a life intact" is a placeholder. The real, specific detail of what that money did is what makes it land. Get it, with permission.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+<!-- STORY 2 -->
+  <details class="story">
+    <summary>
+      <span class="num">06</span>
+      <span class="sumtext">
+        <span class="sumtitle">Why You Haven't Heard From Your Lawyer</span><br>
+        <span class="tag conv-t">Conviction &middot; stance, not a story</span>
+      </span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+
+      <div class="core">
+        <div class="lbl">The Stance</div>
+        <p>This one isn't a story, it's a belief he'll plant his feet on. Most firms sit on a case for almost two years before they really move, because the more files open, the more invoices out, the less work done. The waiting isn't an accident, it's the business model.</p>
+        <p>The mechanism most people never hear: before a suit is filed, your case sits with a mid-level adjuster who runs your injury through a computer program that spits out a number, like an order screen at a drive-through. The day a suit is filed, it leaves that desk. A manager weighs in, the other side has to bring in a real attorney, and the number moves. He files fast, because that's the quickest way to get the most before evidence quietly disappears.</p>
+        <p><b>The trait it reveals:</b> he refuses to let people get parked. <b>Villain:</b> the business model, never a named firm.</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <p class="fnote">One static image, the explanation in the caption. This is the home format for this one.</p>
+        <div class="imgline">If your lawyer hasn't called you in months, <em>that's not a delay. That's the plan.</em></div>
+        <div class="caption">
+          <p class="open">If your lawyer hasn't called you in months, that's not a delay. That's the plan.</p>
+          <p>Most firms will sit on a case for almost two years before they really move. The more files open, the more invoices out, the less work that actually gets done. The waiting isn't an accident. It's the business model.</p>
+          <p>Here's what most people never get told. Before a lawsuit is filed, your case sits with a mid-level adjuster who runs your injury through a computer program, and it spits out a number. Like an order screen at a drive-through. The day a suit gets filed, your case leaves that desk. A manager has to weigh in, the other side has to bring in a real attorney, and the number moves.</p>
+          <p>I file fast. Not because I love the fight, but because it's the quickest way to get you the most, before evidence quietly disappears.</p>
+          <p>You don't have to hire me. But hire someone who files.</p>
+        </div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera, plain and direct. The explanation is the value.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"If your lawyer hasn't called you in months, that's not a delay. That's the plan."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Most firms sit on a case for almost two years. The more files open, the more invoices out, the less work done."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Before you file, your case sits with an adjuster who runs your injury through a computer program. It spits out a number. Like a drive-through screen."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"The day you file, it goes up to a manager. The other side has to bring in a real attorney. The number moves."</span></li>
+          <li><span class="cue">Land</span><span class="say">"I file fast. Because that's how you get the most, before the evidence disappears."</span></li>
+          <li><span class="cue">Turn</span><span class="say">"You don't have to hire me. But hire someone who files."</span></li>
+        </ul>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Explainer Carousel (optional)</div>
+        <p class="fnote">The one carousel that fits a stance: not a story arc, a teaching walk-through of the mechanism. Use when you want it to travel and teach.</p>
+        <ol class="slides">
+          <li>If your lawyer hasn't called you in months, that's not a delay. That's the plan.</li>
+          <li>Most firms will sit on a case for almost two years before they really move on it.</li>
+          <li>The more files sitting open, the more invoices going out, the less work that gets done. The waiting is the business model.</li>
+          <li>Before you file: your case sits with an adjuster. A computer program spits out a number. Like a drive-through screen.</li>
+          <li>The day you file: it goes up to a manager. They bring in a real attorney. The number moves.</li>
+          <li>I file fast. Not because I love the fight, but because it's the fastest way to get you the most, before evidence disappears.</li>
+          <li>You don't have to hire me. But hire someone who files. <span class="addnote">(Add: send me a message)</span></li>
+        </ol>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <p class="fnote">The whole stance in one frame.</p>
+        <div class="imgline">If your lawyer hasn't called you in months, <em>that's not a delay. That's the plan.</em></div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">Before this story goes live</div>
+        <ul>
+          <li>It works because it's a stance, not a story. Don't let it get talked into a narrative carousel. One image, one line, explanation in the caption.</li>
+          <li>Keep it about the system. "Most firms," never a name.</li>
+          <li>"You don't have to hire me, hire someone who files" is intentional. It reads as honest advice, not a pitch, which is what makes people trust it.</li>
+        </ul>
+      </div>
+
+    </div>
+  </details>
+
+<!-- STORY 3 -->
+  <details class="story">
+    <summary>
+      <span class="num">07</span>
+      <span class="sumtext"><span class="sumtitle">I Was the Client Who Got Told No</span><br>
+      <span class="tag story-t">Full story &middot; carousel built</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Story</div>
+        <p>At 20, a blown tire threw him from a car and he woke up in a hospital. The insurance company told him the tire was fine and offered a deal. He signed. When he asked about going after them, the answer was no, he hadn't worn his seatbelt, case closed. So he believed it and walked away with nothing. Three weeks later the same tire blew on the freeway and his car rolled four times. He became the lawyer he needed.</p>
+        <p><b>The trait it reveals:</b> he reads every page, especially the ones they tell you not to bother with. <b>Villain:</b> the system that settles fast and counts on you believing the first no.</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Carousel</div>
+        <p class="fnote">9 slides. Opens on the scene, ends on an action that shows who he became.</p>
+        <ol class="slides">
+          <li>At 20, an insurance company told me my tire was fine. Three weeks later my car flipped four times on the freeway.</li>
+          <li>The first time, a blown tire threw me from the car. I woke up in a hospital.</li>
+          <li>They offered me a deal. Said the tire was fine, didn't need replacing. I was twenty. I signed.</li>
+          <li>When I asked about going after them, the answer was no. I hadn't worn my seatbelt. Case closed.</li>
+          <li>So I believed it. I walked away with nothing.</li>
+          <li>Three weeks later, the same tire blew on the freeway. The car rolled four times. I walked away from that one too.</li>
+          <li>Now I read every page of every policy. Twice. Especially the ones they tell me not to bother with.</li>
+          <li>If you were in an accident and someone already told you there's nothing to be done.</li>
+          <li>That's the first thing I'd want to look at for you. <span class="addnote">(Send a message @sdaccidentlaw)</span></li>
+        </ol>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Conviction Post</div>
+        <p class="fnote">The stance underneath the story. One static image plus caption.</p>
+        <div class="imgline">They told me my case was closed. <em>So I became the person who reads the page they tell you to skip.</em></div>
+        <div class="caption">
+          <p class="open">At 20, I signed away my own accident because a man told me there was nothing there.</p>
+          <p>Three weeks later the same tire nearly killed me. I don't take anyone's "nothing to be done" at face value anymore. Not the insurer's, not the other lawyer's, not the fine print's.</p>
+          <p>If someone already told you your case is closed, that's the sentence I question first.</p>
+        </div>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera, 30 to 40 seconds. Flat hook, slow landing.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"At twenty, an insurance company told me my tire was fine."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"I'd been thrown from the car. I woke up in a hospital. They offered me a deal, said the tire didn't need replacing, and I signed."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"When I asked about going after them, the answer was no. I hadn't worn my seatbelt. Case closed."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Three weeks later, the same tire blew on the freeway. My car rolled four times."</span></li>
+          <li><span class="cue">Land, slow</span><span class="say">"Now I read every page of every policy. Twice. Especially the ones they tell me not to bother with."</span></li>
+          <li><span class="cue">Turn</span><span class="say">"If someone already told you there's nothing to be done, that's the first thing I'd want to look at."</span></li>
+        </ul>
+        <p class="fnote" style="margin-top:14px;">On-screen text for the hook frame: "They told me my tire was fine."</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <div class="imgline">Now I read every page. <em>Especially the ones they tell me not to bother with.</em></div>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 5 &middot; B-Roll Caption</div>
+        <p class="fnote">Over quiet b-roll.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">At 20, I was the client <em>who got told no.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>At 20, I was the client who got told no.</p>
+          <p>I believed it. I walked away with nothing. Three weeks later the same tire blew on the freeway and my car flipped four times.</p>
+          <p>If you've been in an accident and someone already told you there's nothing to be done, that's exactly the case I want to look at. Send me a message.</p>
+        </div>
+      </div>
+      <div class="flags">
+        <div class="lbl">Before this story goes live</div>
+        <ul>
+          <li>The seatbelt admission is his to make public. Confirm before posting.</li>
+          <li>Slide 7 is the whole reveal: an action, not a claim. The reader concludes "this man fights" on their own, which is why they believe it.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <!-- STORY: one missed detail -->
+  <details class="story">
+    <summary>
+      <span class="num">08</span>
+      <span class="sumtext"><span class="sumtitle">One Missed Detail</span><br>
+      <span class="tag story-t">Full story &middot; all formats</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Story</div>
+        <p>Why he reads everything himself. He once caught a case where one missed filing deadline nearly forced a multimillion-dollar matter in front of a judge instead of a jury, which would have gutted what it was worth. He caught it and filed the motion that saved it. One overlooked detail can turn a life-changing case into pennies. So he refuses to let things slip, and he built systems trained on his own work, not the open internet, so he can stay that thorough and still make it to his kids' games.</p>
+        <p><b>The trait it reveals:</b> he cares more about your case than the system is built to. <b>Villain:</b> the assembly line that processes cases too fast to catch what matters.</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <p class="fnote">One static image, the story in the caption.</p>
+        <div class="imgline">One missed detail can turn a million-dollar case <em>into pennies.</em></div>
+        <div class="caption">
+          <p class="open">I once caught a case where a single missed deadline almost forced a multimillion-dollar matter in front of a judge instead of a jury. That one detail would have gutted its value.</p>
+          <p>I caught it. I filed the motion that saved it. And I never forgot how close it came.</p>
+          <p>That's why I read every page myself. I've built systems so I can be that thorough and still make my kids' games. But the eyes on your case are always mine.</p>
+        </div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"One missed detail can turn a million-dollar case into pennies."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"I watched it almost happen. A single deadline got missed on a case worth millions."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"It nearly forced the whole thing in front of a judge instead of a jury, which would have gutted it."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"I caught it and filed the motion that saved it."</span></li>
+          <li><span class="cue">Land</span><span class="say">"That's why I read every page myself. Your case is never just another file on my desk."</span></li>
+        </ul>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Static Image Line</div>
+        <div class="imgline">I read every page myself. <em>Your case is never just another file.</em></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; B-Roll Caption</div>
+        <p class="fnote">Over b-roll (you at your desk, reading, late hours).</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">One missed detail. <em>A million-dollar case, gone.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>I once saw a single missed deadline almost destroy a case worth millions. I caught it and filed the motion that saved it.</p>
+          <p>That's why I read everything myself. I've built tools so I can stay that thorough and still be home for my family. But your case always gets my own eyes.</p>
+        </div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">Before this goes live</div>
+        <ul>
+          <li>Keep the legal mechanics in plain language. Clients don't know what a jury-fee waiver is; "in front of a judge instead of a jury" is enough.</li>
+          <li>Anonymize. "A case I came across," not the firm or the people.</li>
+          <li>Works as both a client trust post and an attorney-facing one.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <!-- STORY: the moment i knew -->
+  <details class="story">
+    <summary>
+      <span class="num">09</span>
+      <span class="sumtext"><span class="sumtitle">The Moment I Knew I Made the Right Call</span><br>
+      <span class="tag story-t">Full story &middot; all formats</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Story</div>
+        <p>The payoff to walking away. After the terrifying leap, the fear didn't lift overnight. Then one ordinary afternoon he was on a field coaching his kid's T-ball team, on a weekday, somewhere he never could have been before. And he was home, in the room, the day his daughter took her first steps. Not a video after the fact. The actual moment. That's when he knew the bet on himself was right.</p>
+        <p><b>The trait it reveals:</b> the whole risk was in service of being present for what matters. <b>Villain:</b> the grind that asks you to trade your life for a paycheck.</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Carousel</div>
+        <p class="fnote">The payoff post. Pairs as part two of "Why I Walked Away." Ends on the moment.</p>
+        <ol class="slides">
+          <li>I gave up a quarter million dollars and bet everything on my own firm. For months I wondered if I'd lost my mind.</li>
+          <li>The fear didn't lift overnight. Mortgage. Two kids. A calendar I had to fill myself.</li>
+          <li>Then one afternoon, I was standing on a field, coaching my kid's T-ball team. On a weekday.</li>
+          <li>I never could have been there before. I'd have been in someone else's office, on someone else's clock.</li>
+          <li>And I was home the day my daughter took her first steps. Not a video someone sent me. The actual moment.</li>
+          <li>I keep those weekday afternoons open now. On purpose. <span class="addnote">(Optional soft CTA)</span></li>
+        </ol>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Conviction Post</div>
+        <p class="fnote">The stance underneath. One static image plus caption.</p>
+        <div class="imgline">I bet everything on myself <em>so I could be in the room.</em></div>
+        <div class="caption">
+          <p class="open">When I left to start my own firm, I was terrified. Mortgage, two kids, no safety net.</p>
+          <p>Then I found myself coaching T-ball on a weekday, and home for my daughter's first steps. The actual moment, not a video.</p>
+          <p>I keep those afternoons open now. On purpose.</p>
+        </div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera. Quiet and real.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"I gave up a quarter million dollars and bet everything on my own firm."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"For months I wondered if I'd lost my mind. The fear didn't go away."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Then one afternoon I was coaching my kid's T-ball team. On a weekday."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"And I was home the day my daughter took her first steps. The actual moment, not a video."</span></li>
+          <li><span class="cue">Land, slow</span><span class="say">"I keep those weekday afternoons open now. On purpose."</span></li>
+        </ul>
+        <p class="fnote" style="margin-top:14px;">On-screen text for the hook frame: "Everyone said I was crazy to leave."</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <div class="imgline">I was home for her first steps. <em>That's when I knew.</em></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 5 &middot; B-Roll Caption</div>
+        <p class="fnote">Over family b-roll (T-ball field, home, kids).</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">Everyone said I was crazy <em>to leave.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>I gave up a quarter million dollars to start my own firm. For months I was terrified.</p>
+          <p>Then I was coaching T-ball on a weekday, and home for my daughter's first steps. The actual moment, not a video.</p>
+          <p>I keep those weekday afternoons open now. On purpose.</p>
+        </div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">Before this goes live</div>
+        <ul>
+          <li>Pairs as part two of "Why I Walked Away." Run it after that story, not the same day.</li>
+          <li>Ends on the moment (T-ball, first steps), not on a lesson. Keep it there.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+<!-- STORY 4 -->
+  <details class="story">
+    <summary>
+      <span class="num">10</span>
+      <span class="sumtext"><span class="sumtitle">The Page Nobody Pulled</span><br>
+      <span class="tag story-t">Full story &middot; carousel built</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Story</div>
+        <p>A man came to him with a $15,000 offer already in his hand, resigned to it. Another lawyer had looked, the number was on paper, everything pointed to signing. Instead he read the file again, then the policy, then the second policy nobody had pulled. There was $60,000 no one had bothered to look for.</p>
+        <p><b>The trait it reveals:</b> he does the reading no one else does. <b>Villain:</b> a system built to settle fast, never the first attorney.</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Carousel</div>
+        <p class="fnote">8 slides. Ends on the find, not on "I always dig deeper."</p>
+        <ol class="slides">
+          <li>Another lawyer told him his case was worth $15,000. He was about to sign.</li>
+          <li>He sat across from me with the offer already in his hand. Resigned to it.</li>
+          <li>Everything pointed to taking it. The number was on paper. Someone had already looked.</li>
+          <li>It would have been easy to agree that $15,000 was the ceiling.</li>
+          <li>Instead I read the file again. Then the policy. Then the second policy nobody had pulled.</li>
+          <li>Page after page, there it was. Sixty thousand dollars no one had bothered to look for.</li>
+          <li>He'd already made peace with fifteen thousand. He never had to.</li>
+          <li>If you've been handed a number and told that's all your case is worth.</li>
+          <li>Let me read the pages first. <span class="addnote">(Send a message @sdaccidentlaw)</span></li>
+        </ol>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Conviction Post</div>
+        <p class="fnote">The stance underneath the story. One static image plus caption.</p>
+        <div class="imgline">A number on paper isn't the truth. <em>It's just the first number someone hoped you'd take.</em></div>
+        <div class="caption">
+          <p class="open">A man came to me with a $15,000 offer already in his hand. Everything said sign it.</p>
+          <p>I read the second policy nobody pulled and found money no one had looked for. Here's what I believe: the first number is rarely the real one. It's the number that's easiest for everyone but you.</p>
+          <p>Don't sign until someone has actually read the pages.</p>
+        </div>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera. Let the contrast carry it.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"A man came to me with a fifteen-thousand-dollar offer already in his hand."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"He was resigned to it. Another lawyer had looked. The number was on paper."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"It would have been easy to agree that was the ceiling."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Instead I read the file again. Then the policy. Then the second policy nobody had pulled."</span></li>
+          <li><span class="cue">Land, slow</span><span class="say">"Page after page, there it was. Money no one had bothered to look for."</span></li>
+          <li><span class="cue">Landing</span><span class="say">"He'd already made peace with fifteen thousand. He never had to."</span></li>
+          <li><span class="cue">Turn</span><span class="say">"If you've been handed a number and told that's all your case is worth, let me read the pages first."</span></li>
+        </ul>
+        <p class="fnote" style="margin-top:14px;">On-screen text for the hook frame: "$15,000. Already in his hand."</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <div class="imgline">The first number is rarely the real one. <em>It's just the easiest one for everyone but you.</em></div>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 5 &middot; B-Roll Caption</div>
+        <p class="fnote">Over quiet b-roll.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">A $15,000 offer. <em>Already in his hand.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>A man came to me with a $15,000 offer already in his hand. Resigned to it.</p>
+          <p>It would have been easy to agree that was the ceiling. Instead I read the second policy nobody had pulled. Sixty thousand dollars no one had looked for. He'd already made peace with fifteen thousand. He never had to.</p>
+          <p>If you've been handed a number and told that's all your case is worth, let me read the pages first.</p>
+        </div>
+      </div>
+      <div class="flags">
+        <div class="lbl">Before this story goes live</div>
+        <ul>
+          <li>Confirm client permission and anonymize details.</li>
+          <li>Numbers are placeholders. Use the real ones if cleared, the contrast is the engine.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <!-- STORY: led by example -->
+  <details class="story">
+    <summary>
+      <span class="num">11</span>
+      <span class="sumtext"><span class="sumtitle">Led By Example</span><br>
+      <span class="tag conv-t">Conviction &middot; stance, not a story</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Stance</div>
+        <p>When his dad coached, he didn't stand on the sideline barking orders. If the team had a two-mile run, he ran it alongside the kids. You don't tell someone to do something you're not willing to do yourself. Adam runs his firm the same way, eyes on everything, never asking his team to do what he hasn't done, and always putting himself on the line for the people who trust him.</p>
+        <p><b>The trait it reveals:</b> he leads from the front. <b>Villain:</b> the boss who delegates the hard part and takes the credit.</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <p class="fnote">One static image, the stance in the caption.</p>
+        <div class="imgline">My dad never told us to run. <em>He ran next to us.</em></div>
+        <div class="caption">
+          <p class="open">When my dad coached, he didn't stand on the sideline. If we had a two-mile run, he ran it with us.</p>
+          <p>You don't tell someone to do something you're not willing to do yourself. That stuck.</p>
+          <p>I run my firm the same way. I won't ask my team to do anything I haven't done, and I still put my own eyes on every case. I do it out of respect, for them and for the people who trust us.</p>
+        </div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"My dad never told us to run. He ran next to us."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"If the team had a two-mile run, he was right there doing it with us."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"You don't tell someone to do something you're not willing to do yourself."</span></li>
+          <li><span class="cue">Land</span><span class="say">"I run my firm the same way. I won't ask anyone to do what I haven't, and I put my own eyes on every case."</span></li>
+        </ul>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Static Image Line</div>
+        <div class="imgline">You don't ask someone to do <em>what you won't do yourself.</em></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; B-Roll Caption</div>
+        <p class="fnote">Over b-roll (you with your team, at work early/late).</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">My dad never told us to run. <em>He ran next to us.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>When my dad coached, he ran every drill alongside us. You don't tell someone to do something you can't do yourself.</p>
+          <p>That's how I lead my firm, and how I handle your case. Nothing I'd ask of anyone that I'm not doing right beside them.</p>
+        </div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">Before this goes live</div>
+        <ul>
+          <li>Clean and positive. Honors his dad, which keeps the gratitude framing consistent.</li>
+          <li>The two-mile-run image is the hook. Lead with it.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <!-- STORY: how sports made me a litigator -->
+  <details class="story">
+    <summary>
+      <span class="num">12</span>
+      <span class="sumtext"><span class="sumtitle">How Sports Made Me a Litigator</span><br>
+      <span class="tag story-t">Full story &middot; all formats</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Story</div>
+        <p>As a freshman, he was the only eighth grader pulled up to varsity, then sat the bench almost every game. Everyone told him he was good, so sitting there felt like proof he was a loser. The truth he didn't want to admit: he had the talent, he just hadn't put in the work, he was coasting on what came naturally. He never forgot how it felt to know he could have done more and didn't. Now he prepares for everything, because he knows exactly how it feels to lose because you didn't do enough, and he refuses to feel that again.</p>
+        <p><b>The trait it reveals:</b> he leaves nothing on the field. <b>Villain:</b> the comfortable voice that says natural talent is enough.</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Carousel</div>
+        <p class="fnote">The full story. Ends on the vow.</p>
+        <ol class="slides">
+          <li>I was the only eighth grader pulled up to varsity. Then I sat the bench almost every game.</li>
+          <li>Everyone told me I was good. So sitting there felt like proof I was a loser.</li>
+          <li>Here's what I didn't want to admit. I had the talent. I just hadn't put in the work. I was coasting on whatever came naturally.</li>
+          <li>I told myself it didn't matter. It did. I never forgot how it felt to know I could have done more, and didn't.</li>
+          <li>Years later, in the biggest trial of my life, that old fear came roaring back. The fear of not having done enough.</li>
+          <li>But this time I'd left nothing on the table. Every fact, every angle, every possibility, I'd prepared for it.</li>
+          <li>So when the surprises came in that courtroom, and they did, I was ready.</li>
+          <li>I haven't sat a bench since. Not in any room that mattered. <span class="addnote">(Optional soft CTA)</span></li>
+        </ol>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Conviction Post</div>
+        <p class="fnote">The stance underneath. One static image plus caption.</p>
+        <div class="imgline">I learned early <em>that talent isn't enough.</em></div>
+        <div class="caption">
+          <p class="open">I was the only eighth grader pulled up to varsity. Then I rode the bench, because I was coasting on talent instead of doing the work.</p>
+          <p>I never forgot how it felt to lose because I hadn't earned it. So now I prepare for everything.</p>
+          <p>When your case is mine, I leave nothing on the table. I know exactly what it costs not to.</p>
+        </div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera. Flat hook, slow landing.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"I was the only eighth grader pulled up to varsity. Then I sat the bench all year."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Everyone said I was good. So the bench felt like proof I was a loser."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"The truth? I had the talent. I just wasn't doing the work."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"I never forgot how it felt to lose because I hadn't earned it."</span></li>
+          <li><span class="cue">Land, slow</span><span class="say">"Now, on every case, I leave nothing on the table. I know exactly what it costs not to."</span></li>
+        </ul>
+        <p class="fnote" style="margin-top:14px;">On-screen text for the hook frame: "I sat the bench all year."</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <div class="imgline">I leave nothing on the table. <em>I know exactly what it costs not to.</em></div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 5 &middot; B-Roll Caption</div>
+        <p class="fnote">Over b-roll (you at work late, prepping, or an old sports photo if he has one).</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">I sat the bench <em>all year.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>As a freshman I was pulled up to varsity, then sat the bench because I was coasting on talent instead of working. I never forgot how that felt.</p>
+          <p>Now I prepare for everything. When your case is mine, I leave nothing on the table. I know exactly what it costs not to.</p>
+        </div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">Only post if you are at peace with it</div>
+        <ul>
+          <li>This goes to you for review. The bench-as-"loser" feeling is vulnerable; post only if you're at peace sharing it.</li>
+          <li>The parents' near-divorce that summer is deliberately kept out. The story works on the bench and the regret alone. Add it only if you ever choose to.</li>
+          <li>Slide 5 nods to "the biggest trial of my life." That's the same $375K case as other entries, so don't run this the same week as those.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <!-- STORY: why i don't take every case -->
+  <details class="story">
+    <summary>
+      <span class="num">13</span>
+      <span class="sumtext"><span class="sumtitle">Why I Don't Take Every Case</span><br>
+      <span class="tag conv-t">Conviction &middot; stance, not a story</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Stance</div>
+        <p>He turns cases down. If he doesn't believe you, or doesn't believe in what you're fighting for, he won't take it. Not because he's picky, but because saying yes means living with a case for a year or more and pouring everything into it. The clients he says yes to get all of him, and that's only possible because he says no to the ones he can't fight for like that. The reframe: a "no" to some is what makes the "yes" mean something.</p>
+        <p><b>The trait it reveals:</b> his standards are the client's guarantee he's all in. <b>Villain:</b> the volume mill that takes every case and fights for none of them.</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <p class="fnote">One static image, the stance in the caption. Frame it so the reader thinks "I hope he picks me."</p>
+        <div class="imgline">I don't take every case. <em>That should tell you something.</em></div>
+        <div class="caption">
+          <p class="open">I turn cases down. If I don't believe you, or I don't believe in what we'd be fighting for, I won't take it.</p>
+          <p>Not because I'm picky. Because when I say yes, I'm with you for a year or more, and I'm going to pour everything into it.</p>
+          <p>The clients I say yes to get all of me. That's only possible because I say no to the ones I can't fight for like that. So if I take your case, know that I chose it.</p>
+        </div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera. A stance, said plainly.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"I don't take every case. That should tell you something."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"If I don't believe you, or believe in what we're fighting for, I won't take it."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Because saying yes means I'm with you for a year or more, pouring everything into it."</span></li>
+          <li><span class="cue">Land</span><span class="say">"So if I take your case, know that I chose it. You get all of me."</span></li>
+        </ul>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Static Image Line</div>
+        <div class="imgline">If I take your case, <em>know that I chose it.</em></div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">Before this goes live</div>
+        <ul>
+          <li>Structure it so the reader thinks "I hope he picks me," not "I hope I qualify."</li>
+          <li>Deliver as talking-head or text-on-screen. It's a stance, don't bolt a story arc onto it.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+<!-- STORY 5 -->
+  <details class="story">
+    <summary>
+      <span class="num">14</span>
+      <span class="sumtext"><span class="sumtitle">Same Job, Different Rules</span><br>
+      <span class="tag conv-t">Conviction &middot; stance, not a story</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Stance</div>
+        <p>One employee tapes a sign to her door every morning accounting for her time. The man beside her, same job, same title, same hours, never has to. Only one of them gets watched like that, and it isn't because of the work. He won't call that normal.</p>
+        <p><b>The trait it reveals:</b> he refuses to call an unfair standard normal. <b>Villain:</b> the system that watches two people differently, never the coworker.</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <p class="fnote">5 slides, or one static image. A held image plus a stance. Deliver to camera, don't bolt a story arc on.</p>
+        <ol class="slides">
+          <li>She tapes a sign to her door every morning, accounting for her time. The man beside her, same job, never has to.</li>
+          <li>Same title. Same work. Same hours.</li>
+          <li>Only one of them gets watched like that. And it isn't because of the work.</li>
+          <li>I won't call that normal. Two people doing the same job should answer to the same rules. Full stop.</li>
+          <li>If you're held to a standard the person beside you isn't, you're not imagining it. <span class="addnote">(That's worth a conversation @sdaccidentlaw)</span></li>
+        </ol>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera. A stance, said plainly, not a story.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"Same job. Same title. Same hours."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Every morning, one of them tapes a sign to her door accounting for her time."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"The person beside her never has to."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Only one of them gets watched like that. And it isn't because of the work."</span></li>
+          <li><span class="cue">Land</span><span class="say">"I won't call that normal. Two people doing the same job should answer to the same rules."</span></li>
+          <li><span class="cue">Turn</span><span class="say">"If you're held to a standard the person next to you isn't, you're not imagining it."</span></li>
+        </ul>
+        <p class="fnote" style="margin-top:14px;">On-screen text for the hook frame: "Same job. Different rules."</p>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 4 &middot; Static Image Line</div>
+        <div class="imgline">Same title. Same work. <em>Only one of them gets watched.</em></div>
+      </div>
+      <div class="fmt">
+        <div class="flabel">Format 5 &middot; Caption</div>
+        <div class="caption">
+          <p class="open">She tapes a sign to her door every morning, accounting for her time. The man beside her, same job, same title, never has to.</p>
+          <p>I won't call that normal. Two people doing the same work should answer to the same rules.</p>
+          <p>If you're being held to a standard the person next to you isn't, you're not imagining it. That's worth a conversation.</p>
+        </div>
+      </div>
+      <div class="flags">
+        <div class="lbl">Before this story goes live</div>
+        <ul>
+          <li>Active case. Hold for explicit permission and anonymize hard.</li>
+          <li>Deliver as talking-head or text-on-screen. Don't bolt three story acts onto it, that dilutes the stance.</li>
+          <li>The villain is the system that watches two people differently, never the coworker.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
+  <div class="sectionlabel">In the Pipeline &middot; To build next</div>
+
+<!-- PIPELINE 3 -->
+  <details class="story pipe">
+    <summary>
+      <span class="num">15</span>
+      <span class="sumtext"><span class="sumtitle">The Case the Judge Said You Couldn't Win</span><br>
+      <span class="tag build-t">Story &middot; to build</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <p class="pconcept">A family facing eviction right before Christmas, a case everyone called unwinnable, the mediator saying there wasn't much there. He read the other side's fear of litigation and got them $250K anyway. Shows he won't let people get steamrolled, and finds leverage others miss.</p>
+        <p class="formats-line">Planned formats: <span>Carousel &middot; Conviction &middot; Reel</span></p>
+        <p class="status">Needs: his follow-up answers, the concrete detail of what the money did for the family, and permission. Strip the family-law specifics so it reads as "the case no one believed in."</p>
+      </div>
+    </div>
+  </details>
+
+<!-- PIPELINE 5 -->
+  <details class="story pipe">
+    <summary>
+      <span class="num">16</span>
+      <span class="sumtext"><span class="sumtitle">You Will Not Be Forgotten</span><br>
+      <span class="tag build-t">Objection-handling &middot; to build</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <p class="pconcept">His clients' number-one fear, in their words: "That I will be forgotten about." His rule is contact every two weeks, even when nothing is moving. Built around the real client quote so it lands in their language, not his.</p>
+        <p class="formats-line">Planned formats: <span>Static line + caption &middot; Conviction &middot; Review graphic</span></p>
+        <p class="status">Have the real quote. Confirm permission to use it anonymized. This can run as a weekly recurring theme.</p>
+      </div>
+    </div>
+  </details>
+
+<!-- PIPELINE 7 -->
+  <details class="story pipe">
+    <summary>
+      <span class="num">17</span>
+      <span class="sumtext"><span class="sumtitle">Coaching My Own Kid</span><br>
+      <span class="tag build-t">Personal brand &middot; to build</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <p class="pconcept">He catches himself pushing his own son the way his dad pushed him, and he's grateful for what that drive gave him. Lately he's learning when to push and when to just let his kid love the game. Not because his dad got it wrong, but because he's finding his own version of the same gift. Honors his dad while showing he's a present, thoughtful father now.</p>
+        <p class="formats-line">Planned formats: <span>Reel &middot; Conviction &middot; B-roll caption</span></p>
+        <p class="status">Ready to build. Vulnerable and current, this is the "he's like me" content that earns trust.</p>
+      </div>
+    </div>
+  </details>
+
+<!-- PIPELINE 8 -->
+  <details class="story pipe">
+    <summary>
+      <span class="num">18</span>
+      <span class="sumtext"><span class="sumtitle">Giving Back</span><br>
+      <span class="tag build-t">On hold</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <p class="pconcept">Basketball equipment for kids who don't have it, the autism basketball camps that moved him more than he expected.</p>
+        <p class="status">On hold on purpose. We don't build this until we surface the lived-experience reason underneath it, or it reads as a tax write-off instead of a calling. That "why" is a future dig.</p>
+      </div>
+    </div>
+  </details>
+
+  <div class="sectionlabel">Adding a new story</div>
+  <div class="template">
+    <div class="flabel">The template we fill each time</div>
+    <ul>
+      <li><b style="color:var(--parch);font-weight:500;">The Story</b> &mdash; the core material told once, in full. The pressure moment, the fork, the cost, the trait it reveals, and who the villain is (always a force, never a person).</li>
+      <li><b style="color:var(--parch);font-weight:500;">Format 1 &middot; Carousel</b> &mdash; the full arc, slide by slide, ending on the moment.</li>
+      <li><b style="color:var(--parch);font-weight:500;">Format 2 &middot; Conviction post</b> &mdash; the stance underneath, one image plus caption.</li>
+      <li><b style="color:var(--parch);font-weight:500;">Format 3 &middot; Talking-head reel</b> &mdash; spoken beats, flat hook, slow landing.</li>
+      <li><b style="color:var(--parch);font-weight:500;">Format 4 &middot; Static image line</b> &mdash; one scroll-stopping frame.</li>
+      <li><b style="color:var(--parch);font-weight:500;">Format 5 &middot; B-roll caption</b> &mdash; quiet footage, story in the caption.</li>
+      <li><b style="color:var(--parch);font-weight:500;">Before it goes live</b> &mdash; permissions, real details to confirm, anything sensitive.</li>
+    </ul>
+  </div>
+
+  <footer>
+    <em>Character can't be claimed. Only revealed.</em><br>
+    Aligned &amp; Ascending &middot; built with Kindra Morse
+  </footer>
+
+</div>
+</body>
+</html>
