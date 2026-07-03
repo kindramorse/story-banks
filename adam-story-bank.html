@@ -57,7 +57,9 @@
   .tag{display:inline-block; margin-top:9px; font-family:var(--body); text-transform:uppercase;
     letter-spacing:.18em; font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:20px;}
   .tag.story-t{background:rgba(203,108,230,.16); color:var(--blossom);}
-  .tag.conv-t{background:rgba(244,203,255,.12); color:var(--blossom);}
+  .tag.conv-t{background:rgba(244,203,255,.10); color:var(--parch);}
+  .tag.howto-t{background:rgba(250,248,244,.09); color:var(--parch);}
+  .tag.invite-t{background:rgba(203,108,230,.30); color:#fff;}
   .tag.build-t{background:rgba(124,110,138,.18); color:var(--muted);}
   .chev{flex:0 0 auto; color:var(--faint); font-size:14px; transition:transform .25s; margin-top:6px;}
   details[open] .chev{transform:rotate(90deg);}
@@ -153,16 +155,25 @@
 <body>
 <div class="wrap">
 
-  <div class="eyebrow">Aligned &amp; Ascending &middot; Story Bank</div>
+  <div class="eyebrow">Kindra Morse &middot; Founder Story Coach</div>
   <h1>Adam's <em>Story Bank</em></h1>
   <p class="lede">Your core stories, each one built out into every format it can take. One story, many ways to tell it, so you never run out of content and never have to start from a blank page.</p>
 
   <div class="howto">
     <h2>How to use this</h2>
     <p>Each panel below is one <b>core story</b> from your life and work. Open it and you'll find the story told once in full, then a set of <b>formats</b>: a carousel, a conviction post, a talking-head reel, a single static image, a b-roll caption. Same story, different shape, different job.</p>
-    <p>Pick the format that fits the week. Telling a full story? Use the carousel or reel. Want to plant a flag on what you believe? Use the conviction post or static line. They all pull from the same well.</p>
+    <p>Pick the format that fits the week. Every panel is labeled with its <b>post type</b>, so you can see at a glance what job it does. They all pull from the same well.</p>
     <p>This document <b>grows</b>. We add a new core story each time we find one, and you keep it after we're done working together. It's yours.</p>
     <p><b>One quick convention.</b> Any line shown in a framed box is text that goes ON the image or video. The grey box beneath it is the caption you paste into the post.</p>
+  </div>
+
+  <div class="howto">
+    <h2>The four post types</h2>
+    <p>A full brand runs on four kinds of post. Story is the thread underneath all of them, but each one does a different job. Every panel below is tagged with which it is.</p>
+    <p><b style="color:var(--blossom);">Story post.</b> Tells one real moment with an arc, and ends on the moment so you reach the point yourself. It never announces the lesson. Example: <i>Why I Walked Away.</i></p>
+    <p><b style="color:var(--parch);">Belief-shift post.</b> Plants a flag. A single stance he won't back off, no arc, revealing who he is through what he refuses to accept. Example: <i>Why I Don't Take Every Case.</i></p>
+    <p><b style="color:var(--parch);">How-to post.</b> Teaches the reader something they didn't know, through his lens, with a real moment inside it instead of a generic tip. Example: <i>Why You Haven't Heard From Your Lawyer.</i></p>
+    <p><b style="color:#fff;">Invitation post.</b> The clean ask. It states things plainly instead of withholding, and points to the next step. Example: <i>If You're Not Sure You Even Have a Case.</i></p>
   </div>
 
   <div class="sectionlabel">Core Stories &middot; Ready to use</div>
@@ -172,7 +183,7 @@
     <summary>
       <span class="num">01</span>
       <span class="sumtext"><span class="sumtitle">Why I Walked Away</span><br>
-      <span class="tag story-t">Full story &middot; all formats</span></span>
+      <span class="tag story-t">Story post &middot; all formats</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -262,7 +273,7 @@
       <span class="num">02</span>
       <span class="sumtext">
         <span class="sumtitle">The Silver Platter</span><br>
-        <span class="tag story-t">Full story &middot; all formats</span>
+        <span class="tag story-t">Story post &middot; all formats</span>
       </span>
       <span class="chev">&#9654;</span>
     </summary>
@@ -355,7 +366,7 @@
     <summary>
       <span class="num">03</span>
       <span class="sumtext"><span class="sumtitle">The Meet Adam Highlight</span><br>
-      <span class="tag conv-t">Pinned story sequence &middot; 8 frames</span></span>
+      <span class="tag invite-t">Invitation post &middot; pinned meet-me</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -439,7 +450,7 @@
     <summary>
       <span class="num">04</span>
       <span class="sumtext"><span class="sumtitle">The Case Everyone Passed On</span><br>
-      <span class="tag story-t">Full story &middot; carousel built</span></span>
+      <span class="tag story-t">Story post &middot; carousel built</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -522,7 +533,7 @@
     <summary>
       <span class="num">05</span>
       <span class="sumtext"><span class="sumtitle">The Verdict I Can't Forget</span><br>
-      <span class="tag story-t">Full story &middot; carousel built</span></span>
+      <span class="tag story-t">Story post &middot; carousel built</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -594,21 +605,21 @@
       <span class="num">06</span>
       <span class="sumtext">
         <span class="sumtitle">Why You Haven't Heard From Your Lawyer</span><br>
-        <span class="tag conv-t">Conviction &middot; stance, not a story</span>
+        <span class="tag howto-t">How-to post &middot; teaches the reader</span>
       </span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
 
       <div class="core">
-        <div class="lbl">The Stance</div>
-        <p>This one isn't a story, it's a belief he'll plant his feet on. Most firms sit on a case for almost two years before they really move, because the more files open, the more invoices out, the less work done. The waiting isn't an accident, it's the business model.</p>
+        <div class="lbl">What It Teaches</div>
+        <p>This one teaches the reader something no one tells them. Most firms sit on a case for almost two years before they really move, because the more files open, the more invoices out, the less work done. The waiting isn't an accident, it's the business model.</p>
         <p>The mechanism most people never hear: before a suit is filed, your case sits with a mid-level adjuster who runs your injury through a computer program that spits out a number, like an order screen at a drive-through. The day a suit is filed, it leaves that desk. A manager weighs in, the other side has to bring in a real attorney, and the number moves. He files fast, because that's the quickest way to get the most before evidence quietly disappears.</p>
         <p><b>The trait it reveals:</b> he refuses to let people get parked. <b>Villain:</b> the business model, never a named firm.</p>
       </div>
 
       <div class="fmt">
-        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <div class="flabel">Format 1 &middot; How-to Post (primary)</div>
         <p class="fnote">One static image, the explanation in the caption. This is the home format for this one.</p>
         <div class="imgline">If your lawyer hasn't called you in months, <em>that's not a delay. That's the plan.</em></div>
         <div class="caption">
@@ -670,7 +681,7 @@
     <summary>
       <span class="num">07</span>
       <span class="sumtext"><span class="sumtitle">I Was the Client Who Got Told No</span><br>
-      <span class="tag story-t">Full story &middot; carousel built</span></span>
+      <span class="tag story-t">Story post &middot; carousel built</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -748,7 +759,7 @@
     <summary>
       <span class="num">08</span>
       <span class="sumtext"><span class="sumtitle">One Missed Detail</span><br>
-      <span class="tag story-t">Full story &middot; all formats</span></span>
+      <span class="tag conv-t">Belief-shift post &middot; stance</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -814,7 +825,7 @@
     <summary>
       <span class="num">09</span>
       <span class="sumtext"><span class="sumtitle">The Moment I Knew I Made the Right Call</span><br>
-      <span class="tag story-t">Full story &middot; all formats</span></span>
+      <span class="tag story-t">Story post &middot; all formats</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -894,7 +905,7 @@
     <summary>
       <span class="num">10</span>
       <span class="sumtext"><span class="sumtitle">The Page Nobody Pulled</span><br>
-      <span class="tag story-t">Full story &middot; carousel built</span></span>
+      <span class="tag story-t">Story post &middot; carousel built</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -973,7 +984,7 @@
     <summary>
       <span class="num">11</span>
       <span class="sumtext"><span class="sumtitle">Led By Example</span><br>
-      <span class="tag conv-t">Conviction &middot; stance, not a story</span></span>
+      <span class="tag conv-t">Belief-shift post &middot; stance</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -1037,7 +1048,7 @@
     <summary>
       <span class="num">12</span>
       <span class="sumtext"><span class="sumtitle">How Sports Made Me a Litigator</span><br>
-      <span class="tag story-t">Full story &middot; all formats</span></span>
+      <span class="tag story-t">Story post &middot; all formats</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -1119,7 +1130,7 @@
     <summary>
       <span class="num">13</span>
       <span class="sumtext"><span class="sumtitle">Why I Don't Take Every Case</span><br>
-      <span class="tag conv-t">Conviction &middot; stance, not a story</span></span>
+      <span class="tag conv-t">Belief-shift post &middot; stance</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -1171,7 +1182,7 @@
     <summary>
       <span class="num">14</span>
       <span class="sumtext"><span class="sumtitle">Same Job, Different Rules</span><br>
-      <span class="tag conv-t">Conviction &middot; stance, not a story</span></span>
+      <span class="tag conv-t">Belief-shift post &middot; stance</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -1227,14 +1238,69 @@
     </div>
   </details>
 
+  <!-- INVITATION: not sure you have a case -->
+  <details class="story">
+    <summary>
+      <span class="num">15</span>
+      <span class="sumtext"><span class="sumtitle">If You're Not Sure You Even Have a Case</span><br>
+      <span class="tag invite-t">Invitation post &middot; the ask</span></span>
+      <span class="chev">&#9654;</span>
+    </summary>
+    <div class="body">
+      <div class="core">
+        <div class="lbl">The Ask</div>
+        <p>This is the one post that isn't withholding anything. Its whole job is to invite the person who's been talking themselves out of calling. It names the exact thing that stops them, that they don't want to bother anyone and aren't sure they have a case, and it hands them the next step in plain language.</p>
+        <p><b>What it reveals:</b> he makes the scary first move feel safe. <b>Villain:</b> the hesitation that keeps hurt people quiet, and the clock running on evidence and deadlines. Never a person.</p>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 1 &middot; Invitation Post (primary)</div>
+        <p class="fnote">One static image, the ask in the caption. Opens with a short warm beat, then states everything plainly.</p>
+        <div class="imgline">Not sure you even have a case? <em>That's exactly the call to make.</em></div>
+        <div class="caption">
+          <p class="open">The most common thing people tell me when they finally call is some version of the same sentence. I wasn't sure it was worth bothering anyone.</p>
+          <p>So let me say this plainly. You don't need to know whether you have a case. That's my job. You need to make the call before a deadline passes or the evidence quietly disappears.</p>
+          <p>When you work with me, you get a real person who reads every page of your file, files fast so the other side takes it seriously, and checks in every two weeks. You're never sitting at home wondering what's happening with your own life.</p>
+          <p>If you were hurt and you've been talking yourself out of the call, this is your sign.</p>
+          <p>Send me a message, or call the office, and just tell me what happened. The first conversation is free, and it's a conversation, not a commitment.</p>
+        </div>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 2 &middot; Talking-Head Reel</div>
+        <p class="fnote">You on camera, warm and direct. Clarity over intrigue.</p>
+        <ul class="beats">
+          <li><span class="cue">Hook 0-3s</span><span class="say hook">"The most common thing people say when they finally call me? I wasn't sure it was worth bothering anyone."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"Here's the truth. You don't have to know whether you have a case. That's my job to figure out."</span></li>
+          <li><span class="cue">Beat</span><span class="say">"You just have to reach out before a deadline passes or the evidence disappears."</span></li>
+          <li><span class="cue">Ask</span><span class="say">"If you were hurt and you've been talking yourself out of it, just tell me what happened. That's all the first call is."</span></li>
+        </ul>
+      </div>
+
+      <div class="fmt">
+        <div class="flabel">Format 3 &middot; Static Image Line</div>
+        <div class="imgline">You don't have to know if you have a case. <em>That's my job.</em></div>
+      </div>
+
+      <div class="flags">
+        <div class="lbl">How this one is different</div>
+        <ul>
+          <li>An invitation post states things plainly. It does not withhold the meaning the way a story post does. Clarity beats intrigue here, so run the loop light.</li>
+          <li>Confirm the consult and fee wording before this runs. Make sure "the first conversation is free" and any fee language match how you actually work and California bar advertising rules.</li>
+          <li>The villain stays a force: the hesitation and the clock, never a person or a firm.</li>
+        </ul>
+      </div>
+    </div>
+  </details>
+
   <div class="sectionlabel">In the Pipeline &middot; To build next</div>
 
 <!-- PIPELINE 3 -->
   <details class="story pipe">
     <summary>
-      <span class="num">15</span>
+      <span class="num">16</span>
       <span class="sumtext"><span class="sumtitle">The Case the Judge Said You Couldn't Win</span><br>
-      <span class="tag build-t">Story &middot; to build</span></span>
+      <span class="tag build-t">Story post &middot; to build</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -1249,9 +1315,9 @@
 <!-- PIPELINE 5 -->
   <details class="story pipe">
     <summary>
-      <span class="num">16</span>
+      <span class="num">17</span>
       <span class="sumtext"><span class="sumtitle">You Will Not Be Forgotten</span><br>
-      <span class="tag build-t">Objection-handling &middot; to build</span></span>
+      <span class="tag build-t">Invitation post &middot; to build</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -1266,9 +1332,9 @@
 <!-- PIPELINE 7 -->
   <details class="story pipe">
     <summary>
-      <span class="num">17</span>
+      <span class="num">18</span>
       <span class="sumtext"><span class="sumtitle">Coaching My Own Kid</span><br>
-      <span class="tag build-t">Personal brand &middot; to build</span></span>
+      <span class="tag build-t">Story post &middot; to build</span></span>
       <span class="chev">&#9654;</span>
     </summary>
     <div class="body">
@@ -1283,7 +1349,7 @@
 <!-- PIPELINE 8 -->
   <details class="story pipe">
     <summary>
-      <span class="num">18</span>
+      <span class="num">19</span>
       <span class="sumtext"><span class="sumtitle">Giving Back</span><br>
       <span class="tag build-t">On hold</span></span>
       <span class="chev">&#9654;</span>
@@ -1312,7 +1378,7 @@
 
   <footer>
     <em>Character can't be claimed. Only revealed.</em><br>
-    Aligned &amp; Ascending &middot; built with Kindra Morse
+    Built with Kindra Morse &middot; Founder Story Coach &middot; The Throughline Method
   </footer>
 
 </div>
