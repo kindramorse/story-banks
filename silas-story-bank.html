@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silas · Story Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#1E1620;
+    --plum-raised:#281E2D;
+    --plum-line:rgba(203,108,230,0.22);
+    --orchid:#CB6CE6;
+    --blossom:#F4CBFF;
+    --parchment:#FAF8F4;
+    --muted:rgba(250,248,244,0.60);
+    --muted-strong:rgba(250,248,244,0.80);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--plum);
+    color:var(--parchment);
+    font-family:'Archivo Narrow',system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.62;
+    letter-spacing:0.1px;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:34px 22px 90px;}
+
+  /* ---------- masthead ---------- */
+  .eyebrow{
+    font-family:'Archivo Narrow',sans-serif;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.28em;
+    font-size:12px;
+    color:var(--orchid);
+  }
+  .mast{
+    border-bottom:1px solid var(--plum-line);
+    padding-bottom:26px;
+    margin-bottom:30px;
+  }
+  .mast h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(34px,9vw,52px);
+    line-height:1.02;
+    margin:14px 0 6px;
+    letter-spacing:-0.5px;
+  }
+  .mast .role{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:400;
+    color:var(--blossom);
+    font-size:clamp(18px,4.6vw,22px);
+    margin:0 0 16px;
+  }
+  .mast p{color:var(--muted-strong);margin:10px 0 0;}
+
+  /* ---------- throughline block ---------- */
+  .through{
+    background:var(--plum-raised);
+    border:1px solid var(--plum-line);
+    border-radius:14px;
+    padding:22px 20px;
+    margin:26px 0 8px;
+  }
+  .through h2{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:23px;
+    margin:8px 0 12px;
+    letter-spacing:-0.2px;
+  }
+  .through p{margin:0 0 12px;color:var(--muted-strong);}
+  .through .line{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    color:var(--blossom);
+    font-size:19px;
+    line-height:1.4;
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .tag{
+    font-family:'Archivo Narrow',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    font-size:11px;
+    color:var(--parchment);
+    border:1px solid var(--plum-line);
+    border-radius:999px;
+    padding:6px 12px;
+  }
+
+  /* ---------- callout ---------- */
+  .callout{
+    border:1px solid var(--plum-line);
+    border-left:3px solid var(--orchid);
+    border-radius:12px;
+    padding:20px;
+    margin:26px 0 40px;
+    background:rgba(203,108,230,0.05);
+  }
+  .callout h3{
+    font-family:'Archivo Narrow',sans-serif;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.2em;
+    font-size:12px;
+    color:var(--orchid);
+    margin:0 0 14px;
+  }
+  .callout ul{margin:0;padding-left:18px;}
+  .callout li{margin:0 0 12px;color:var(--muted-strong);}
+  .callout li:last-child{margin-bottom:0;}
+  .callout strong{color:var(--parchment);font-weight:600;}
+
+  /* ---------- story card ---------- */
+  .story{
+    border-top:1px solid var(--plum-line);
+    padding-top:34px;
+    margin-top:44px;
+  }
+  .story .num{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    color:var(--orchid);
+    font-size:15px;
+    letter-spacing:0.02em;
+  }
+  .story h2{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(26px,6.5vw,34px);
+    line-height:1.08;
+    margin:6px 0 14px;
+    letter-spacing:-0.4px;
+  }
+  .meta{
+    display:flex;flex-wrap:wrap;gap:10px 22px;
+    margin:0 0 22px;
+  }
+  .meta div{min-width:0;}
+  .meta .k{
+    font-family:'Archivo Narrow',sans-serif;
+    font-weight:700;text-transform:uppercase;
+    letter-spacing:0.2em;font-size:10.5px;color:var(--orchid);
+    display:block;margin-bottom:2px;
+  }
+  .meta .v{color:var(--muted-strong);font-size:15px;}
+
+  /* the ready-to-post script */
+  .script{
+    background:var(--parchment);
+    color:#241a29;
+    border-radius:14px;
+    padding:26px 24px 22px;
+    margin:6px 0 22px;
+    box-shadow:0 1px 0 rgba(203,108,230,0.35), 0 18px 40px -28px rgba(0,0,0,0.9);
+  }
+  .script .label{
+    font-family:'Archivo Narrow',sans-serif;
+    font-weight:700;text-transform:uppercase;
+    letter-spacing:0.24em;font-size:11px;
+    color:#8a4da3;margin:0 0 14px;
+  }
+  .script p{
+    margin:0 0 15px;
+    font-size:17.5px;line-height:1.6;
+    color:#241a29;
+  }
+  .script p:last-child{margin-bottom:0;}
+  .script .cta{
+    margin-top:18px;padding-top:16px;
+    border-top:1px solid rgba(36,26,41,0.14);
+    font-size:15.5px;color:#5a4363;
+  }
+  .script .cta em{font-family:'Fraunces',serif;font-style:italic;color:#8a4da3;}
+
+  /* strategist notes */
+  .notes{margin:0 0 6px;}
+  .notes .head{
+    font-family:'Archivo Narrow',sans-serif;
+    font-weight:700;text-transform:uppercase;
+    letter-spacing:0.22em;font-size:11px;color:var(--orchid);
+    margin:0 0 12px;
+  }
+  .pivot{
+    list-style:none;margin:0 0 18px;padding:0;
+    border-left:2px solid var(--plum-line);
+  }
+  .pivot li{padding:0 0 10px 16px;color:var(--muted-strong);font-size:15px;}
+  .pivot li:last-child{padding-bottom:0;}
+  .pivot .pk{
+    font-family:'Archivo Narrow',sans-serif;font-weight:700;
+    text-transform:uppercase;letter-spacing:0.14em;font-size:10.5px;
+    color:var(--blossom);margin-right:8px;
+  }
+  .pivot .blank{color:var(--muted);font-style:italic;}
+  .flags{margin:0;padding-left:18px;}
+  .flags li{margin:0 0 10px;color:var(--muted);font-size:14.5px;}
+  .flags li:last-child{margin-bottom:0;}
+  .flags b{color:var(--muted-strong);font-weight:600;}
+
+  /* held ideas */
+  .held{
+    border:1px dashed var(--plum-line);
+    border-radius:12px;padding:18px 20px;margin:22px 0 0;
+    background:rgba(250,248,244,0.02);
+  }
+  .held h3{
+    font-family:'Fraunces',serif;font-weight:500;font-style:italic;
+    font-size:19px;margin:0 0 8px;color:var(--blossom);
+  }
+  .held p{margin:0 0 8px;color:var(--muted);font-size:15px;}
+  .held p:last-child{margin-bottom:0;}
+
+  .foot{
+    margin-top:56px;border-top:1px solid var(--plum-line);
+    padding-top:20px;color:var(--muted);font-size:13px;
+    text-transform:uppercase;letter-spacing:0.22em;
+    font-family:'Archivo Narrow',sans-serif;font-weight:600;
+  }
+  a{color:var(--orchid);}
+  ::selection{background:rgba(203,108,230,0.3);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <span class="eyebrow">Story Bank · Working Draft</span>
+    <h1>Silas</h1>
+    <p class="role">For the men rebuilding themselves as fathers and husbands</p>
+    <p>Excavated from our session. Each entry is a ready-to-record script with the skeleton and the flags underneath it. Read the script, make it sound like you, post it. Everything under the parchment is for you and me, not for the feed.</p>
+  </header>
+
+  <section class="through">
+    <span class="eyebrow">The Throughline</span>
+    <h2>Loving yourself is the ground everything else stands on</h2>
+    <p>Every time you abandoned yourself, you abandoned your convictions, and you lost the people you were trying to keep. When you learned to take accountability and stand in what you believe, your outcomes came back into your own hands.</p>
+    <p class="line">The most fathering thing a man can do is stop leaving himself behind.</p>
+    <div class="tags">
+      <span class="tag">Humility</span>
+      <span class="tag">Quiet Strength</span>
+      <span class="tag">Confidence</span>
+      <span class="tag">Lead without hesitation</span>
+      <span class="tag">Be counted on</span>
+    </div>
+  </section>
+
+  <section class="callout">
+    <h3>Before you post · four calls to make</h3>
+    <ul>
+      <li><strong>Names.</strong> The scripts keep your family protected by role, so your wife, your kids' mom and your kids are not named. Tell me which names you want to use publicly and I will fold them in. Until then they stay anonymized.</li>
+      <li><strong>The business you were building.</strong> Story 01 keeps that business unnamed and unspecified on purpose, so the post reads as a man losing something he loved, with none of the old sales-world texture on it. That protects the story and the buyer it attracts. Keep it that way.</li>
+      <li><strong>Piper, and grief.</strong> Nothing about losing your daughter is drafted here. That is your most sacred material and possibly your most powerful, and it should enter content only when you decide to and on the terms you choose. Let's build it together in a session, never on the fly.</li>
+      <li><strong>Your CTA and your offer.</strong> The closes below are generic on purpose. You need your own invitation and, if you want one, your own DM keyword. We name your offer clearly first, then I write the real ask.</li>
+    </ul>
+  </section>
+
+  <!-- STORY 01 -->
+  <article class="story">
+    <span class="num">Story 01 · the anchor</span>
+    <h2>The phone I set down</h2>
+    <div class="meta">
+      <div><span class="k">Reveals</span><span class="v">The cost of abandoning your own convictions</span></div>
+      <div><span class="k">Format</span><span class="v">Story post · run warm</span></div>
+    </div>
+
+    <div class="script">
+      <p class="label">Ready to record</p>
+      <p>In June 2016 I was standing at my kitchen sink with the phone already dialing, looking out at the backyard.</p>
+      <p>The night before I had been handed a choice, my family or the thing I had spent two years building, and I only got to keep one of them.</p>
+      <p>So I stood there with the call ringing in my hand, and I set the phone down on the counter.</p>
+      <p>I told myself this was what a good father does, that giving it up was the loving thing and the responsible thing.</p>
+      <p>There was a rock sitting in my stomach and my hands would not go still, and I felt like the floor had dropped out while I kept staring at that yard.</p>
+      <p>I gave all of it up to keep my family, and the marriage ended anyway, and I lost living with my kids for two years after that.</p>
+      <p>I can still see that window and that sink and the phone lying face down on the counter.</p>
+      <p>Most of us have a version of that kitchen, a room where we quietly set ourselves down to hold onto someone, and only understood much later that we were the thing they needed us to keep.</p>
+      <p class="cta"><em>Turn to the reader, then the offer.</em> Name the man who is about to set his own phone down, then your invitation.</p>
+    </div>
+
+    <div class="notes">
+      <p class="head">Skeleton · Belief-Pivot</p>
+      <ul class="pivot">
+        <li><span class="pk">Moment</span>Standing at the sink, phone dialing, setting it down after the ultimatum.</li>
+        <li><span class="pk">False belief</span>Giving up what I am building is how I save my family.</li>
+        <li><span class="pk">Lesson</span><span class="blank">left blank on purpose, never written</span></li>
+        <li><span class="pk">True belief</span>The day you set yourself down to keep someone is the day you start losing them anyway.</li>
+      </ul>
+      <p class="head">Flags</p>
+      <ul class="flags">
+        <li><b>Villain is a force.</b> The antagonist is the ultimatum and the pressure to choose, never a person. Keep it there.</li>
+        <li><b>Loop check.</b> Cover carries a character, a risk and a clock (the call already dialing). The open question is why he set the phone down. Head fake is the reversal that giving it up cost him the family anyway. Holds.</li>
+        <li><b>Landing type.</b> Reader turn. Do not strip the last line in the placard check, it extends the story onto the reader rather than explaining it.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- STORY 02 -->
+  <article class="story">
+    <span class="num">Story 02 · the mirror</span>
+    <h2>I hope she likes me</h2>
+    <div class="meta">
+      <div><span class="k">Reveals</span><span class="v">Standing in your convictions while afraid</span></div>
+      <div><span class="k">Format</span><span class="v">Story post · run warm</span></div>
+    </div>
+
+    <div class="script">
+      <p class="label">Ready to record</p>
+      <p>In March 2019 we were sitting in my car after work and my hands were clammy on the wheel.</p>
+      <p>A few weeks before, I had told her the one thing I would not move on, that I am fully in my kids' life and she would need to get along with their mom for any of this to work.</p>
+      <p>I was scared she would agree out loud and mean none of it, and scared the two of them would take one look and decide to be enemies.</p>
+      <p>Sitting there in the car, I asked if she wanted to come meet my boys and meet their mom.</p>
+      <p>She said, yeah, I can do that, and then, I hope she likes me.</p>
+      <p>I left the condition exactly where I had set it, and I said the true thing out loud, and I stayed with it while I waited to see what would happen.</p>
+      <p>Their mom stood up for us at our wedding.</p>
+      <p>The two women I was sure would spend their lives circling each other now text back and forth without me anywhere in the middle.</p>
+      <p class="cta"><em>Turn to the reader, then the offer.</em> Name the man softening his own line to keep the peace, then your invitation.</p>
+    </div>
+
+    <div class="notes">
+      <p class="head">Skeleton · Belief-Pivot</p>
+      <ul class="pivot">
+        <li><span class="pk">Moment</span>The car after work, sweaty hands, asking her to meet the kids and their mom after setting the condition.</li>
+        <li><span class="pk">False belief</span>If I hold this hard line she runs, or she fakes it, and the two women become enemies.</li>
+        <li><span class="pk">Lesson</span><span class="blank">left blank on purpose, never written</span></li>
+        <li><span class="pk">True belief</span>Holding the line on the non-negotiable is what made the family I feared losing possible.</li>
+      </ul>
+      <p class="head">Flags</p>
+      <ul class="flags">
+        <li><b>The pair.</b> This is Story 01 photographed from the other side, the fork he took. Post it a week or two after 01 so the second one lands against the first.</li>
+        <li><b>Villain is a force.</b> The antagonist is his own fear, never Emma or their mom.</li>
+        <li><b>Landing type.</b> Resonant callback, the two women in the present. Reads as an image, not a lesson.</li>
+        <li><b>Names.</b> Your wife and their mom are unnamed. Say the word and I add them.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- STORY 03 -->
+  <article class="story">
+    <span class="num">Story 03 · the contradiction</span>
+    <h2>I blamed her for two years</h2>
+    <div class="meta">
+      <div><span class="k">Reveals</span><span class="v">The turn from blame to owning your outcomes</span></div>
+      <div><span class="k">Format</span><span class="v">Story post · run warm to hot</span></div>
+    </div>
+
+    <div class="script">
+      <p class="label">Ready to record</p>
+      <p>In November 2016 they pulled me into the office and let me go over a contract they claimed had lapsed, and everyone on that floor knew it was not the real reason.</p>
+      <p>A coworker and I had never gotten along, and one afternoon I made an offhand comment where she could hear it, she disappeared, and fifteen minutes later I was finished.</p>
+      <p>Months afterward I heard she had gone around bragging that she was the one who got me fired.</p>
+      <p>So I had my reason, and I told the story that way for a long time, the one where she did this to me.</p>
+      <p>What I left out was that I had walked away from the thing I loved building a few months earlier, and I had been moving through my days as a husk ever since, feeling almost nothing.</p>
+      <p>I said careless things because some part of me had already given up on the man who was saying them.</p>
+      <p>She lit the match, and I had been standing in gasoline for months.</p>
+      <p>I still remember her name, and somewhere along the way I stopped building my whole story around it.</p>
+      <p class="cta"><em>Turn to the reader, then the offer.</em> Name the man carrying a villain he built for himself, then your invitation.</p>
+    </div>
+
+    <div class="notes">
+      <p class="head">Skeleton · Belief-Pivot</p>
+      <ul class="pivot">
+        <li><span class="pk">Moment</span>Pulled into the office, fired under a pretext, later hearing she bragged about it.</li>
+        <li><span class="pk">False belief</span>This is her fault, and the world keeps flipping me the bird.</li>
+        <li><span class="pk">Lesson</span><span class="blank">left blank on purpose, never written</span></li>
+        <li><span class="pk">True belief</span>He was careless because he had given up on himself, and the outcome was his the whole time.</li>
+      </ul>
+      <p class="head">Flags</p>
+      <ul class="flags">
+        <li><b>Villain rescue.</b> The transcript hands you a named villain who literally bragged about it. The whole point of this post is dismantling her as the villain, so she stays unnamed and the real force is his own self-abandonment.</li>
+        <li><b>Loop check.</b> Head fake sits in the middle ("what I left out"), unspent on the cover. That is the strongest structure in the bank.</li>
+        <li><b>Widest gap.</b> This is the deepest vein and we barely tapped it. Worth its own session before you build more from it.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- STORY 04 -->
+  <article class="story">
+    <span class="num">Story 04 · the proof</span>
+    <h2>The write up that gave it back</h2>
+    <div class="meta">
+      <div><span class="k">Reveals</span><span class="v">Accountability as the way you love yourself</span></div>
+      <div><span class="k">Format</span><span class="v">Story post · run warm</span></div>
+    </div>
+
+    <div class="script">
+      <p class="label">Ready to record</p>
+      <p>Not long ago I sat across from my HR manager and my regional manager and took a formal write up, and it cost me a promotion I had been in line for.</p>
+      <p>The old me knew exactly what to do with a moment like that, which was to find the coworker who took it upstairs, make her the whole reason and carry it around for a year.</p>
+      <p>I sat with it instead of doing that, and I looked hard at the part that was mine, and I owned it out loud to the people who could have written me off for good.</p>
+      <p>Then I changed how I worked, and I did it for me rather than for them.</p>
+      <p>The raises started coming back, the commendations started coming back, and the same managers who wrote me up are the ones pushing me toward the bigger role now.</p>
+      <p>These days I take my time before I answer them.</p>
+      <p>The outcome has been mine to build the whole way through, and it took losing a promotion to finally believe that.</p>
+      <p class="cta"><em>Turn to the reader, then the offer.</em> Name the man one hard conversation away from getting himself back, then your invitation.</p>
+    </div>
+
+    <div class="notes">
+      <p class="head">Skeleton · Belief-Pivot</p>
+      <ul class="pivot">
+        <li><span class="pk">Moment</span>Across from HR and the regional manager, taking the write up, losing the promotion.</li>
+        <li><span class="pk">False belief</span>Taking accountability means I am the problem, and losing the promotion means I lost.</li>
+        <li><span class="pk">Lesson</span><span class="blank">left blank on purpose, never written</span></li>
+        <li><span class="pk">True belief</span>Accountability puts my outcomes back in my own hands, which is the most loving thing I can do for myself.</li>
+      </ul>
+      <p class="head">Flags</p>
+      <ul class="flags">
+        <li><b>This is your result story.</b> It proves the transformation the other three set up. It earns the offer more than any of them, so it is a strong one to lead a launch with.</li>
+        <li><b>Landing type.</b> True-belief landing in his own words. It states his realization as fact about him, and stops short of teaching the reader what it means.</li>
+        <li><b>Placeholders.</b> Swap "not long ago" for the real month if you are comfortable, and drop in the real number of raises if you want the hard specific.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- BONUS: conviction -->
+  <article class="story">
+    <span class="num">Story 05 · a different shape</span>
+    <h2>The story we hand men</h2>
+    <div class="meta">
+      <div><span class="k">Reveals</span><span class="v">Your stance, through what you refuse to accept</span></div>
+      <div><span class="k">Format</span><span class="v">Conviction post · talking head, no arc</span></div>
+    </div>
+
+    <div class="script">
+      <p class="label">Ready to record</p>
+      <p>There is a story we hand men early and often, that loving your family means putting yourself dead last. Provide, protect, and then quietly disappear.</p>
+      <p>I believed every word of it. I set down the thing I had spent years building to prove I was a good father, and I lost the marriage anyway, and I lost daily life with my kids anyway.</p>
+      <p>I will not stand here and call that love, and I will not call it noble or strong.</p>
+      <p>A father who has abandoned himself is handing his kids the abandoning, one ordinary day at a time.</p>
+      <p>The most fathering thing I have done in my life was learn to quit leaving myself behind.</p>
+      <p class="cta"><em>Conviction posts end on the stance.</em> No CTA arc. If you want a door, one plain line after a beat of silence.</p>
+    </div>
+
+    <div class="notes">
+      <p class="head">Flags</p>
+      <ul class="flags">
+        <li><b>Why this shape.</b> Not every moment wants an arc. This one takes the kitchen and holds it as a single image under a stance, so the character revealed is yours through what you refuse to call normal.</li>
+        <li><b>Loop dial.</b> Barely touched, on purpose. A conviction post runs on moral clarity, and forcing questions or a plot onto it dilutes the stance.</li>
+        <li><b>Villain is a force.</b> The antagonist is the story men inherit, never a person.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- STORY 06: second conviction -->
+  <article class="story">
+    <span class="num">Story 06 · another stance</span>
+    <h2>The strength men get sold</h2>
+    <div class="meta">
+      <div><span class="k">Reveals</span><span class="v">Your stance on accountability, through what you refuse to call strength</span></div>
+      <div><span class="k">Format</span><span class="v">Conviction post · talking head, no arc</span></div>
+    </div>
+
+    <div class="script">
+      <p class="label">Ready to record</p>
+      <p>There is a version of strength a lot of men get sold, the one where you hold your ground by turning everything that went wrong into somebody else's doing.</p>
+      <p>I lived there for years. I lost a job and a marriage inside a short stretch, and both times I went hunting for the person or the pressure that did it to me, and being right about them kept me stuck exactly where I stood.</p>
+      <p>I will not call that strength anymore.</p>
+      <p>The strongest thing I have watched a man do is sit in a room, look straight at the part that was his, and own it out loud before anyone could make him.</p>
+      <p>A man who can carry his own part is a man his family can finally lean their weight on.</p>
+      <p class="cta"><em>Conviction posts end on the stance.</em> No CTA arc. A beat of silence, then one plain line if you want a door.</p>
+    </div>
+
+    <div class="notes">
+      <p class="head">Flags</p>
+      <ul class="flags">
+        <li><b>Villain is a force.</b> The antagonist is the version of strength men inherit, never the coworker and never the ex. The whole point is that he stopped needing a person to blame.</li>
+        <li><b>The pair to 05.</b> Story 05 takes the stance on self-abandonment, this one takes it on blame. Two stances that alternate well between the narratives.</li>
+        <li><b>Loop dial.</b> Barely touched. The stance carries it, so no head fake and no question forced on top.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- HOW-TO 01 -->
+  <article class="story">
+    <span class="num">Anchored how-to · 01</span>
+    <h2>How to take accountability when it wasn't all your fault</h2>
+    <div class="meta">
+      <div><span class="k">Reveals</span><span class="v">That owning your part is how your outcomes come back to you</span></div>
+      <div><span class="k">Format</span><span class="v">How-to · HEIT · moderate loop</span></div>
+      <div><span class="k">Anchors</span><span class="v">Story 04, the write up</span></div>
+    </div>
+
+    <div class="script">
+      <p class="label">Ready to record</p>
+      <p>Most men hear the word accountability and think it means admitting the whole thing was their fault. That one belief kept me stuck for years.</p>
+      <p>Owning your part is what puts your outcomes back in your own hands. As long as the coworker or the boss or the ex is the reason, you are waiting on them to change before your own life is allowed to.</p>
+      <p>A while back I sat across from my HR manager and my regional manager and took a formal write up, and it cost me a promotion I was in line for. The old me would have spent a year making the coworker who reported me the whole reason. I sat with it, found the part that was mine, and owned it out loud to the people who could have written me off. The raises came back, the commendations came back, and the same managers are pushing me toward the bigger role now.</p>
+      <p>Put the whole mess on paper and draw a line between the part that is yours and the part that is theirs, so you can see where you end and they begin.</p>
+      <p>Say your part out loud to the person who needs to hear it before you defend a single other thing.</p>
+      <p>Then change one specific way you work, and do it for yourself rather than to win anyone back.</p>
+      <p>That write up is still sitting in a file somewhere with my name on it, and it is one of the best things that ever happened to me.</p>
+      <p class="cta"><em>Turn to the reader, then the offer.</em> Name the man still carrying a grudge that is costing him, then your invitation.</p>
+    </div>
+
+    <div class="notes">
+      <p class="head">Flags</p>
+      <ul class="flags">
+        <li><b>Stays yours.</b> The three moves are generic, the scene is not. The write up is what keeps this from sounding like every other accountability post on the internet.</li>
+        <li><b>Do not post the same week as Story 04.</b> They share the same scene, and the feed will notice the repeat.</li>
+        <li><b>Loop dial moderate.</b> The open carries a small stake and a quiet question, what did owning it cost him, which is enough to hold without running hot.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- HOW-TO 02 -->
+  <article class="story">
+    <span class="num">Anchored how-to · 02</span>
+    <h2>How to set a family boundary without blowing it up</h2>
+    <div class="meta">
+      <div><span class="k">Reveals</span><span class="v">That holding the line early is what protects the people you love</span></div>
+      <div><span class="k">Format</span><span class="v">How-to · HEIT · moderate loop</span></div>
+      <div><span class="k">Anchors</span><span class="v">Story 02, the car</span></div>
+    </div>
+
+    <div class="script">
+      <p class="label">Ready to record</p>
+      <p>A lot of men soften the hard condition to keep a new relationship comfortable, and then spend years paying for the thing they were too scared to say.</p>
+      <p>Stating the boundary early and plainly is what tells everyone where the solid ground is, long before anyone is in deep enough to get hurt by not knowing.</p>
+      <p>In March 2019 I sat in my car with the woman I was falling for, hands clammy on the wheel, and told her I was fully in my kids' life and she would have to get along with their mom for any of this to work. I was terrified she would agree and mean none of it. Their mom ended up standing beside us at our wedding.</p>
+      <p>Name your one non-negotiable before you are in deep, so it lands as a condition and never as an ambush a year later.</p>
+      <p>Say it as your own standard, the thing you are committed to creating, and leave her free to decide how she meets it.</p>
+      <p>Then prove it with slow steps, the gradual introductions and the lines you hold to, and let time do the convincing that words cannot.</p>
+      <p>The whole friendship those two women have now started with one clammy conversation in a parked car that I almost talked myself out of.</p>
+      <p class="cta"><em>Turn to the reader, then the offer.</em> Name the man about to soften his line to keep the peace, then your invitation.</p>
+    </div>
+
+    <div class="notes">
+      <p class="head">Flags</p>
+      <ul class="flags">
+        <li><b>Stays yours.</b> The three moves are teachable anywhere. The parked car is the only place they become believable coming from him.</li>
+        <li><b>Do not post the same week as Story 02.</b> Same scene, same reason.</li>
+        <li><b>Names.</b> The woman he was falling for and the kids' mom stay unnamed until you confirm.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- INVITATION TEMPLATE -->
+  <article class="story">
+    <span class="num">Invitation · template</span>
+    <h2>The ask, with the offer left blank</h2>
+    <div class="meta">
+      <div><span class="k">Reveals</span><span class="v">Nothing withheld here, this one states the offer plainly</span></div>
+      <div><span class="k">Format</span><span class="v">Invitation post · conversion · one blank to fill</span></div>
+    </div>
+
+    <div class="script">
+      <p class="label">Fill the offer, then it's ready</p>
+      <p>For years I believed a good father puts himself dead last, and it cost me almost everything before I learned a better way.</p>
+      <p>If you are a father who keeps abandoning yourself to hold everyone else together, and you are tired of losing the people you are trying so hard to keep, this next part is for you.</p>
+      <div style="border:1px dashed var(--orchid);border-radius:10px;padding:16px;margin:4px 0 4px;background:rgba(203,108,230,0.06);">
+        <p style="font-family:'Fraunces',serif;font-style:italic;color:#8a4da3;margin:0 0 12px;font-size:16.5px;">Your offer goes here. This is the one blank only you can fill.</p>
+        <p style="margin:0 0 7px;color:#5a4363;font-size:15px;">Name it in plain words.</p>
+        <p style="margin:0 0 7px;color:#5a4363;font-size:15px;">Say what it is, a call, a group, an eight week program, a guide.</p>
+        <p style="margin:0 0 7px;color:#5a4363;font-size:15px;">Say what a man walks out with that he did not have walking in.</p>
+        <p style="margin:0;color:#5a4363;font-size:15px;">Give him the single next step to take today.</p>
+      </div>
+      <p class="cta"><em>Invitation posts state the ask plainly.</em> Once the offer is named, this stops being story work and becomes the real three-beat ask.</p>
+    </div>
+
+    <div class="notes">
+      <p class="head">Flags</p>
+      <ul class="flags">
+        <li><b>This is the one post I could not write for you, on purpose.</b> An invitation is a conversion asset, and the ask is only ever as clear as the offer sitting behind it.</li>
+        <li><b>Once you name the offer</b>, I write the plain three-beat version and a DM keyword if you want one. That work is conversion copy, not story building.</li>
+        <li><b>Keep the open short.</b> An invitation warms the reader for a line and then gets to the point. It does not withhold the way a story post does.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- HELD -->
+  <article class="story">
+    <span class="num">Held · not drafted</span>
+    <h2>The ones we build together, later</h2>
+
+    <div class="held">
+      <h3>Introducing yourself as a father when one of your kids isn't there</h3>
+      <p>This is your idea, and it is Piper. It is likely the most resonant thing you could ever put in front of a grieving father, and it is the story that most deserves your explicit say-so and your own words.</p>
+      <p>I have not drafted a line of it. When you are ready, we sit down and build it slowly, with only what you choose to share.</p>
+    </div>
+
+    <div class="held">
+      <h3>How to laugh again without feeling like a traitor</h3>
+      <p>Your second idea, and grief-adjacent in the same way. There is a real post here about the first time joy came back and felt like a betrayal, and it needs your lived detail before I touch it.</p>
+      <p>Same rule. You decide how public the grief gets, and we build from there.</p>
+    </div>
+
+    <div class="held">
+      <h3>Loving yourself without abandoning anyone</h3>
+      <p>This came straight out of the session, the idea that you can love someone without leaving yourself behind. It is more teaching than story, so it wants the how-to shape with one of the moments above sitting inside it as the proof beat.</p>
+      <p>Good candidate once your offer is named, because it walks a man right up to what you sell.</p>
+    </div>
+  </article>
+
+  <p class="foot">Kindra Morse · Founder Story Coach · The Throughline Method · Working Draft</p>
+
+</div>
+</body>
+</html>
