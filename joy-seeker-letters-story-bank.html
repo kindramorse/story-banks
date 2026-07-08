@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joy Seeker Letters — Story Bank</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..800&family=Mulish:wght@400;500;600;700&family=Special+Elite&display=swap');
+
+:root{
+  --parchment:#FAF6EC;
+  --parchment-2:#F2E9D6;
+  --ink:#2B2722;
+  --ink-soft:#5f574b;
+  --gold:#C0902F;
+  --gold-bright:#E0B24A;
+  --sage:#6f7f45;
+  --charcoal:#211D18;
+  --line:rgba(43,39,34,0.16);
+  --display:'Fraunces',Georgia,serif;
+  --body:'Mulish',system-ui,sans-serif;
+  --type:'Special Elite','Courier New',monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  background:var(--parchment);
+  color:var(--ink);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- utility ---------- */
+.eyebrow{
+  font-family:var(--type);
+  text-transform:uppercase;
+  letter-spacing:0.22em;
+  font-size:0.72rem;
+  color:var(--gold);
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(1.2rem,4vw,3rem)}
+.perf{border:none;border-top:2px dashed var(--line);margin:0}
+
+/* ---------- nav ---------- */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(250,246,236,0.92);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:60px}
+nav .brand{font-family:var(--type);font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink)}
+nav .links{display:flex;gap:1.4rem;flex-wrap:wrap}
+nav a{font-family:var(--type);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none}
+nav a:hover{color:var(--gold)}
+@media(max-width:760px){nav .links{display:none}}
+
+/* ---------- hero ---------- */
+.hero{text-align:center;padding:clamp(3rem,8vw,6rem) 0 clamp(2rem,5vw,3.5rem)}
+.seal{width:112px;height:112px;margin:0 auto 1.6rem}
+.hero h1{
+  font-family:var(--display);
+  font-optical-sizing:auto;
+  font-weight:600;
+  font-size:clamp(2.6rem,7vw,4.6rem);
+  line-height:1.02;
+  letter-spacing:-0.01em;
+  margin-bottom:0.4rem;
+}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero .tag{font-family:var(--type);letter-spacing:0.18em;text-transform:uppercase;font-size:0.8rem;color:var(--sage);margin-top:0.6rem}
+.hero .lede{max-width:38rem;margin:1.6rem auto 0;font-size:1.12rem;color:var(--ink-soft)}
+
+/* ---------- sections ---------- */
+section{padding:clamp(2.6rem,6vw,4.5rem) 0}
+.sec-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:1.8rem}
+.sec-head h2{font-family:var(--display);font-weight:600;font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.05}
+.sec-head .num{font-family:var(--type);color:var(--gold);font-size:0.8rem;letter-spacing:0.1em;white-space:nowrap;padding-top:0.4rem}
+.sec-intro{max-width:44rem;color:var(--ink-soft);margin-bottom:2rem;font-size:1.02rem}
+
+.alt{background:var(--parchment-2)}
+
+/* brand grid */
+.grid{display:grid;gap:1.1rem}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+.card{
+  background:#fffdf7;
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:1.4rem 1.5rem;
+}
+.card h3{font-family:var(--display);font-weight:600;font-size:1.2rem;margin-bottom:0.5rem}
+.card .lbl{font-family:var(--type);font-size:0.66rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--sage);display:block;margin-bottom:0.6rem}
+.card p{font-size:0.96rem;color:var(--ink-soft)}
+
+/* swatches + type */
+.swatches{display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:0.4rem}
+.sw{width:112px}
+.sw .chip{height:56px;border-radius:4px;border:1px solid var(--line)}
+.sw small{font-family:var(--type);font-size:0.62rem;letter-spacing:0.06em;color:var(--ink-soft);display:block;margin-top:0.4rem}
+
+/* content post cards */
+.post{
+  background:#fffdf7;border:1px solid var(--line);border-radius:4px;
+  padding:1.6rem 1.7rem;margin-bottom:1.1rem;
+}
+.post .top{display:flex;align-items:center;justify-content:space-between;gap:0.8rem;margin-bottom:0.9rem;flex-wrap:wrap}
+.post h3{font-family:var(--display);font-weight:600;font-size:1.28rem}
+.pill{font-family:var(--type);font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;padding:0.28rem 0.6rem;border-radius:999px;white-space:nowrap}
+.pill.ready{background:rgba(111,127,69,0.16);color:var(--sage)}
+.pill.hold{background:rgba(192,144,47,0.18);color:var(--gold)}
+.pill.confirm{background:rgba(43,39,34,0.08);color:var(--ink-soft)}
+.screen{
+  font-family:var(--type);font-size:0.94rem;line-height:1.9;
+  background:var(--parchment);border-left:3px solid var(--gold);
+  padding:0.9rem 1.1rem;border-radius:0 4px 4px 0;margin:0.4rem 0 1rem;white-space:pre-line;
+}
+.cap{font-size:0.98rem;color:var(--ink)}
+.cap b{font-family:var(--type);font-weight:400;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--sage);display:block;margin-bottom:0.35rem}
+.moment{font-size:0.86rem;color:var(--ink-soft);font-style:italic;margin-bottom:0.8rem}
+.subhead{font-family:var(--type);text-transform:uppercase;letter-spacing:0.16em;font-size:0.8rem;color:var(--gold);margin:2.4rem 0 1.1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--line)}
+
+/* held / sacred block */
+.held{background:var(--charcoal);color:#EDE6D6}
+.held .sec-head h2{color:#fff}
+.held .sec-intro{color:#c9c0af}
+.held .eyebrow{color:var(--gold-bright)}
+.held .card{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.14)}
+.held .card h3{color:#fff}
+.held .card p{color:#cfc7b5}
+.held .card .lbl{color:var(--gold-bright)}
+.sacred{border:1px solid var(--gold-bright)!important;background:rgba(224,178,74,0.06)!important}
+
+/* system steps */
+.steps{counter-reset:step;display:grid;gap:0.9rem}
+.step{display:flex;gap:1rem;background:#fffdf7;border:1px solid var(--line);border-radius:4px;padding:1.1rem 1.3rem}
+.step .n{font-family:var(--type);color:var(--gold);font-size:0.9rem;flex:0 0 auto}
+.step p{font-size:0.96rem}
+.step b{font-family:var(--display)}
+
+/* questions */
+.qgroup{margin-bottom:1.4rem}
+.qgroup h4{font-family:var(--type);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--sage);margin-bottom:0.7rem}
+.qgroup ul{list-style:none;display:grid;gap:0.55rem}
+.qgroup li{padding-left:1.3rem;position:relative;color:var(--ink);font-size:1rem}
+.qgroup li::before{content:"\273A";position:absolute;left:0;color:var(--gold)}
+
+/* footer */
+footer{background:var(--charcoal);color:#c9c0af;text-align:center;padding:3rem 0}
+footer .tag{font-family:var(--type);letter-spacing:0.2em;text-transform:uppercase;font-size:0.72rem;color:var(--gold-bright)}
+footer p{font-size:0.9rem;margin-top:0.6rem}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">Joy Seeker Letters</span>
+    <div class="links">
+      <a href="#ready">Ready to Post</a>
+      <a href="#system">The System</a>
+      <a href="#veins">To Mine</a>
+      <a href="#held">Hold With Care</a>
+      <a href="#questions">Questions</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <svg class="seal" viewBox="0 0 200 200" aria-hidden="true">
+      <defs><path id="c" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+      <circle cx="100" cy="100" r="88" fill="none" stroke="#C0902F" stroke-width="2"/>
+      <circle cx="100" cy="100" r="60" fill="none" stroke="#C0902F" stroke-width="1.4"/>
+      <g stroke="#C0902F" stroke-width="2.4" fill="none" stroke-linecap="round">
+        <path d="M62 118 L88 82 L104 100 L120 76 L140 118 Z"/>
+        <path d="M100 66 c-6,-9 -20,-3 -14,7 c3,6 14,12 14,12 c0,0 11,-6 14,-12 c6,-10 -8,-16 -14,-7 z" fill="#C0902F" stroke="none"/>
+        <g stroke-width="2"><line x1="100" y1="52" x2="100" y2="42"/><line x1="84" y1="56" x2="79" y2="47"/><line x1="116" y1="56" x2="121" y2="47"/></g>
+      </g>
+      <text fill="#C0902F" font-family="Special Elite, monospace" font-size="12" letter-spacing="2.2"><textPath href="#c" startOffset="3%">SEEK YOUR JOY WITH A VENGEANCE</textPath></text>
+      <text fill="#C0902F" font-family="Special Elite, monospace" font-size="12" letter-spacing="3"><textPath href="#c" startOffset="62%">JOY SEEKER LETTERS</textPath></text>
+    </svg>
+    <div class="eyebrow">Story Bank &nbsp;&middot;&nbsp; Wendy Cole</div>
+    <h1>The <em>voice</em>, the stories,<br>and everything ready to send</h1>
+    <p class="tag">Seek your joy with a vengeance</p>
+    <p class="lede">One place for Wendy's real material and the content built from it. Her words are the asset, so everything here starts in a true moment and sounds like her. Post the ready pieces first, hold the tender ones until she is steady, and keep the sacred ones sacred.</p>
+  </div>
+</header>
+
+<hr class="perf">
+
+<section id="ready">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>Ready to post now</h2></div>
+    <p class="sec-intro">Finished pieces in her voice. On-screen text sits over her product or nature photos, the caption goes below, and each ends with a share line or comment LETTER to feed the free letter. Lead with these while she is depleted.</p>
+
+    <div class="post">
+      <div class="top"><h3>We're all terminal</h3><span class="pill ready">Ready · carries her mom, let it breathe</span></div>
+      <p class="moment">From her mom, who lived twelve years with terminal cancer and kept laughing.</p>
+      <div class="screen">My mom had terminal cancer for twelve years.
+Whenever I got scared about it, she would just laugh at me.
+"Wendy," she'd say. "We're all terminal, the day we're born."
+She was not being grim. She was the most alive person I knew.
+She just understood, sooner than the rest of us, that no day is promised.
+So she refused to waste the ones she had being afraid.</div>
+      <p class="cap"><b>Caption</b>My mom lived twelve years knowing how her story would end, and she spent them laughing more than anyone I have ever met. Whenever I would spiral, she would tease me. We are all terminal, she'd say, the day we're born. It took me most of my life to understand she was handing me a gift. None of us gets a guarantee. So the joy is not something to save for later. It is the whole point of right now. Share this with someone who needs to stop waiting.</p>
+    </div>
+
+    <div class="post">
+      <div class="top"><h3>Education and being a lady</h3><span class="pill ready">Ready · legacy post</span></div>
+      <p class="moment">Three generations: a grandmother married at fifteen who educated all her girls.</p>
+      <div class="screen">My grandmother got married at fifteen.
+She raised ten children.
+And she still made sure every one of her girls got an education.
+My mom carried that same fire and drilled it into me.
+The two things nobody can ever take from you are an education and being a lady.
+Three generations of women, and that was the inheritance that mattered most.</div>
+      <p class="cap"><b>Caption</b>My grandmother married at fifteen and raised ten children, and she still made certain every daughter of hers was educated. My mom took that fire and handed it straight to me. She used to say the two things nobody can ever take from you are an education and being a lady. I did not fully understand it as a girl. I understand it now. Almost everything can be lost or taken, and what you know and how you carry yourself stay yours. That is the kind of thing worth passing down. Share this with a woman whose mother or grandmother made her who she is.</p>
+    </div>
+
+    <div class="post">
+      <div class="top"><h3>Camping, and the joy that got stolen</h3><span class="pill ready">Ready · on-brand</span></div>
+      <p class="moment">At the reservoir she loves, doing all the mom work, too agitated to feel it.</p>
+      <div class="screen">I was standing at a campsite I had begged my family to go to.
+The lake, the pines, the exact place I love most in the world.
+And I was so on edge I could barely feel any of it.
+Menopause has a way of stealing the joy right out of the moments you waited for.
+I am learning to go back and take it, on purpose, even on the hard days.</div>
+      <p class="cap"><b>Caption</b>This is the whole reason I named it the way I did. Some seasons you have to seek your joy on purpose, with a little bit of a vengeance, because it does not come easy anymore. Share this with a woman who needs the reminder today.</p>
+    </div>
+
+    <div class="post">
+      <div class="top"><h3>The permission she kept waiting for</h3><span class="pill ready">Ready · origin thesis</span></div>
+      <p class="moment">The deepest why behind the letters.</p>
+      <div class="screen">I spent most of my life waiting for permission.
+Permission to take up space. Permission to be seen. Permission to want more.
+No one was ever going to hand me that.
+So one day I stopped waiting and I started writing.
+These letters are me giving myself the permission I kept waiting for, and handing it to you.</div>
+      <p class="cap"><b>Caption</b>If you have been waiting for someone to tell you it is your turn, let this be it. Comment LETTER and I will send you this month's for free.</p>
+    </div>
+
+    <div class="post">
+      <div class="top"><h3>Tofu the chicken on the sticker</h3><span class="pill ready">Ready · sweet &amp; light</span></div>
+      <p class="moment">The chick on her sticker is her real chicken, who died.</p>
+      <div class="screen">There is a chicken on the sticker inside my letters.
+Her name was Tofu, and yes, she was my actual chicken.
+She is gone now, like a few of my favorite small creatures.
+I put her on the sticker because the things we love should get to stay with us somehow.
+That, honestly, is what these letters are about.</div>
+      <p class="cap"><b>Caption</b>Everything I make ends up holding something I did not want to forget. Comment LETTER and I will send you this month's, chicken and all.</p>
+    </div>
+
+    <div class="post">
+      <div class="top"><h3>The subscriber from her past</h3><span class="pill ready">Ready</span></div>
+      <p class="moment">Her first subscriber was a high school classmate she had not spoken to since 2009.</p>
+      <div class="screen">My very first subscriber was a stranger to me.
+Until my husband looked her up and said, you went to high school with her.
+We had not spoken since 2009.
+And there she was, all these years later, paying to read what I had to say.
+Sometimes the people who show up for you are not the ones you expect.</div>
+      <p class="cap"><b>Caption</b>I started this thinking I was writing to strangers. Turns out some of them have been quietly rooting for me all along. Comment LETTER if you want to see what they are reading.</p>
+    </div>
+
+    <div class="post">
+      <div class="top"><h3>Why the letters exist</h3><span class="pill ready">Ready · converts well</span></div>
+      <p class="moment">The mission, told from a specific morning in Colorado.</p>
+      <div class="screen">I started writing letters to strangers because no one ever wrote one to me.
+For years I was the woman everyone leaned on and no one checked on.
+One morning, walking my collie Dougal through Colorado, I passed a patch of dandelions somebody had tried to kill, blooming anyway.
+I went home and wrote a letter to a woman I had never met.
+Then I wrote another. And another.
+Now they go out every month, by hand.</div>
+      <p class="cap"><b>Caption</b>This is the letter I wish someone had sent me. Share it with a woman who could use one too, and comment LETTER and I will send you this month's for free.</p>
+    </div>
+
+    <div class="subhead">Straight from the letters &middot; Issue 1</div>
+    <div class="post">
+      <div class="top"><h3>The chair</h3><span class="pill ready">Ready · origin</span></div>
+      <p class="moment">Issue 1 · thirty years of listening.</p>
+      <div class="screen">I have been a hairstylist for thirty years.
+My hands in women's hair, my ears in their lives.
+Let me tell you about the things women say in my chair.
+The real stuff. The stuff they do not say anywhere else.
+Dreams they quietly set down and never picked back up.
+Bodies that stopped feeling familiar, and nobody warned them.
+Whole identities that used to fit and somehow stopped.
+And underneath all of it, the same question, a hundred different ways.
+Who am I now?</div>
+      <p class="cap"><b>Caption</b>Thirty years behind the chair taught me what women carry when they finally have someone who will listen. I started Joy Seeker Letters for every woman who has asked that question in the mirror and did not have anywhere to put it. Comment LETTER and I will send you this month's for free.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>The parking lot</h3><span class="pill ready">Ready</span></div>
+      <p class="moment">Issue 1 · standing still, wondering if she missed her turn.</p>
+      <div class="screen">For a while I felt invisible.
+Like the world kept moving and I was standing still in some parking lot, wondering if I had missed my turn.
+Maybe you know that parking lot too.
+Here is what I have decided.
+We did not miss our turn.
+We may be tired, but we are not done.
+Not if we are still breathing.</div>
+      <p class="cap"><b>Caption</b>If you have been standing in that parking lot lately, wondering if your turn already came and went, read that last line one more time. We are not done. Share this with a woman who needs to hear it today.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>The oh, me too feeling</h3><span class="pill ready">Ready · converts well</span></div>
+      <p class="moment">Issue 1 · explains the product in her words.</p>
+      <div class="screen">You know that feeling when a menopause meme is so accurate you laugh out loud?
+Or a Gen X song comes on and for one second you feel completely normal and connected?
+That oh, me too feeling.
+That is what I am trying to put in an envelope and mail to you every single month.</div>
+      <p class="cap"><b>Caption</b>That oh me too feeling is the entire reason Joy Seeker Letters exists. A real letter in your mailbox that says someone out there feels exactly what you feel. Comment LETTER and I will send you this month's for free.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>I am in it with you</h3><span class="pill ready">Ready</span></div>
+      <p class="moment">Issue 1 · not the expert, in it with you.</p>
+      <div class="screen">I am not an expert.
+I am not ahead of you in this.
+I am the woman who realized how much she needs other women right now, in the messy middle of it.
+I am in it with you.</div>
+      <p class="cap"><b>Caption</b>No gurus here, and no one pretending they have it figured out. Just a whole group of us in the weird, messy middle of life, keeping it moving together. If that is the company you have been missing, comment LETTER.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>It is not too late</h3><span class="pill ready">Ready</span></div>
+      <p class="moment">Issue 1 · the joy is not behind you.</p>
+      <div class="screen">The joy you are looking for is not behind you.
+It can be here with you now, and up ahead.
+It is not too late.
+And you are allowed to go after it with everything you have got.</div>
+      <p class="cap"><b>Caption</b>This is the reminder I write into every letter. Seek your joy with a vengeance. Share this with a woman who forgot she is allowed to want things again.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>Fierce together</h3><span class="pill ready">Ready</span></div>
+      <p class="moment">Issue 1 · what the letters are really about.</p>
+      <div class="screen">I want us to be fierce together.
+To cheer each other on.
+To show up for each other on the days we can barely show up for ourselves.</div>
+      <p class="cap"><b>Caption</b>This is what the letters are really about. Women our age showing up for each other when the world stops paying attention. Comment LETTER to get this month's.</p>
+    </div>
+    <div class="subhead">Straight from the letters &middot; July</div>
+    <div class="post">
+      <div class="top"><h3>Not asking permission</h3><span class="pill ready">Ready · permission theme</span></div>
+      <p class="moment">July · the dandelion through the sidewalk crack.</p>
+      <div class="screen">There is a dandelion coming up through a crack in my sidewalk.
+In the driest stretch of the driest season we have had in years.
+Bright and unapologetic.
+Not asking permission. Not waiting for better conditions.
+I have started to think that is the whole instruction.</div>
+      <p class="cap"><b>Caption</b>It came up through concrete, in a drought, without waiting for anyone to say it was okay. If you have been waiting for better conditions or someone's permission to begin, let this be the sign. Comment LETTER and I will send you this month's for free.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>But I disagree</h3><span class="pill ready">Ready</span></div>
+      <p class="moment">July · they call it a weed.</p>
+      <div class="screen">People love to tell me the dandelion is just a weed.
+That it ruins the lawn.
+For years I would just smile and let it go.
+But I disagree.
+Women in the middle of life get looked at the same way. Not quite the rose. Not the iris. Something to manage.
+I disagree with that too.</div>
+      <p class="cap"><b>Caption</b>They have been calling the wrong things weeds for a long time. Share this with a woman who has been treated like something to manage instead of someone to marvel at.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>And then it turns</h3><span class="pill ready">Ready · let it breathe</span></div>
+      <p class="moment">July · the turn to silver, her most beautiful passage.</p>
+      <div class="screen">And then the dandelion turns.
+The yellow goes silver and soft and so intricate you have to stop and really look.
+And when the wind comes, it does not just fall apart.
+It lifts.
+Every seed catches the air and carries everything it needs to start something new somewhere else.
+That is us. We are in the silver part. And we are still seeding the world.</div>
+      <p class="cap"><b>Caption</b>We were told the silver part was the ending. I think it is the part where we finally scatter everything we have learned. Share this with a woman who needs to hear she is not done.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>Leave the earbuds home</h3><span class="pill ready">Ready</span></div>
+      <p class="moment">July · earbuds out on the morning walk.</p>
+      <div class="screen">I stopped wearing earbuds on my morning walks.
+Just me and my dog and the sound of everything.
+Birds, a car starting down the street, a rooster I always answer back.
+And somewhere in the quiet, the thoughts I actually needed show up.
+I think some of them are from God.</div>
+      <p class="cap"><b>Caption</b>I call them my downloads. They only come when I stop filling the silence. Try one walk this week with nothing in your ears and see what finds you.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>It does not apologize</h3><span class="pill ready">Ready · short</span></div>
+      <p class="moment">July · more value than the planted flowers.</p>
+      <div class="screen">The dandelion has more value packed in it than most of the flowers people choose to plant.
+It survives conditions that stop everything else.
+It is its own kind of beautiful, green leaf and bright yellow.
+And it does not apologize for taking up space.</div>
+      <p class="cap"><b>Caption</b>Neither should you. Comment LETTER and I will send you this month's for free.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>We have seeds</h3><span class="pill ready">Ready</span></div>
+      <p class="moment">July · we have seeds now.</p>
+      <div class="screen">Somewhere along the way, women our age got told our season was ending.
+Here is what I actually believe.
+We have seeds now. Wisdom we earned the hard way.
+Things worth passing to our families, our friends, our children, each other.
+We are not past our season. We are still seeding the world.</div>
+      <p class="cap"><b>Caption</b>The hard-won things you know are not meant to sit quietly inside you. They are seeds. Share this with the women you would want carrying yours.</p>
+    </div>
+    <div class="post">
+      <div class="top"><h3>Good morning, Roo</h3><span class="pill ready">Ready · light breather</span></div>
+      <p class="moment">July · answering the neighborhood rooster.</p>
+      <div class="screen">There is a rooster somewhere in my neighborhood.
+Every morning on my walk, he calls out.
+And every morning I call right back. Good morning, Roo.
+I do not know whose rooster he is. I just know we have an understanding.</div>
+      <p class="cap"><b>Caption</b>The small joys are not silly. Answering a rooster you have never met might be the most sane thing I do all day. Seek your joy with a vengeance, even the little ones.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="perf">
+
+<section id="system" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>The system underneath</h2></div>
+    <p class="sec-intro">Every post is built to travel and then to lead somewhere. The content earns the reach, the share line spreads it, and the comment LETTER opt-in turns a feeling into an email. Run it by hand first to prove it converts, then automate.</p>
+    <div class="steps">
+      <div class="step"><span class="n">01</span><p><b>The post</b> ends with a share line and a soft invite: comment LETTER for a free letter Wendy wrote just for them.</p></div>
+      <div class="step"><span class="n">02</span><p><b>Reply in public</b> to the comment, then open the DM. The public reply feeds the post.</p></div>
+      <div class="step"><span class="n">03</span><p><b>Ask for the email</b> in the DM, framed as sending something she already made for them, not signing up.</p></div>
+      <div class="step"><span class="n">04</span><p><b>Deliver the free sample letter</b> as a PDF, warm and low pressure, with an optional soft seed about the monthly letter.</p></div>
+      <div class="step"><span class="n">05</span><p><b>Log every email</b> with the post it came from. That column tells you which content actually produces leads.</p></div>
+      <div class="step"><span class="n">06</span><p><b>Nurture, then offer.</b> Once the manual test converts, automate the capture and let the emails warm readers toward the paid subscription.</p></div>
+    </div>
+    <div class="grid g3" style="margin-top:1.2rem">
+      <div class="card"><span class="lbl">Asset</span><h3>Free sample letter</h3><p>Two-page PDF in her brand, the gift they receive when they comment LETTER. Built and ready.</p></div>
+      <div class="card"><span class="lbl">Asset</span><h3>Manual DM sequence</h3><p>Copy-paste messages for every step, in her voice, plus quick replies for common questions.</p></div>
+      <div class="card"><span class="lbl">Asset</span><h3>Grief carousel</h3><p>Seven finished slides over her product photos, the deeper story format for warm depth.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="perf">
+
+<section id="veins">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>The story veins</h2></div>
+    <p class="sec-intro">The raw threads to mine into future posts. Each one can produce more than one. When you build from a vein, drop into a specific moment inside it, never summarize it.</p>
+    <div class="grid g3">
+      <div class="card"><span class="lbl">The chair</span><h3>Thirty years listening</h3><p>Hands in women's hair, ears in their lives. The real things women only say when someone is finally listening.</p></div>
+      <div class="card"><span class="lbl">The dandelion</span><h3>Bloom anyway</h3><p>The flower everyone tries to kill. Survives every season, feeds the bees, scatters seed when it looks like it is falling apart. That is us.</p></div>
+      <div class="card"><span class="lbl">Permission</span><h3>The origin thesis</h3><p>A life spent believing she needed permission to be seen. The letters are her giving herself that permission, and handing it on.</p></div>
+      <div class="card"><span class="lbl">Her mom</span><h3>Wisdom that stuck</h3><p>Twelve years of terminal cancer, and still laughing. "We're all terminal, the day we're born." Handle with grace.</p></div>
+      <div class="card"><span class="lbl">Joy, stolen</span><h3>Camping &amp; hormones</h3><p>At the place she loves most, too agitated to feel it. Menopause stealing the joy from the moments she waited for.</p></div>
+      <div class="card"><span class="lbl">Small losses</span><h3>Freeboy &amp; Tofu</h3><p>The cat she called her sweetheart. The chicken on her sticker. Making things by hand as a way to carry the missing.</p></div>
+      <div class="card"><span class="lbl">Her body</span><h3>The hair</h3><p>A hairstylist watching her own hair thin in menopause. The most ironic, specific, powerful detail she owns.</p></div>
+      <div class="card"><span class="lbl">Being seen</span><h3>The old classmate</h3><p>Her first subscriber turned out to be a woman she went to high school with. The people who show up are not who you expect.</p></div>
+      <div class="card"><span class="lbl">Legacy</span><h3>Three generations</h3><p>A grandmother married at fifteen with ten kids who educated every daughter. Values passed down mother to daughter.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="perf">
+
+<section id="held" class="held">
+  <div class="wrap">
+    <div class="eyebrow">Handle with care</div>
+    <div class="sec-head"><span class="num" style="color:var(--gold-bright)">04</span><h2>Hold with care</h2></div>
+    <p class="sec-intro">Real, powerful material that is not for right now. Some of it is tender and should wait until Wendy is steady. Some of it is sacred and stays hers unless she chooses to bring it forward herself.</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <span class="lbl">When she is ready</span>
+        <h3>The hairstylist losing her hair</h3>
+        <p>Thirty years making other women feel beautiful, now finding her own hair thinning. It may be her strongest piece. It is also about her body and her identity, so it should be written from a steady week, not a low one.</p>
+      </div>
+      <div class="card">
+        <span class="lbl">When she is ready</span>
+        <h3>Drawing Freeboy</h3>
+        <p>Tracing her late cat's face in Procreate, one line at a time, saying no when her son offered to do it for her. She is still inside this grief. It will land harder from a little further down the road.</p>
+      </div>
+      <div class="card confirm-card" style="grid-column:1/-1">
+        <span class="lbl">Confirm with Wendy first</span>
+        <h3>The childhood story</h3>
+        <p>Earlier notes referenced a childhood wound about being called the plain one. Wendy's own public framing centers the chair and the permission theme instead. Settle with her which story she wants to tell out loud before building from the childhood material, so her public narrative stays consistent and true.</p>
+      </div>
+      <div class="card sacred" style="grid-column:1/-1">
+        <span class="lbl" style="color:var(--gold-bright)">Sacred · not content</span>
+        <h3>Her mother's last hour</h3>
+        <p>Wendy shared a profoundly sacred memory from sitting with her mom in her final hour. She and Kindra agree it is not content, and it is recorded here only so the team knows to protect it. It stays hers. It does not get built into a post, a funnel or a caption unless Wendy herself decides, from a settled place and in her own time, that she wants to bring it forward.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="perf">
+
+<section id="questions" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">05</span><h2>Questions that pull better copy</h2></div>
+    <p class="sec-intro">Her words beat anything written from scratch. Send one question, ask for a raw two to three minute voice memo, then shape her actual lines into the moment-first format. It also takes the writing off her on the weeks she is depleted.</p>
+
+    <div class="qgroup">
+      <h4>Drop into the moment</h4>
+      <ul>
+        <li>Take me into a specific moment from this week. Where were you standing, what time was it, what were you holding?</li>
+        <li>What is a sentence someone once said to you that you have never been able to forget, and where were you?</li>
+        <li>Tell me about a moment in your chair that you still think about.</li>
+      </ul>
+    </div>
+    <div class="qgroup">
+      <h4>The veins</h4>
+      <ul>
+        <li>What do women tell you in your chair that they do not say anywhere else?</li>
+        <li>What has changed about your own body this year that nobody warned you about?</li>
+        <li>When is the last time you felt invisible, and what exactly happened?</li>
+        <li>What is something you used to love, set down years ago, and have quietly picked back up?</li>
+        <li>In your own plain words, what does your faith give you on the hardest days?</li>
+      </ul>
+    </div>
+    <div class="qgroup">
+      <h4>What do you know now</h4>
+      <ul>
+        <li>What do you know now about joy, or loss, or your own worth, that you did not at thirty?</li>
+        <li>What would you say to the woman you were ten years ago?</li>
+        <li>What is the most rebellious thing a woman our age can do?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="tag">Seek your joy with a vengeance</p>
+    <p>Joy Seeker Letters &nbsp;&middot;&nbsp; Story Bank for Wendy Cole &nbsp;&middot;&nbsp; built with Kindra Morse</p>
+  </div>
+</footer>
+
+</body>
+</html>
