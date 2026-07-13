@@ -1,648 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Storm Myers — Signature Story Bank</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Storm Myers · Story Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --orchid:#CB6CE6;
-    --blossom:#F4CBFF;
-    --parchment:#FAF8F4;
-    --plum:#17111E;
-    --plum-soft:#241a2e;
-    --plum-card:#1d1526;
-    --line:rgba(244,203,255,0.16);
-    --muted:rgba(250,248,244,0.62);
+    --plum:#1E1620; --parch:#FAF8F4; --orchid:#CB6CE6; --blossom:#F4CBFF;
+    --plum2:#2A1E30; --dim:#B9AEC0; --line:#3A2C42; --gray:#9A8A96;
   }
   *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--plum);
-    color:var(--parchment);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-    line-height:1.65;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:820px;margin:0 auto;padding:56px 22px 90px;}
-  header.hero{margin-bottom:46px;}
-  .kicker{
-    text-transform:uppercase;letter-spacing:.22em;font-size:.72rem;
-    color:var(--orchid);font-weight:700;margin-bottom:14px;
-  }
-  h1{
-    font-size:2.5rem;line-height:1.08;margin:0 0 14px;font-weight:800;
-    letter-spacing:-.01em;
-  }
-  h1 .accent{color:var(--blossom);}
-  .sub{font-size:1.12rem;color:var(--parchment);max-width:640px;}
-  .positioning{
-    margin-top:26px;padding:20px 22px;border:1px solid var(--line);
-    border-radius:14px;background:var(--plum-card);
-  }
-  .positioning strong{color:var(--blossom);}
-  .method{font-size:.9rem;color:var(--muted);margin-top:18px;}
-  .method b{color:var(--orchid);}
-  .howto{
-    margin:38px 0 44px;padding:22px 24px;border-left:3px solid var(--orchid);
-    background:var(--plum-soft);border-radius:0 12px 12px 0;font-size:.98rem;
-  }
-  .howto h3{margin:0 0 10px;font-size:1rem;color:var(--blossom);text-transform:uppercase;letter-spacing:.08em;}
-  .howto p{margin:0 0 10px;color:var(--parchment);}
-  .howto p:last-child{margin-bottom:0;}
-
-  .story{
-    margin-bottom:34px;border:1px solid var(--line);border-radius:18px;
-    background:var(--plum-card);overflow:hidden;
-  }
-  .story-head{padding:28px 26px 22px;}
-  .story-num{
-    font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--orchid);font-weight:700;
-  }
-  .story-title{font-size:1.5rem;font-weight:800;margin:8px 0 6px;letter-spacing:-.01em;}
-  .story-logline{color:var(--parchment);font-size:1.02rem;margin:0 0 18px;}
-  .anatomy{
-    display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;
-    padding:16px 18px;background:rgba(203,108,230,0.06);
-    border:1px solid var(--line);border-radius:12px;font-size:.9rem;
-  }
-  .anatomy div{color:var(--muted);}
-  .anatomy b{color:var(--blossom);display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:2px;font-weight:700;}
-  .anatomy span{color:var(--parchment);}
-
-  details.post{border-top:1px solid var(--line);}
-  details.post summary{
-    padding:16px 26px;cursor:pointer;list-style:none;
-    display:flex;align-items:center;gap:12px;font-weight:600;
-    font-size:1rem;transition:background .15s ease;user-select:none;
-  }
-  details.post summary::-webkit-details-marker{display:none;}
-  details.post summary:hover{background:rgba(244,203,255,0.05);}
-  .tag{
-    font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
-    padding:3px 9px;border-radius:99px;white-space:nowrap;
-  }
-  .tag.story{background:rgba(203,108,230,0.2);color:var(--blossom);}
-  .tag.belief{background:rgba(244,203,255,0.14);color:var(--blossom);}
-  .tag.hooks{background:rgba(255,255,255,0.08);color:var(--parchment);}
-  .tag.talk{background:rgba(203,108,230,0.1);color:var(--orchid);}
-  .chev{margin-left:auto;color:var(--orchid);transition:transform .2s ease;font-size:.9rem;}
-  details.post[open] .chev{transform:rotate(90deg);}
-  .post-body{padding:4px 26px 26px;font-size:.99rem;}
-  .post-body .label{
-    font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--orchid);
-    font-weight:700;margin:18px 0 8px;
-  }
-  .post-body .label:first-child{margin-top:6px;}
-  .draft{
-    background:var(--plum);border:1px solid var(--line);border-radius:12px;
-    padding:20px 22px;white-space:pre-wrap;font-size:.98rem;line-height:1.7;
-    color:var(--parchment);
-  }
-  .post-body ul{margin:8px 0 0;padding-left:20px;}
-  .post-body li{margin-bottom:9px;}
-  .note{font-size:.86rem;color:var(--muted);margin-top:14px;font-style:italic;}
-  .loop{
-    margin-top:16px;font-size:.82rem;color:var(--muted);
-    padding:12px 16px;background:rgba(255,255,255,0.03);border-radius:10px;
-  }
-  .loop b{color:var(--orchid);font-style:normal;}
-
-  .flags{
-    margin-top:56px;padding:28px 26px;border:1px solid rgba(255,180,120,0.3);
-    border-radius:16px;background:rgba(255,170,110,0.06);
-  }
-  .flags h2{margin:0 0 6px;font-size:1.3rem;color:#ffcfa0;}
-  .flags p.intro{color:var(--parchment);margin-top:0;font-size:.96rem;}
-  .flags h4{margin:20px 0 6px;color:#ffcfa0;font-size:.95rem;}
-  .flags ul{padding-left:20px;margin:6px 0;}
-  .flags li{margin-bottom:9px;font-size:.93rem;color:var(--parchment);}
-  footer{margin-top:50px;text-align:center;color:var(--muted);font-size:.82rem;}
-  footer b{color:var(--orchid);}
+  body{margin:0;background:var(--plum);color:var(--parch);
+    font-family:"Archivo Narrow",system-ui,sans-serif;line-height:1.6;}
+  .wrap{max-width:820px;margin:0 auto;padding:56px 22px 120px;}
+  .eyebrow{font-family:"Archivo Narrow";font-weight:700;letter-spacing:.28em;
+    text-transform:uppercase;font-size:12px;color:var(--blossom);margin:0 0 18px;}
+  h1{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:clamp(38px,7vw,62px);
+    line-height:1.05;margin:0 0 10px;}
+  h1 .n{color:var(--orchid);}
+  .sub{font-size:19px;color:var(--dim);max-width:60ch;margin:0 0 30px;}
+  .seam{width:130px;height:3px;background:var(--orchid);border:0;margin:26px 0 40px;}
+  .howto{background:var(--plum2);border:1px solid var(--line);border-radius:14px;
+    padding:22px 24px;margin:0 0 44px;font-size:15.5px;color:var(--parch);}
+  .howto b{color:var(--orchid);}
+  .howto ul{margin:10px 0 0;padding-left:18px;} .howto li{margin:5px 0;}
+  details.story{border:1px solid var(--line);border-radius:16px;margin:0 0 26px;
+    overflow:hidden;background:linear-gradient(180deg,#241a2b 0%,#1E1620 60%);}
+  details.story>summary{list-style:none;cursor:pointer;padding:26px 26px;
+    display:flex;align-items:baseline;gap:16px;}
+  details.story>summary::-webkit-details-marker{display:none;}
+  .idx{font-family:"Playfair Display",serif;font-size:26px;color:var(--orchid);
+    font-weight:700;min-width:34px;}
+  .stitle{font-family:"Playfair Display",serif;font-size:clamp(22px,3.6vw,28px);
+    font-weight:600;line-height:1.15;margin:0;flex:1;}
+  .tag{font-family:"Archivo Narrow";font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    font-size:10.5px;padding:5px 10px;border-radius:999px;white-space:nowrap;align-self:center;}
+  .tag.ready{background:rgba(203,108,230,.16);color:var(--blossom);border:1px solid var(--orchid);}
+  .tag.tender{background:rgba(255,210,120,.12);color:#F4D07C;border:1px solid #7c6636;}
+  .body{padding:0 26px 30px;}
+  .oneline{color:var(--dim);font-size:16px;margin:0 0 22px;border-left:2px solid var(--line);padding-left:14px;}
+  .consent{background:rgba(255,210,120,.08);border:1px solid #6a5a2e;border-radius:10px;
+    padding:14px 16px;margin:0 0 26px;font-size:14.5px;color:#F0DFAe;}
+  .consent b{color:#F4D07C;}
+  .fmt{border-top:1px solid var(--line);padding:22px 0 0;margin:22px 0 0;}
+  .fmt h4{font-family:"Archivo Narrow";font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    font-size:12.5px;color:var(--orchid);margin:0 0 4px;}
+  .fmt .meta{font-size:13px;color:var(--gray);margin:0 0 14px;}
+  .hooks{margin:0 0 16px;}
+  .hooks .hlabel{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);font-weight:700;}
+  .hooks ul{margin:6px 0 0;padding-left:0;list-style:none;}
+  .hooks li{padding:7px 12px;background:var(--plum2);border:1px solid var(--line);
+    border-radius:8px;margin:6px 0;font-size:15px;}
+  .hooks li span{color:var(--gray);font-size:12px;font-style:italic;}
+  .post{font-family:"Playfair Display",Georgia,serif;font-size:17.5px;line-height:1.62;
+    white-space:pre-line;background:#191320;border:1px solid var(--line);border-radius:10px;
+    padding:20px 22px;margin:2px 0 0;}
+  .cta{margin:14px 0 0;padding:16px 18px;border:1px dashed var(--orchid);border-radius:10px;
+    background:rgba(203,108,230,.06);font-size:15.5px;white-space:pre-line;}
+  .cta .cl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orchid);
+    font-weight:700;display:block;margin:0 0 8px;}
+  .note{font-size:13.5px;color:var(--dim);margin:16px 0 0;border-left:2px solid var(--orchid);padding-left:12px;}
+  .quote{font-size:13.5px;color:var(--gray);margin:6px 0 0;padding-left:12px;border-left:2px solid var(--line);font-style:italic;}
+  .foot{margin-top:60px;color:var(--gray);font-size:13.5px;border-top:1px solid var(--line);padding-top:22px;}
   a{color:var(--orchid);}
-  @media (max-width:560px){
-    h1{font-size:1.95rem;}
-    .anatomy{grid-template-columns:1fr;}
-    .wrap{padding:40px 16px 70px;}
-    .post-body,.story-head{padding-left:18px;padding-right:18px;}
-    details.post summary{padding-left:18px;padding-right:18px;}
-  }
 </style>
 </head>
 <body>
 <div class="wrap">
-
-  <header class="hero">
-    <div class="kicker">Signature Story Bank</div>
-    <h1>Storm Myers <span class="accent">&mdash; the stories that reveal who you are</span></h1>
-    <p class="sub">Pulled from our story excavation session. Every story below is a real moment from your life, dug out and shaped so it does the work for you: it shows the reader who you are instead of telling them.</p>
-
-    <div class="positioning">
-      You help <strong>dads who are on a health journey and stuck in all-or-nothing thinking</strong>. Not "all dads." Him. The guy who's so locked in on the plan he misses the moment. You&rsquo;re talking to <strong>an earlier version of yourself</strong>, and that&rsquo;s exactly why the stories land.
-      <div class="method"><b>The Throughline Method:</b> we did The Dig together. This is The Reveal. One law runs under all of it: character can&rsquo;t be claimed, only revealed.</div>
-    </div>
-  </header>
+  <p class="eyebrow">A Story Bank · Built with Kindra Morse</p>
+  <h1>Storm <span class="n">Myers</span></h1>
+  <p class="sub">Every story below came out of one session. You lived all of it. None of it is content until <b>you</b> decide it is, and you are the only one who would ever post it. This is here so you can see what's possible, and choose.</p>
+  <hr class="seam">
 
   <div class="howto">
-    <h3>How to use this bank</h3>
-    <p>Each story is a section. Click the dropdowns under it to open the different posts you can build from that one moment. One story feeds a week of content.</p>
-    <p>The captions are written in your voice, to be dropped over simple B-roll (you doing something you&rsquo;re already doing) or a static photo. That&rsquo;s the format Kindra&rsquo;s research keeps landing on: story in the caption, so the reader sets their own pace. No two-second scene changes, no heavy editing.</p>
-    <p>End every story on the moment. Don&rsquo;t explain what it meant. The reader reaching the conclusion themselves is the entire point.</p>
+    <b>How to read this.</b> Each story opens into the ways it could be told. A story post has an arc. A conviction post is a stance, no arc. Most of these do best as a single image or simple b-roll with the story in the caption, not talking to camera. You never have to change the scene every two seconds. Let the words carry it.
+    <ul>
+      <li><b>Ready</b> tags are the ones tied straight to your lane: dads, all-or-nothing thinking, the health journey. Start here.</li>
+      <li><b>Personal</b> tags are powerful and true, and they're tender. They're yours to sit with. Post them only if and when you want to, in your own words.</li>
+      <li>Every draft is a starting point in your voice, not mine. Rewrite anything that doesn't sound like you.</li>
+    </ul>
   </div>
+<details class="story"><summary><span class="idx">01</span><span class="stitle">If I miss this workout, I'll go back to being fat</span><span class="tag ready">READY · YOUR LANE</span></summary><div class="body"><p class="oneline">The belief that ran your mornings, and the Saturday you finally proved it wrong. This is the clearest, most on-brand story you own. It IS your offer, shown instead of explained.</p><p class="quote">His words, from the session: "If my consistency fails, then I fail, then I go back to being fat." / "If I miss this workout on Saturday, I'll go back to being fat."</p><div class="fmt"><h4>Story post · single image or b-roll, story in caption</h4><p class="meta">Depth build. Open in the scene, dwell on the cost, land on the strawberry patch. Aimed at the dad who lives in all-or-nothing.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>For years, a canceled workout could ruin my whole day. <span>context</span></li><li>My wife would suggest a trip and my stomach would drop. <span>intrigue</span></li><li>I thought skipping one workout meant I'd lose everything. <span>contrarian</span></li></ul></div><div class="post">For a long time, a birthday party could wreck me.
 
-  <!-- STORY 1 -->
-  <section class="story">
-    <div class="story-head">
-      <div class="story-num">Story 01 &middot; The core one</div>
-      <div class="story-title">The Saturday Workout</div>
-      <p class="story-logline">The winter you&rsquo;d rather leave Saturday morning than Friday night, because Friday night meant maybe missing your walk. And a missed walk meant, somewhere deep down, you were going back to being the old you.</p>
-      <div class="anatomy">
-        <div><b>The moment</b><span>Winter 2025. A cousin&rsquo;s birthday party comes up. Your brain starts spinning the schedule.</span></div>
-        <div><b>The fork</b><span>Leave Friday with the family, or protect the ritual and go Saturday after the workout.</span></div>
-        <div><b>The cost</b><span>Friday nights and Saturday mornings your whole family missed. You, mean and tense, before anyone even packed a bag.</span></div>
-        <div><b>The villain (a force)</b><span>All-or-nothing thinking. The belief that if it&rsquo;s not exactly the plan, it doesn&rsquo;t count.</span></div>
-      </div>
-    </div>
-
-    <details class="post" open>
-      <summary><span class="tag story">Story post</span> B-roll + caption <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">"So-and-so&rsquo;s birthday party is next weekend."
-
-That&rsquo;s all my wife had to say. One sentence. And my brain was already gone.
-
-Okay. If we leave Friday night, I lose my Saturday walk. If it rains I can&rsquo;t walk there. I need my barbell, my machines, my 1,200 calories, or it doesn&rsquo;t count. So maybe we go Saturday morning. Maybe I get up at 5. Maybe I plan a date night so Friday at home is worth it.
-
-A birthday party. That&rsquo;s what I was solving like a math problem.
-
-Here&rsquo;s the sentence I never said out loud, the one running the whole thing: if I miss this workout, I go back to being fat.
-
-That&rsquo;s it. That was the belief. And so I&rsquo;d win the argument in my head, and we&rsquo;d leave Saturday, and I&rsquo;d get my walk in. And I&rsquo;d have no idea how many Friday nights I just handed away. My kids, my wife, in the next room, while I sat there with my jaw locked and my fists tight, doing math.</div>
-        <div class="note">Ends on the moment (him, jaw locked, doing math). No "and that&rsquo;s why" line. Let it sit.</div>
-        <div class="label">Soft CTA options (pick one, keep it light)</div>
-        <ul>
-          <li>If you&rsquo;re a dad who&rsquo;s ever rearranged your whole family&rsquo;s weekend around one workout, tell me I&rsquo;m not the only one.</li>
-          <li>Comment "MATH" if your brain has ever done this to a birthday party invite.</li>
-        </ul>
-        <div class="loop"><b>Loop check &mdash;</b> Stakes: a clock (the party is "next weekend") and a character at risk (the family time). Question: does he win the argument in his head, and what does it cost? Head fake: the villain isn&rsquo;t his wife or the party, it&rsquo;s the sentence he never said out loud. Rehook: the last line opens the real cost he couldn&rsquo;t see.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag belief">Belief-shift post</span> a stance, short <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">"If I miss this workout, I&rsquo;ll go back to being fat."
-
-I actually believed that. One skipped Saturday and the whole thing collapses.
-
-That&rsquo;s not discipline. That&rsquo;s all-or-nothing thinking wearing discipline&rsquo;s jacket.
-
-One missed walk was never going to undo a year of work. But the belief that it would? That cost me Friday nights I&rsquo;m never getting back.
-
-The workout was never the problem. The rule underneath it was.</div>
-        <div class="note">Belief-shift / conviction. Runs on clarity, not arc. Good for B-roll of you walking, or a static shot.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag hooks">Hook bank</span> opening lines to test <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <ul>
-          <li>"So-and-so&rsquo;s birthday is next weekend." One sentence, and my brain was already gone.</li>
-          <li>I used to solve a kids&rsquo; birthday party like it was a math problem.</li>
-          <li>If I missed my Saturday workout, I believed I&rsquo;d go back to being fat. Dead serious.</li>
-          <li>I&rsquo;d win the argument in my head. And I had no idea what I was losing.</li>
-          <li>The most expensive thing I ever protected was a walk.</li>
-        </ul>
-      </div>
-    </details>
-  </section>
-
-  <!-- STORY 2 -->
-  <section class="story">
-    <div class="story-head">
-      <div class="story-num">Story 02 &middot; The turn</div>
-      <div class="story-title">The Strawberry Patch</div>
-      <p class="story-logline">The Saturday your wife suggested something fun, for the first time you can remember, and you said yes before your brain could run the numbers.</p>
-      <div class="anatomy">
-        <div><b>The moment</b><span>A recent Saturday. "I think it&rsquo;d be really fun to go to the strawberry patch." You slept in. You cuddled. You got out early to be first in line.</span></div>
-        <div><b>The fork</b><span>Get up, work out, be back, "all good" &mdash; the old way. Or let the morning be the morning.</span></div>
-        <div><b>The head fake</b><span>You didn&rsquo;t work out that day. And your life didn&rsquo;t end. You didn&rsquo;t get fat.</span></div>
-        <div><b>The villain (a force)</b><span>The same all-or-nothing pull, quieter now, asking if you&rsquo;d even let yourself enjoy it.</span></div>
-      </div>
-    </div>
-
-    <details class="post" open>
-      <summary><span class="tag story">Story post</span> B-roll + caption <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">My wife said, "I think it&rsquo;d be really fun to go to the strawberry patch."
-
-I don&rsquo;t think she&rsquo;d ever said anything like that before. And I almost missed how big that was.
-
-Three months ago I know exactly how that Saturday goes. I&rsquo;m up before anyone. Workout done, back home, "all good." We still go to the patch. But I&rsquo;m there and I&rsquo;m not there. Half my head is still on the calories I did or didn&rsquo;t burn.
-
-This time we slept in. We cuddled. We got out the door early so we&rsquo;d be first in line, baby on my chest, and that mattered to me more than anything I could&rsquo;ve done at 6am.
-
-No workout that day. I ate the strawberries. And I was actually in it, the whole thing, start to finish.</div>
-        <div class="note">Cut test passes: ends on "I was actually in it." No lesson bolted on. If you want a companion belief line, keep it separate, don&rsquo;t weld it here.</div>
-        <div class="label">Soft CTA options</div>
-        <ul>
-          <li>Dads, when&rsquo;s the last time you were all the way there for something small?</li>
-          <li>Comment "PRESENT" if you needed the reminder today.</li>
-        </ul>
-        <div class="loop"><b>Loop check &mdash;</b> Stakes: her rare suggestion + the clock of the morning. Question: does he let himself enjoy it, or does the old pull win? Head fake: the win isn&rsquo;t the trip, it&rsquo;s that he skipped the workout and nothing fell apart. Rehook: "I was actually in it" pays off the whole open.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag belief">Belief-shift post</span> priority flip <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">I used to work out first, then try to enjoy my family with whatever was left.
-
-Now the joy comes first and the workout is the byproduct.
-
-Same guy. Same gym. Completely different life.
-
-It was never about doing less. It was about what I let sit at the top of the list.</div>
-        <div class="note">Watch the "it&rsquo;s not X it&rsquo;s Y" cadence in that last line &mdash; it&rsquo;s used once, on purpose. Don&rsquo;t stack another one.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag hooks">Hook bank</span> opening lines to test <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <ul>
-          <li>My wife suggested the strawberry patch, and I almost missed how big that was.</li>
-          <li>I skipped the workout on Saturday. Best decision I made all week.</li>
-          <li>Three months ago I&rsquo;d have been up, out, and back before you woke up. And I&rsquo;d have missed the whole thing.</li>
-          <li>Baby on my chest, first in line, no workout. This is the version of me I was scared to be.</li>
-        </ul>
-      </div>
-    </details>
-  </section>
-
-  <!-- STORY 3 -->
-  <section class="story">
-    <div class="story-head">
-      <div class="story-num">Story 03 &middot; The one that costs something</div>
-      <div class="story-title">1:30 In The Morning</div>
-      <p class="story-logline">The night you both hit the wall, and you gave up the one thing you&rsquo;d protected the hardest so she could finally sleep.</p>
-      <div class="anatomy">
-        <div><b>The moment</b><span>1:30am, a couple weeks ago. Baby crying. Both of you angry, both awake, both done. "This is dumb. I can&rsquo;t do this anymore."</span></div>
-        <div><b>The fork</b><span>Keep protecting your early mornings (your sacred workout window), or hand them over.</span></div>
-        <div><b>The cost</b><span>You gave up waking up early. The thing you&rsquo;d guarded above almost everything. So she could sleep.</span></div>
-        <div><b>The villain (a force)</b><span>The belief that your needs had to come first for you to be okay. That giving meant losing.</span></div>
-      </div>
-    </div>
-
-    <details class="post" open>
-      <summary><span class="tag story">Story post</span> B-roll + caption <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">1:30 in the morning. The baby&rsquo;s crying. We&rsquo;re both awake and we&rsquo;re both mad and neither of us is moving.
-
-I remember thinking, this is dumb. This should not be happening. Somebody is lacking something here.
-
-For 11 months I&rsquo;d protected my early mornings like they were sacred. Up before the house, workout in, that was mine. And my wife hadn&rsquo;t slept a full night in almost a year. Her wrists hurt from holding him. Her back was shot. And I&rsquo;d been telling myself, well, he only wants her anyway, so I&rsquo;ll just get my hour of sleep and be the fun dad at 6:30.
-
-That night I did the math different. This is my problem to solve. What can I actually do.
-
-So I gave it up. The early mornings. I take him now. Before 10, he&rsquo;s mine. Two nights this week she slept all the way through, for the first time in almost a year.
-
-I didn&rsquo;t lose the mornings. I just finally spent them on the right thing.</div>
-        <div class="note">This one earns its one line of "useful placard" at the end because it states a law the reader couldn&rsquo;t reach on their own. Keep it. It&rsquo;s the exception, not the rule.</div>
-        <div class="label">Soft CTA options</div>
-        <ul>
-          <li>Dads, what&rsquo;s the thing you&rsquo;re protecting that you might need to hand over?</li>
-          <li>Comment "TAG ME IN" if it&rsquo;s time to stop keeping score at home.</li>
-        </ul>
-        <div class="loop"><b>Loop check &mdash;</b> Stakes: a hard clock (1:30am) + real bodies at risk (her sleep, her wrists). Question: what does he do at the wall. Head fake: the sacrifice is the thing he&rsquo;d protected the most. Rehook: the last line reframes giving as spending, not losing.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag belief">Belief-shift post</span> serving vs. keeping score <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">For a long time I gave to my family like I was going to want the change back.
-
-Do a little. Enough to feel like enough. Keep the rest for me, because if I don&rsquo;t look out for me, who will.
-
-Then I started giving without waiting for the ring to come back.
-
-Turns out that&rsquo;s where the peace was the whole time. Not in getting my hour. In closing the gap between the dad I looked like and the dad I actually am.</div>
-        <div class="note">"Getting the ring back" is your phrase from the session. It&rsquo;s yours, it&rsquo;s specific, keep it.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag hooks">Hook bank</span> opening lines to test <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <ul>
-          <li>1:30 in the morning. Baby crying. Both of us awake, both of us mad, neither of us moving.</li>
-          <li>For 11 months I protected my mornings like they were sacred. Then I gave them away.</li>
-          <li>My wife hadn&rsquo;t slept a full night in almost a year. And I kept telling myself he only wanted her anyway.</li>
-          <li>I finally asked a different question at 1:30am: what if this is my problem to solve?</li>
-        </ul>
-      </div>
-    </details>
-  </section>
-
-  <!-- STORY 4 -->
-  <section class="story">
-    <div class="story-head">
-      <div class="story-num">Story 04 &middot; Handle with care</div>
-      <div class="story-title">The Son Who Only Wanted Mom</div>
-      <p class="story-logline">You&rsquo;re great with kids. Every kid. Except the one who&rsquo;d scream the second you picked him up. And the story you told yourself about why.</p>
-      <div class="anatomy">
-        <div><b>The moment</b><span>Your second son, months old, blood-curdle screaming the second you tried to hold him. Only wanted mom.</span></div>
-        <div><b>The fork</b><span>Keep trying and keep feeling the rejection, or decide "he just wants what he wants" and stop.</span></div>
-        <div><b>The cost</b><span>Months of telling yourself it was a punishment you had to endure. Bonded in the day, never at night.</span></div>
-        <div><b>The villain (a force)</b><span>Learned helplessness. The story that this is just how it is and there&rsquo;s nothing you can do.</span></div>
-      </div>
-    </div>
-
-    <details class="post" open>
-      <summary><span class="tag story">Story post</span> B-roll + caption <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">I&rsquo;m good with kids. Any age, any kid, always have been.
-
-Except mine.
-
-My second son would scream the second I picked him up. Not a fussy cry. A full blood-curdle, put-me-down scream. And it wasn&rsquo;t me doing anything wrong. He just did not want me. Only mom.
-
-So I told myself a story. This is a punishment. I wasn&rsquo;t there enough early on, so this is what I get, and I just have to endure it. He wants what he wants and there&rsquo;s nothing I can do.
-
-I carried that one for months.
-
-What I couldn&rsquo;t see back then: when I&rsquo;d hear him cry at 2am and not get up, I&rsquo;d tell myself I needed the sleep. That she&rsquo;d get him, they&rsquo;d bond, everybody wins. The truth was quieter than that. I stayed in bed so I wouldn&rsquo;t have to feel him reject me one more time.</div>
-        <div class="note">Ends on the real reason, shown not named. Powerful and vulnerable. See flags before posting &mdash; this involves your marriage and your kids.</div>
-        <div class="label">Soft CTA options</div>
-        <ul>
-          <li>Dads, anyone else ever get quietly rejected by your own kid? What did you tell yourself?</li>
-          <li>Comment "SEEN" if you&rsquo;ve stayed in bed to avoid a feeling before.</li>
-        </ul>
-        <div class="loop"><b>Loop check &mdash;</b> Stakes: "except mine" lands in the second line. Question: why does the kid who&rsquo;s great with everyone get rejected at home, and what does he do with it. Head fake: the reason he stayed in bed wasn&rsquo;t sleep, it was fear of rejection. Rehook: final line reframes the whole thing.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag belief">Belief-shift post</span> the hidden intention <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">"I need the sleep."
-
-That&rsquo;s what I told myself at 2am when my son was crying and I didn&rsquo;t get up.
-
-It wasn&rsquo;t about sleep. It was about not wanting to feel rejected one more time.
-
-We do this everywhere. "I&rsquo;m not ready." "I don&rsquo;t have my offer dialed." "I&rsquo;ll start next week." It&rsquo;s the same move. We&rsquo;re not lazy or tired. We&rsquo;re just protecting ourselves from a "no."
-
-Your brain will always dress up avoidance as a good reason. Learning to spot the costume is most of the work.</div>
-        <div class="note">This bridges the parenting story to your dad-and-business audience without welding a sales pitch on. Good bridge, keep it soft.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag hooks">Hook bank</span> opening lines to test <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <ul>
-          <li>I&rsquo;m good with every kid on earth. Except mine.</li>
-          <li>My own son would scream the second I picked him up.</li>
-          <li>I told myself it was a punishment I had to endure. I carried that for months.</li>
-          <li>"I need the sleep" was never about sleep.</li>
-        </ul>
-      </div>
-    </details>
-  </section>
-
-  <!-- STORY 5 -->
-  <section class="story">
-    <div class="story-head">
-      <div class="story-num">Story 05 &middot; The shame one</div>
-      <div class="story-title">The Burrito And The Wedding</div>
-      <p class="story-logline">You were in the best shape of your life the week your son was born. And that&rsquo;s exactly what set up the worst version of you as a dad.</p>
-      <div class="anatomy">
-        <div><b>The moment</b><span>Hospital cafeteria, hours before your son arrives. Four months of restriction, then a giant burrito, tater tots, an energy drink you never drink.</span></div>
-        <div><b>The fork</b><span>All in on the plan, or all off the rails. There was never a middle.</span></div>
-        <div><b>The cost</b><span>Violently sick the first day of his life. Flat on the couch while your wife did it alone. Then a wedding, a week later, without her.</span></div>
-        <div><b>The villain (a force)</b><span>All-or-nothing again, this time as the binge. Four months of "perfect" is what built the blowout.</span></div>
-      </div>
-    </div>
-
-    <details class="post" open>
-      <summary><span class="tag story">Story post</span> B-roll + caption <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">I was in the best shape of my life the week my son was born. I want to tell you that like it&rsquo;s a flex. It&rsquo;s not. It&rsquo;s the setup.
-
-We got to the hospital early. Went down to the cafeteria to kill time. And there&rsquo;s this burrito the size of my forearm, tater tots, the works. I hadn&rsquo;t eaten like that in four months. I told myself, half of this and some tots. I ate all of it. Chugged an energy drink I never drink.
-
-He was born the next day. And I was on the couch, grossly sick, useless, while my wife did the whole thing on her own.
-
-Four months of perfect. That&rsquo;s what built the blowout. There was never a middle setting. It was all in or all off the rails, and my son&rsquo;s first day got the off-the-rails version of me.</div>
-        <div class="note">Strong, raw, and it names the mechanism (four months of perfect built the blowout) without a self-congratulating "lesson." See flags &mdash; this is heavy and personal.</div>
-        <div class="label">Soft CTA options</div>
-        <ul>
-          <li>Anyone else ever "earn" a blowout after weeks of white-knuckling it? That&rsquo;s not willpower failing. That&rsquo;s the setup.</li>
-          <li>Comment "MIDDLE" if you&rsquo;ve only ever had two settings.</li>
-        </ul>
-        <div class="loop"><b>Loop check &mdash;</b> Stakes: "best shape of my life the week my son was born" + the clock of the birth. Question: how does peak fitness become the worst day. Head fake: the fitness wasn&rsquo;t the win, it was the fuse. Rehook: "there was never a middle" turns a story into a pattern the reader recognizes.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag belief">Belief-shift post</span> the binge is the plan&rsquo;s shadow <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">Four months of perfect eating.
-
-One burrito the size of my arm, and I couldn&rsquo;t stop.
-
-For years I thought the binge was me being weak. It wasn&rsquo;t. It was the bill coming due for a plan that had no room in it. No flex, no bite, no birthday cake.
-
-The stricter the rules, the bigger the blowout waiting on the other side. That&rsquo;s not a discipline problem. That&rsquo;s all-or-nothing doing exactly what it does.</div>
-        <div class="note">Belief-shift version, safer to lead with than the full birth story if you want to test the theme first.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag hooks">Hook bank</span> opening lines to test <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <ul>
-          <li>I was in the best shape of my life the week my son was born. That&rsquo;s not the flex. That&rsquo;s the setup.</li>
-          <li>Four months of perfect eating, and one burrito took me all the way out.</li>
-          <li>My son&rsquo;s first day, I was flat on a couch, useless. Here&rsquo;s how I got there.</li>
-          <li>The binge was never me being weak. It was the bill coming due.</li>
-        </ul>
-      </div>
-    </details>
-  </section>
-
-  <!-- STORY 6 -->
-  <section class="story">
-    <div class="story-head">
-      <div class="story-num">Story 06 &middot; The origin story</div>
-      <div class="story-title">The Answering Machine</div>
-      <p class="story-logline">The day you heard your own voice played back and decided something was wrong with you. And how that one wound quietly built the thing you&rsquo;re best at.</p>
-      <div class="anatomy">
-        <div><b>The moment</b><span>Ten, maybe twelve. The landline answering machine. "Hey mom, I&rsquo;ll be home after practice." Then: oh my god, that&rsquo;s what I sound like?</span></div>
-        <div><b>The fork</b><span>A deep voice you got made fun of for. You decided it meant you were defective.</span></div>
-        <div><b>The cost</b><span>You built a whole career (sign language, interpreting) partly so you could talk to anyone and they&rsquo;d never have to hear your voice.</span></div>
-        <div><b>The gift underneath</b><span>To fit in, you got hyper-perceptive. You read the tiny changes other people miss. That&rsquo;s the gift. This is what it cost.</span></div>
-      </div>
-    </div>
-
-    <details class="post" open>
-      <summary><span class="tag story">Story post</span> B-roll + caption <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">I was maybe ten. Standing by the landline, listening to my own message play back. "Hey mom, dad, I&rsquo;ll be home after practice."
-
-And I froze. Oh my god. That&rsquo;s what I sound like?
-
-My voice came in deep and early, and kids are kids. Kermit growls. People doing the low voice back at me. I decided the simplest thing a kid can decide: something is wrong with me. I&rsquo;m defective.
-
-So I found a language where I never had to use it. Sign language. I picked it up faster than anyone around me, and I couldn&rsquo;t tell you why for years. I could see the tiniest change in someone&rsquo;s hands, their face, a shift most people would blow right past.
-
-Here&rsquo;s what I know now that I didn&rsquo;t then. I got that good at watching people because I needed it. I needed to read the room before the room got to me. The thing I&rsquo;m best at, seeing people, came from the years I didn&rsquo;t feel seen myself.</div>
-        <div class="note">This is your deepest story and your best "why I do what I do" piece. It earns one line of law at the end (the gift came from the wound). Keep it. Don&rsquo;t add a second.</div>
-        <div class="label">Soft CTA options</div>
-        <ul>
-          <li>What&rsquo;s the thing you&rsquo;re best at that started as something you were trying to survive?</li>
-          <li>Comment "SEEN" if you know exactly what that feels like.</li>
-        </ul>
-        <div class="loop"><b>Loop check &mdash;</b> Stakes: a kid + a moment of self-judgment + the clock of it happening in real time by the machine. Question: what does that decision cost him. Head fake: the deep voice he hated built his greatest strength. Rehook: "came from the years I didn&rsquo;t feel seen myself" pays it all off.</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag belief">Belief-shift post</span> the gift came at a cost <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">The thing you&rsquo;re most generous with is usually the thing nobody gave you.
-
-I read people fast. Tiny shifts, the stuff most guys walk past. People think it&rsquo;s a talent.
-
-It&rsquo;s a scar. I learned to watch that closely because as a kid I needed to know which way a room was going to turn on me.
-
-Look at the dad who over-explains everything. He got left in the dark once. The guy who won&rsquo;t let anyone feel stupid was made to feel stupid. The good stuff we do usually has a quiet wound sitting under it.
-
-Yours does too. It&rsquo;s worth knowing where it came from.</div>
-        <div class="note">Note: the "thing you&rsquo;re most generous with is the thing nobody gave you" belief is one Kindra also uses. It fits you truthfully, but if you two post near the same week, change the examples so they&rsquo;re clearly yours (dads, not "realtors/lawyers").</div>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag hooks">Hook bank</span> opening lines to test <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <ul>
-          <li>I was ten when I heard my own voice on the answering machine and decided something was wrong with me.</li>
-          <li>I picked a whole career so people would never have to hear me talk.</li>
-          <li>The thing I&rsquo;m best at came from the years I didn&rsquo;t feel seen.</li>
-          <li>People call it a talent. It&rsquo;s a scar I learned to use.</li>
-        </ul>
-      </div>
-    </details>
-  </section>
-
-  <!-- STORY 7 -->
-  <section class="story">
-    <div class="story-head">
-      <div class="story-num">Story 07 &middot; Conviction / exploratory (read the flag)</div>
-      <div class="story-title">Not My Language</div>
-      <p class="story-logline">You could make a fortune teaching sign language. You won&rsquo;t. And the reason is a knot worth thinking out loud about, not preaching about.</p>
-      <div class="anatomy">
-        <div><b>The tension</b><span>You know ASL inside out. People beg you to teach them. There&rsquo;s real money in it.</span></div>
-        <div><b>The line you hold</b><span>You&rsquo;re a hearing, non-native signer. Much of the Deaf community holds that teaching their language isn&rsquo;t yours to do.</span></div>
-        <div><b>The open question</b><span>Where&rsquo;s the line between honoring a community and abandoning something you genuinely love and could help people with?</span></div>
-        <div><b>Format note</b><span>This is unresolved for you. Post it as an honest, out-loud wrestle, not a stance. Curiosity, not a verdict.</span></div>
-      </div>
-    </div>
-
-    <details class="post" open>
-      <summary><span class="tag talk">Exploratory post</span> honest, out-loud, no verdict <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <div class="label">Caption</div>
-        <div class="draft">I could probably make a lot of money teaching sign language. I know it inside out. People ask me all the time.
-
-And I&rsquo;ve said no for years.
-
-Here&rsquo;s the honest knot. I&rsquo;m hearing. I&rsquo;m not a native signer. And a big part of the Deaf community holds that their language isn&rsquo;t mine to teach, that a hearing person teaching it chips away at something that belongs to them.
-
-I take that seriously. I&rsquo;ve sat in that community, I love it, and I don&rsquo;t want to take from it.
-
-But I&rsquo;d be lying if I said there wasn&rsquo;t another voice in me. The one that says there are people who genuinely want to learn, to talk to a deaf cousin, a coworker, a friend. And I love teaching it.
-
-I don&rsquo;t have this one wrapped up. I&rsquo;m saying it out loud because I think that&rsquo;s more honest than pretending I do.</div>
-        <div class="note"><b>Do not turn this into a hot take.</b> It&rsquo;s sensitive and you&rsquo;re still working it out. Ending on "I don&rsquo;t have this wrapped up" is the whole point. Invite conversation, don&rsquo;t declare a winner. See the flags section.</div>
-        <div class="label">Soft CTA options</div>
-        <ul>
-          <li>If you&rsquo;ve ever loved something you weren&rsquo;t sure you had the right to do, I&rsquo;d actually like to hear it.</li>
-          <li>No easy answer here. Curious how you&rsquo;d hold it.</li>
-        </ul>
-      </div>
-    </details>
-
-    <details class="post">
-      <summary><span class="tag hooks">Hook bank</span> opening lines to test <span class="chev">&#9654;</span></summary>
-      <div class="post-body">
-        <ul>
-          <li>I could make a lot of money teaching sign language. I&rsquo;ve said no for years.</li>
-          <li>I know this language inside out. And I still don&rsquo;t think it&rsquo;s mine to teach.</li>
-          <li>I&rsquo;m going to think out loud about something I don&rsquo;t have figured out.</li>
-        </ul>
-      </div>
-    </details>
-  </section>
-
-  <!-- FLAGS -->
-  <section class="flags">
-    <h2>Notes &amp; flags</h2>
-    <p class="intro">Kindra, and Storm, read this before anything goes live. The Throughline house rules: the villain in every story stays a force, never a named person. That&rsquo;s already baked into the drafts. A few specific calls:</p>
-
-    <h4>Permission &amp; privacy</h4>
-    <ul>
-      <li><b>Your wife appears in Stories 03, 04, and 05.</b> She&rsquo;s written sympathetically and never as the villain, but she&rsquo;s a real person in real, tender moments (postpartum, exhaustion, the wedding). Get her okay before posting these, especially "The Son Who Only Wanted Mom" and "The Burrito And The Wedding."</li>
-      <li><b>Your kids appear by situation.</b> No names are used in the drafts on purpose. Decide how much of them you want online, and keep it that way consistently.</li>
-    </ul>
-
-    <h4>Sensitive: Story 07, "Not My Language"</h4>
-    <ul>
-      <li>This touches a live, real debate in the Deaf community about hearing people teaching ASL. You said it yourself: strong feelings, real stakes. The draft is built as an <b>honest, unresolved wrestle</b>, not a stance, because you haven&rsquo;t resolved it. Keep it that way. The moment it reads as a verdict or a pitch, it stops being safe and stops being true.</li>
-      <li>Don&rsquo;t name individuals or specific accounts. Send Kindra the "Layla" post you mentioned if you want a second set of eyes before posting.</li>
-    </ul>
-
-    <h4>Voice check</h4>
-    <ul>
-      <li>These are written to sound like <b>you</b>, not Kindra. Shorter punches, "dude"-adjacent rhythm, your actual phrases ("getting the ring back," "off the rails," "best shape of my life"). Read each one out loud. If a line doesn&rsquo;t sound like something you&rsquo;d say, cut it or swap it. It&rsquo;s your bank.</li>
-      <li>No em dashes anywhere, per house style. Commas and periods do the work.</li>
-    </ul>
-
-    <h4>Placeholders to fill with real detail</h4>
-    <ul>
-      <li>Story 01: the <b>real calorie number</b> and the actual gear you felt you needed (barbell, machines) are in there. Swap in exact specifics if 1,200 isn&rsquo;t right.</li>
-      <li>Story 05: confirm it was tater tots and the drink you named. A real detail always beats a general one, so keep them exact.</li>
-      <li>Story 06: your exact age when you heard the machine (you said "ten or twelve"). Pin it down. "I was eleven" hits harder than "I was around ten or twelve."</li>
-    </ul>
-
-    <h4>On the offer / CTA</h4>
-    <ul>
-      <li>Your offer isn&rsquo;t locked yet, and that&rsquo;s fine. So every CTA here is <b>soft</b>: a question that drives comments, or a one-word comment prompt. No hard paid pitch welded to a story. Once you&rsquo;ve helped a few dads and the specific problem sharpens, we layer in a real CTA and funnel. For now: post, start conversations, watch what lands.</li>
-    </ul>
-  </section>
-
-  <footer>
-    Built from your story excavation session &middot; <b>The Throughline Method</b> &middot; The Dig &rarr; The Reveal<br>
-    Character can&rsquo;t be claimed, only revealed.
-  </footer>
+My wife would say it so gently. "So-and-so's party is Saturday morning." And my whole body would go tight. Jaw. Fists. My brain already spinning.
 
+Because Saturday morning was my workout. And if I couldn't get the workout in, the day was already lost.
+
+So I'd start negotiating. Can I walk there? What if it rains? Maybe we go Saturday instead of Friday. Maybe I get up before anyone. I'd spend the whole week solving a math problem nobody else knew I was doing.
+
+Underneath all of it was one sentence I never said out loud. If I miss this workout, I'll go back to being fat.
+
+That was the belief. Miss one Saturday, lose everything.
+
+I can't tell you how many Friday nights and Saturday mornings my family spent around a version of me that was there, but not really there.
+
+Then a few weeks ago, my wife said she wanted to take the kids to a strawberry patch. And for the first time, I didn't do the math.
+
+We slept in. We cuddled. We got out the door and stood in line in the sun. I didn't get a workout in that day.
+
+I didn't go back to being fat.
+
+I was just there. All the way there, for the whole thing.</div><div class="cta"><span class="cl">CTA · three clean beats</span>All-or-nothing thinking will cost you years of Saturdays before it ever costs you a pound.
+If you're a dad who can't enjoy the day until the workout's done, I see you.
+Follow along, I'm putting words to this all week.</div><p class="note">This is your strongest opener because it's clean, relatable, and it demonstrates your whole offer without a single 'here's what I help with' line. The landing ('I was just there') is a held beat, do not add a lesson after it.</p></div><div class="fmt"><h4>Conviction post · talking-head or text on screen</h4><p class="meta">No arc, just the stance. A stance delivered, not a plot.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>Missing one workout does not undo you. The belief that it does is the actual problem. <span>contrarian</span></li></ul></div><div class="post">Somewhere along the way you decided that one missed workout sends you all the way back to the beginning.
+
+It doesn't.
+
+The skipped Saturday was never going to make you fat. But the belief that it would? That one's already cost you birthday parties, lazy mornings, whole afternoons with your kids where you were physically present and mentally gone.
+
+All-or-nothing thinking doesn't protect your progress.
+
+It just quietly takes everything around it.</div><div class="cta"><span class="cl">CTA · three clean beats</span>The missed workout isn't the threat. The all-or-nothing story is.
+If that story runs your mornings, you're exactly who I make this for.
+Follow along.</div><p class="note">Conviction posts run on moral clarity, not the loop. Keep it a stance, don't bolt an arc onto it.</p></div></div></details><details class="story"><summary><span class="idx">02</span><span class="stitle">The strawberry patch</span><span class="tag ready">READY · YOUR LANE</span></summary><div class="body"><p class="oneline">The small, ordinary morning that showed you who you're becoming. Can stand alone as a quieter 'after' post, or pair with Story 1.</p><p class="quote">His words, from the session: "We slept in, we cuddled, we enjoyed, we got out of the house early to go... family fun was the focus, and that's all it was."</p><div class="fmt"><h4>Story post · single image (the patch, or the kids) plus caption</h4><p class="meta">Short, warm, present-tense contrast with who you used to be. Depth.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>Three months ago, I would've done the workout first and half-missed this. <span>context</span></li><li>My wife suggested a strawberry patch. My old self would've ruined it. <span>intrigue</span></li></ul></div><div class="post">My wife suggested we take the kids to a strawberry patch.
+
+And I noticed two things at once. That it actually sounded fun. And that she'd never really suggested something like that before.
+
+Three months ago, I would have been up before anyone, gotten the workout in, been there and back, and still gone to the patch. On paper, everything handled.
+
+But would I have actually been there? Sitting in the dirt, baby on my chest, letting the morning be slow?
+
+I don't think so.
+
+This time there was no workout. No tracking. No math running under everything.
+
+Just strawberries, and my kids, and a morning I was all the way inside of.</div><div class="cta"><span class="cl">CTA · three clean beats</span>Being present isn't a reward you earn after the workout. It's the whole point.
+If you've been trading your mornings for your metrics, this one's for you.
+Follow along.</div><p class="note">Best as the gentle counterweight to Story 1. If you post both, space them out. The landing is the image, leave it.</p></div></div></details><details class="story"><summary><span class="idx">03</span><span class="stitle">The son who only wanted his mom</span><span class="tag tender">PERSONAL · YOUR CALL</span></summary><div class="body"><p class="oneline">The rejection you felt when your second son didn't want you, the guilt you carried for months, and the night you decided to give your wife her sleep back. Powerful and deeply personal.</p><div class="consent"><b>This one is tender.</b> You shared it while working something out in real time, not as content. It's yours. It could help a lot of dads who feel this and never say it, but only post it if and when you're ready, and only in a way that feels safe for you and your marriage. There's no version of this worth publishing that you'd regret.</div><p class="quote">His words, from the session: "He would just blood-curdle scream if I tried to hold him... it's not even me doing something wrong. He literally just does not want me."</p><div class="fmt"><h4>Story post · single image or b-roll, story in caption</h4><p class="meta">Depth. Open in the scene, dwell on the cost (the rejection and the guilt), land on the repair. Villain is the belief, never your wife or your son.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>No one warns you that your own baby might not want you. <span>intrigue</span></li><li>My first son bonded with me instantly. My second wouldn't let me hold him. <span>contrarian</span></li><li>For months I believed my son not wanting me was my punishment. <span>context</span></li></ul></div><div class="post">With my first son, it was instant. He came out and within minutes I thought, I love you, I've got you.
+
+My second son didn't want me.
+
+He'd blood-curdle scream if I tried to hold him. Only mom. Not at bedtime, not at 1:30 in the morning, not at 3:30. Just her.
+
+And I'm good with kids. That's the part that got me. It wasn't that I was doing something wrong. He just did not want me.
+
+So I told myself a story about it. That I'd earned this. I'd left for a wedding right after he was born. I'd been sick and useless his first day. Somewhere in there I decided his rejection was a punishment I just had to endure.
+
+So at night, when I heard him before she did, I'd stay still. Tell myself she'd handle it. Tell myself I needed the sleep to be a good dad tomorrow.
+
+The truth was quieter than that. If I got up, he'd scream, and I'd feel it all over again. So I stayed in bed to avoid being rejected by my own son.
+
+Months of that.
+
+Then one night, both of us wrecked, him crying, neither of us sleeping, I heard myself think: this is not what I want our life to be.
+
+So I stopped waiting to be wanted. I started getting up. Taking the nights I could take, so she could finally sleep.
+
+He's eleven months old now. He knows my voice in the dark.</div><div class="cta"><span class="cl">CTA · three clean beats</span>The story you tell yourself about why you're on the outside is usually the thing keeping you there.
+If you're a dad who's felt like the backup parent in your own house, you're not the only one.
+Follow along.</div><p class="note">If you ever post this, land it on the repair ('he knows my voice in the dark'), never on the shame. The guilt is the middle of the story, not the end. Keep your wife blameless in the telling, the villain is the belief that his rejection was your punishment.</p></div></div></details><details class="story"><summary><span class="idx">04</span><span class="stitle">The week I left</span><span class="tag tender">PERSONAL · YOUR CALL</span></summary><div class="body"><p class="oneline">Leaving for a friend's wedding a week after your son was born, getting sick at the hospital, and the guilt of feeling like you showed up as a deadbeat when it mattered most.</p><div class="consent"><b>Very tender, and it involves your wife directly.</b> This is the rawest thing in the session and it carries real remorse and some resentment that's still being worked through in your marriage. I would not rush this into content. If it ever becomes a post, it likely belongs much later, told from the far side of repair, and it's worth talking through with your wife first since it's her story too.</div><p class="quote">His words, from the session: "In hindsight, that was the dumbest thing that I could ever do... I chose not my family in that moment because of the thrill of it."</p><div class="fmt"><h4>Held for later · not drafted as a post yet</h4><p class="meta">Deliberately not shaped into a caption. This is here so you can see it exists, not so it's ready to publish.</p><p class="note">Some stories need more distance before they're content. This is one. When there's a clean, resolved version, the frame is: what it cost, what you understand now, and what you do differently, told without self-flagellation and without exposing your wife. Bring it to a session before it ever goes near a feed.</p></div></div></details><details class="story"><summary><span class="idx">05</span><span class="stitle">Whatever you intend to create, you create</span><span class="tag ready">READY-ish · BELIEF</span></summary><div class="body"><p class="oneline">The realization that your real intentions, not your stated goals, are what you're actually building, at night with your son, and in your business. A belief post with legs.</p><div class="consent">One layer of this came from the night-wakeup story (Story 3), so if you tell both, keep the vulnerable detail in Story 3 and keep this one at the level of the principle.</div><p class="quote">His words, from the session: "Whatever you are intending to create, you create." / "Your intentions are always going to be aligned with what your deep beliefs are."</p><div class="fmt"><h4>Conviction post · talking-head or text on screen</h4><p class="meta">A stance about intention vs stated goals. No arc.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>You're not failing to hit your goals. You're succeeding at your real intentions. <span>contrarian</span></li><li>Your stated goal and your actual intention are usually two different things. <span>intrigue</span></li></ul></div><div class="post">You say you want the result. The business, the body, the marriage that feels close.
+
+But look at what you're actually building, day after day, and that tells you what you're really intending.
+
+For a long time I told myself I wanted to help more at night with my son. What I was actually intending was to stay safe. To not get up, not get rejected, not feel it. And I built exactly that. A version of our nights where I was off the hook and quietly on the outside.
+
+We're always creating what we intend. Not what we say. What we intend, underneath, where we don't look.
+
+The good news is that the moment you see the real intention, you get to pick a different one.</div><div class="cta"><span class="cl">CTA · three clean beats</span>You're not stuck. You're succeeding at an intention you haven't looked at yet.
+If your results and your goals don't match, this is for you.
+Follow along.</div><p class="note">Keep the son detail light here since the full version lives in Story 3. This one earns its keep as the principle, aimed at the dad who feels stuck.</p></div></div></details><details class="story"><summary><span class="idx">06</span><span class="stitle">The language that let me hide</span><span class="tag tender">PERSONAL · MOST TENDER</span></summary><div class="body"><p class="oneline">Why a certain skill came so easily to you, and the childhood wound underneath it. The deepest thing in the session. It may be the truest story you own, and it is entirely yours to decide on.</p><div class="consent"><b>This is the most personal one, and the most tender.</b> It surfaced while we were digging into something else, and you called it sad in the moment. It's a gift-born-from-a-wound story, which is the most powerful kind, and also the one that would expose something you've protected your whole life. <b>Do not feel any pressure to make this content.</b> It's here because it's real and because seeing it might matter to you, not because it should be posted. If it ever is, it's on your timeline, in your words, only when it's healed enough that you'd be glad it's out there.</div><p class="quote">His words, from the session: "I know that that's why I grabbed it, because I could talk to anybody I wanted to, and they would never have to hear my voice. Which is, like, so sad."</p><div class="fmt"><h4>Held for you · a shape, not a finished post</h4><p class="meta">Sketched lightly on purpose. This is the arc, not a caption to publish.</p><p class="note">The shape, if you ever want it: a skill came so easily to you that it felt like nothing. But easy is usually the tell. You built that skill young, to get around something that hurt. The gift and the wound are the same thing. The landing would turn it toward the reader, without naming your specifics, something like: the thing you're best at is often the thing you built to survive. That's not a weakness, it's the reason you can reach people no one else can. When you're ready, we build this together, carefully.</p></div></div></details><details class="story"><summary><span class="idx">07</span><span class="stitle">The thing I'd love to do and won't let myself</span><span class="tag ready">EXPLORATORY · TEST IT</span></summary><div class="body"><p class="oneline">You love teaching sign language and believe a rule says you're not allowed to, because you're not Deaf. There may be a real story, and a real business, sitting inside that tension. Worth testing in content to see how it feels and lands.</p><div class="consent">You already said you're okay putting content out about this to see what lands, so this is a lighter touch. Keep it honest and curious, not a stance against the Deaf community. The villain is a rule and a fear, never a group of people.</div><p class="quote">His words, from the session: "I could make a billion dollars doing it. But I would reveal a part of me that would exploit the Deaf community for what I know it to be true, and I cannot do that."</p><div class="fmt"><h4>Conviction / honesty post · talking-head or b-roll</h4><p class="meta">A vulnerable stance about wanting something and holding a rule about it. Test the water.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>There's something I'm genuinely good at that I won't let myself do. <span>intrigue</span></li><li>I could build a whole business around this skill. I've told myself I'm not allowed. <span>contrarian</span></li></ul></div><div class="post">There's a thing I'm good at that I've quietly told myself I'm not allowed to do.
+
+I love sign language. I picked it up fast, I love teaching it, and I think I could help a lot of people learn to talk to someone they love.
+
+And for years I've held a rule about it. That because it isn't my first language, it isn't mine to teach.
+
+I still take that seriously. But lately I've started to wonder how much of the rule is respect, and how much is just fear of the ridicule that comes with stepping out.
+
+I don't have this one solved. I'm saying it out loud to see what's actually true.</div><div class="cta"><span class="cl">CTA · three clean beats</span>Sometimes the rule keeping you small is worth questioning out loud.
+If you've been sitting on something you'd love to do but won't let yourself, tell me.
+Follow along, I'm working this one out in public.</div><p class="note">This is a genuine test post. Kindra's read in the session: there may be a real story, and even a real business, hiding behind this rule. Post it, watch how it lands and how it feels to say, and bring what comes back to a session.</p></div></div></details>
+  <p class="foot">Built with Kindra Morse · The Throughline Method. Every draft is a starting point in your voice, rewrite freely. Stories marked Personal are yours to decide on, on your timeline. Nothing here is posted until you post it.</p>
 </div>
-</body>
-</html>
+</body></html>
