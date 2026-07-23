@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wendy Jordan · Story Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --plum:#1E1620; --parch:#FAF8F4; --orchid:#CB6CE6; --blossom:#F4CBFF;
+         --plum2:#2A1E30; --dim:#B9AEC0; --line:#3A2C42; --gray:#9A8A96; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--plum);color:var(--parch);
+    font-family:"Archivo Narrow",system-ui,sans-serif;line-height:1.6;}
+  .wrap{max-width:820px;margin:0 auto;padding:56px 22px 120px;}
+  .eyebrow{font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+    font-size:12px;color:var(--blossom);margin:0 0 18px;}
+  h1{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:clamp(38px,7vw,62px);
+    line-height:1.05;margin:0 0 10px;}
+  h1 .n{color:var(--orchid);}
+  .sub{font-size:19px;color:var(--dim);max-width:62ch;margin:0 0 30px;}
+  .seam{width:130px;height:3px;background:var(--orchid);border:0;margin:26px 0 40px;}
+  .howto{background:var(--plum2);border:1px solid var(--line);border-radius:14px;
+    padding:22px 24px;margin:0 0 44px;font-size:15.5px;}
+  .howto b{color:var(--orchid);}
+  .howto ul{margin:10px 0 0;padding-left:18px;} .howto li{margin:6px 0;}
+  details.story{border:1px solid var(--line);border-radius:16px;margin:0 0 26px;
+    overflow:hidden;background:linear-gradient(180deg,#241a2b 0%,#1E1620 60%);}
+  details.story>summary{list-style:none;cursor:pointer;padding:26px;
+    display:flex;align-items:baseline;gap:16px;}
+  details.story>summary::-webkit-details-marker{display:none;}
+  .idx{font-family:"Playfair Display",serif;font-size:26px;color:var(--orchid);
+    font-weight:700;min-width:34px;}
+  .stitle{font-family:"Playfair Display",serif;font-size:clamp(21px,3.6vw,27px);
+    font-weight:600;line-height:1.15;margin:0;flex:1;}
+  .tag{font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    font-size:10.5px;padding:5px 10px;border-radius:999px;white-space:nowrap;align-self:center;}
+  .tag.ready{background:rgba(203,108,230,.16);color:var(--blossom);border:1px solid var(--orchid);}
+  .tag.tender{background:rgba(255,210,120,.12);color:#F4D07C;border:1px solid #7c6636;}
+  .tag.held{background:rgba(160,160,175,.12);color:#C9C2CE;border:1px solid #5A5262;}
+  .body{padding:0 26px 30px;}
+  .oneline{color:var(--dim);font-size:16px;margin:0 0 22px;border-left:2px solid var(--line);padding-left:14px;}
+  .consent{background:rgba(255,210,120,.08);border:1px solid #6a5a2e;border-radius:10px;
+    padding:14px 16px;margin:0 0 26px;font-size:14.5px;color:#F0DFAE;}
+  .consent b{color:#F4D07C;}
+  .quote{font-size:14px;color:var(--gray);margin:6px 0 0;padding-left:12px;
+    border-left:2px solid var(--line);font-style:italic;}
+  .fmt{border-top:1px solid var(--line);padding:22px 0 0;margin:22px 0 0;}
+  .fmt h4{font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    font-size:12.5px;color:var(--orchid);margin:0 0 4px;}
+  .fmt .meta{font-size:13px;color:var(--gray);margin:0 0 14px;}
+  .hooks{margin:0 0 16px;}
+  .hooks .hlabel{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);font-weight:700;}
+  .hooks ul{margin:6px 0 0;padding-left:0;list-style:none;}
+  .hooks li{padding:7px 12px;background:var(--plum2);border:1px solid var(--line);
+    border-radius:8px;margin:6px 0;font-size:15px;}
+  .hooks li span{color:var(--gray);font-size:12px;font-style:italic;}
+  .post{font-family:"Playfair Display",Georgia,serif;font-size:17.5px;line-height:1.62;
+    white-space:pre-line;background:#191320;border:1px solid var(--line);border-radius:10px;
+    padding:20px 22px;}
+  .cta{margin:14px 0 0;padding:16px 18px;border:1px dashed var(--orchid);border-radius:10px;
+    background:rgba(203,108,230,.06);font-size:15.5px;white-space:pre-line;}
+  .cta .cl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--orchid);
+    font-weight:700;display:block;margin:0 0 8px;}
+  .note{font-size:13.5px;color:var(--dim);margin:16px 0 0;border-left:2px solid var(--orchid);padding-left:12px;}
+  .foot{margin-top:60px;color:var(--gray);font-size:13.5px;border-top:1px solid var(--line);padding-top:22px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">A Story Bank &nbsp;·&nbsp; Built with Kindra Morse</p>
+  <h1>Wendy <span class="n">Jordan</span></h1>
+  <p class="sub">Every story below came out of one session. You lived all of it. None of it is content until <b>you</b> decide it is, and you are the only one who would ever post it. This is here so you can see what's possible, and choose.</p>
+  <hr class="seam">
+
+  <div class="howto">
+    <b>How to read this.</b> Each story opens into the ways it could be told. Most of these do best as a single photo or simple b-roll with the story in the caption. You do not need to talk to camera, and you do not need to change the shot every two seconds. Let the words carry it.
+    <ul>
+      <li><b>Ready</b> means it's tied straight to your lane: women who've tried everything, who think putting themselves first is selfish, who don't know their nervous system is part of this. Start here.</li>
+      <li><b>Personal</b> means it's powerful and it involves someone else's life. Yours to sit with, and it needs their yes before it goes anywhere.</li>
+      <li><b>Held</b> means we captured it so you can see it exists, and we deliberately did not build it. There's a reason noted inside.</li>
+      <li>Every draft is a starting point in your voice, not mine. Rewrite anything that doesn't sound like you.</li>
+    </ul>
+  </div>
+<details class="story"><summary><span class="idx">01</span><span class="stitle">The doctor who told me to exercise</span><span class="tag ready">READY · YOUR LANE</span></summary><div class="body"><p class="oneline">You went in about an injury and left believing something about your body. The most on-brand story you own, because your reader has had this exact appointment.</p><div class="consent">You mentioned you already made a reel about this one. That means the raw version is out there and this can be the fuller telling, or a second angle on it.</div><p class="quote">Your words, from the session: "He was like, well, you need to exercise... just like he assumed I didn't." / "I felt huge. He just made me feel huge and unhealthy." / "Sweaty, clammy, I just wanted to crawl in a hole."</p><div class="fmt"><h4>Story post · single photo or b-roll, story in caption</h4><p class="meta">Open in the exam room. Dwell on the body. Land on the scale, not on a lesson.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>I went to the doctor about a fall and left thinking about my body instead. <span>context</span></li><li>I'd been doing HIIT workouts for eight months when he told me I should exercise. <span>contrarian</span></li><li>He weighed me first. Then he said it. <span>intrigue</span></li></ul></div><div class="post">I slipped on the ice and ended up with a hematoma so big I went in to get it looked at.
+
+They weighed me first. It was the most I had ever weighed in my life, and I remember sitting there thinking, I promised myself I would never let it get above this number.
+
+Then the doctor came in. I asked him a simple question. What can I do to make sure this heals properly?
+
+And he said, you need to be active. You need to exercise.
+
+I had been doing HIIT workouts for eight months.
+
+He didn't ask. He looked at me and decided.
+
+I don't remember if I said anything back. I think I just said okay. What I remember is my whole body going hot and clammy, and wanting to crawl into a hole, and wanting to cover myself up and get out of that room.
+
+I went in about a bruise.
+
+I left thinking he must look at me and see someone who doesn't try.</div><div class="cta"><span class="cl">CTA · three clean beats</span>You can be doing everything right and still get treated like you're not.
+If you've ever left an appointment feeling smaller than when you walked in, I see you.
+Follow along. I'm putting words to this all week.</div><p class="note">The proof is that you HAD been working out for eight months. Keep that. It's the whole reason the story stings and the whole reason your reader trusts you. Do not add a lesson after "someone who doesn't try." End there.</p></div><div class="fmt"><h4>Conviction post · talking-head or text on screen</h4><p class="meta">No arc, just the stance. Shorter and angrier. Villain is the assumption, never the doctor.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>Nobody should have to prove they're trying before they get help. <span>contrarian</span></li></ul></div><div class="post">Somebody looked at me once and decided I didn't exercise.
+
+He was wrong. I'd been doing HIIT four days a week for eight months.
+
+But here's what I actually want to say about it.
+
+It shouldn't have mattered whether he was right.
+
+You should not have to prove you've been trying hard enough to be treated like a person who deserves help. You should not have to earn basic care by being thin enough first.
+
+I walked out of there believing something about myself that wasn't true, and it took me years to put it down.</div><div class="cta"><span class="cl">CTA · three clean beats</span>You don't have to prove you've been trying to deserve help.
+If you've been carrying something a professional said to you, put it down.
+Follow along.</div></div></div></details><details class="story"><summary><span class="idx">02</span><span class="stitle">It'll work for everyone but me</span><span class="tag ready">READY · YOUR LANE</span></summary><div class="body"><p class="oneline">The belief you were carrying when you finally tried the thing that worked. This is the exact sentence in your reader's head right now, which makes it the most useful story you have.</p><p class="quote">Your words, from the session: "There was part of me that was super excited, because I'd done so much research, and logically I knew it would work, but the other side of me was like, it's not gonna work for me, though. It will work for everybody else, but not for me." / "Here I go spending money I shouldn't spend on myself. That's probably not gonna work."</p><div class="fmt"><h4>Story post · single photo or b-roll, story in caption</h4><p class="meta">Open on the list. Land on the disbelief, not the number.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>I had a whole list of things that hadn't worked, and I'd stopped expecting anything to. <span>context</span></li><li>I lowered my goal weight on purpose so I wouldn't be disappointed. <span>intrigue</span></li><li>I knew it would work. I just knew it wouldn't work for me. <span>contrarian</span></li></ul></div><div class="post">Here is a partial list of things I tried before this.
+
+Metabolism pills. Hydroxycut. Shakes, more than one kind. Beachbody. Meal plans. Workout plans. Weight Watchers. A cabinet full of vitamins and supplements. Every plan built for someone who eats meat, which I don't.
+
+So when I finally decided to try something new, I did the research. I read everything. And logically, I knew it should work.
+
+And underneath that, I thought: it'll work for everybody else. It won't work for me.
+
+I want to tell you what I actually did with that thought. I lowered my goal. On purpose. I picked a number I thought I could reach so I wouldn't be disappointed when I stalled out.
+
+That is what years of nothing working does to a person.
+
+Seventy seven pounds later, I bought a pair of size 8 jeans at Old Navy, and I stood in the fitting room thinking they must be mislabeled.
+
+I went and tried on a size 10 at a thrift store from a brand I'd never heard of, just to check.
+
+It fit too.</div><div class="cta"><span class="cl">CTA · three clean beats</span>When nothing has worked for years, you stop being able to hope. That's not a character flaw, it's evidence.
+If you've quietly lowered what you're hoping for so it hurts less when it doesn't happen, this one's for you.
+Follow along.</div><p class="note">"I lowered my goal on purpose so I wouldn't be disappointed" is the most human line in this bank. It is the whole story. Do not cut it to save space. And notice the post lands on checking a second pair of jeans, not on the number. Keep it that way.</p></div><div class="fmt"><h4>Belief post · short, text on screen</h4><p class="meta">For a day you want something quick. One belief, no arc.</p><div class="post">There's a specific kind of tired that comes from trying things.
+
+Not from doing nothing. From doing everything, over and over, and having none of it hold.
+
+After enough of that, you don't stop wanting it. You just stop expecting it. You lower the number. You hedge. You say you'll be happy with less so it hurts less when less is all you get.
+
+I did that.
+
+If that's where you are, you are not lazy and you are not undisciplined.
+
+You're just someone who has been let down a lot.</div><div class="cta"><span class="cl">CTA · three clean beats</span>You didn't stop wanting it. You stopped expecting it.
+If you've been let down by every plan you've tried, that's information about the plans.
+Follow along.</div></div></div></details><details class="story"><summary><span class="idx">03</span><span class="stitle">The Christmas photos</span><span class="tag ready">READY · YOUR LANE</span></summary><div class="body"><p class="oneline">The before, in a specific room. Pairs with the hike selfie as the after. Your reader has a folder like this on her phone right now.</p><p class="quote">Your words, from the session: "Every single picture of me was just like... the worst angle. Like, how does this man get THE worst possible in every single candid photo." / "I just remember hating those pictures, just like, I felt like I wanted to throw up." / Body: "tense and my stomach just drops and just uncomfortable in my own skin" / "tummy clenching."</p><div class="fmt"><h4>Story post · a photo of you now, or b-roll, story in caption</h4><p class="meta">Two scenes, before and after. Depth. Do not use an actual unflattering old photo unless you want to; the words do it.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>Every Christmas my father in law took hundreds of candid photos, and I dreaded the file. <span>context</span></li><li>There was a moment of dread before I looked at any picture of myself. <span>intrigue</span></li><li>A man took a selfie of us at 6am in the rain and I didn't hate it. <span>contrarian</span></li></ul></div><div class="post">My father in law loves a camera. Every Christmas he'd take hundreds of candid photos and then send the whole file out to everybody.
+
+And every single one of me was the worst possible angle. Every one. He had a gift for it.
+
+I'd open that file with my stomach already dropping. Tense. Clenched. Genuinely feeling like I might be sick, looking at pictures of myself at Christmas.
+
+And before that, at the party, I already knew. Anytime someone lifted a camera I'd think, angle yourself, I hope my face looks okay, I hate how my cheeks look. Already certain it was going to be a terrible picture, before it was even taken.
+
+Last week somebody snapped a selfie of us on a hike. Six in the morning. Raining. No makeup. We got lost, nobody else showed up, and we hiked in the rain anyway.
+
+He posted it before I ever saw it.
+
+And when I did see it, I had that half second of dread, the way I always do.
+
+Then I looked at it and thought, oh. That's kind of cute.
+
+It wasn't a good photo. It was 6am in the rain. But I could see that I looked happy.</div><div class="cta"><span class="cl">CTA · three clean beats</span>It isn't really about the photo. It's whether you've been keeping your promises to yourself.
+If you feel dread before you look at a picture of yourself, you're not vain. You're tired.
+Follow along.</div><p class="note">The after is deliberately small. Not a glamour shot, a bad-lighting selfie at 6am in the rain. That's what makes it believable. "I could see that I looked happy" is the landing. Stop there.</p></div></div></details><details class="story"><summary><span class="idx">04</span><span class="stitle">The morning I didn't put a shirt on</span><span class="tag ready">READY · YOUR LANE</span></summary><div class="body"><p class="oneline">One ordinary morning that shows the whole change without a single number. Short, present tense, and it can go up the day it happens.</p><p class="quote">Your words, from the session: "I was like, do I even need a top? ... I think it's okay. It doesn't really show my tummy, and actually, I think it looks pretty good. I'm just gonna go walk like this." / "Such a weird feeling to walk out of the house in a sports bra and biker shorts."</p><div class="fmt"><h4>Story post · short, single photo or b-roll, story in caption</h4><p class="meta">The smallest post in the bank and possibly the most relatable. Depth, warm.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>I walked out of my house this morning in a sports bra and I want to talk about it. <span>intrigue</span></li><li>I stood in front of the mirror and decided I didn't need a shirt. <span>context</span></li></ul></div><div class="post">I was getting dressed to take the dog out before it got hot.
+
+Sports bra, bike shorts. And I reached for a top to put over it, the way I always do.
+
+Then I stopped and thought, do I actually need this.
+
+So I stood in front of the mirror for a second. I have loose skin on my stomach. I'm working on my arms. None of that has gone away.
+
+And I thought, you know what, I think it's fine. I think it actually looks pretty good.
+
+And I walked out of my house like that.
+
+It felt so strange. Not bad. Just completely unfamiliar, at my age, in this body, to walk out the front door without covering myself up first.
+
+I kept it on all day.</div><div class="cta"><span class="cl">CTA · three clean beats</span>It isn't about the loose skin. It's about not needing to hide it before you're allowed outside.
+If you've been layering things over yourself before you leave the house, I know exactly what that is.
+Follow along.</div><p class="note">Keep the loose skin in. It's the line that makes this real instead of a highlight reel, and it's the reason a woman who doesn't look like a fitness ad will trust you. "I kept it on all day" is the landing.</p></div></div></details><details class="story"><summary><span class="idx">05</span><span class="stitle">I was doing it secretly</span><span class="tag ready">READY · YOUR LANE</span></summary><div class="body"><p class="oneline">You started taking care of yourself and building your business quietly, because you expected judgment. The belief post underneath your whole offer: putting yourself first is not selfish.</p><p class="quote">Your words, from the session: "I was building my coaching business almost secretly." / "At first it was kind of like a secret thing, but it was that realization of, like, I don't need to be secretive about it, this is who I am, this is what works for me and my body." / "I put myself first and I stopped caring about what people thought."</p><div class="fmt"><h4>Story post · single photo or talking-head, story in caption</h4><p class="meta">Depth. Opens on the secrecy, lands on the reason it stopped.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>I did the first part of this secretly, and I want to tell you why. <span>intrigue</span></li><li>Most women think putting themselves first makes them selfish. I thought it made me suspicious. <span>contrarian</span></li></ul></div><div class="post">When I started, I didn't tell people.
+
+Not the peptides, not the plan, not the fact that I was building a coaching business on the side. I kept all of it fairly quiet.
+
+And I've thought about why, because it wasn't shame exactly. It was closer to bracing. I already knew how it would sound. Here she goes, trying another thing. Or, must be nice to have time for that.
+
+Most women I know have a version of this. We think that if we put ourselves first, we're taking something from our family. Being selfish. Making it about us.
+
+So we do it around the edges. Quietly. Where nobody has to have an opinion.
+
+What changed for me wasn't that I got braver about other people.
+
+It's that I stopped needing to explain it. This is what works for my body. This is who I am. That's the whole reason.
+
+I don't have a secret anymore.
+
+I just have a life I'm not hiding.</div><div class="cta"><span class="cl">CTA · three clean beats</span>Taking care of yourself is not something you have to do quietly to be allowed to do it.
+If you've been doing your own thing around the edges so nobody comments, this one's for you.
+Follow along.</div><p class="note">The reveal is that the change wasn't courage, it was no longer needing permission. Don't state "and that's what self-love really is." The story already said it.</p></div></div></details><details class="story"><summary><span class="idx">06</span><span class="stitle">One pot and an air fryer</span><span class="tag ready">READY · NEEDS HER YES</span></summary><div class="body"><p class="oneline">A client with a long list of diagnoses told you what she actually had to cook with, and you built her plan around that. The best proof of caring in this whole bank, because it's a detail nobody would invent.</p><div class="consent"><b>Ask her first.</b> Nothing here names her, but she'd recognize herself instantly, and her health information is hers. Send her the exact post and ask. Given the email she sent you, she will almost certainly say yes and be glad.</div><p class="quote">Your words, from the session: "She's like, I'm staying with someone, so I have one pot I can cook with and an air fryer, pretty much. And I'm like, okay. So I built her whole plan around that." / Her email: "You are the first person that's actually put something together that I can actually do... and you actually listened to me."</p><div class="fmt"><h4>Story post · single photo or b-roll, story in caption</h4><p class="meta">Depth. The whole post rests on one concrete detail. Do not generalize it.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>She told me she had one pot and an air fryer. So that's what I built her plan around. <span>intrigue</span></li><li>Most plans are written for someone with a full kitchen and a normal week. <span>contrarian</span></li><li>The first thing I asked her wasn't about her goals. <span>context</span></li></ul></div><div class="post">I got a new client recently who is dealing with more health conditions than I can list in a caption.
+
+Before I wrote her anything, I asked about her life. Not her goals. Her actual life.
+
+And she told me she's staying with someone right now, temporarily, so she has one pot she can use and an air fryer. That's it. She lives in a small town. Her food restrictions rule out most of what's on the shelves there.
+
+So I built her whole plan around one pot and an air fryer.
+
+I found a place that would deliver what she couldn't buy locally, and I made her a shopping list for it.
+
+She emailed me back and said I was the first person who had ever given her something she could actually do.
+
+And then she said the part I keep thinking about. She said, you actually listened to me. You didn't look at me like I was a mess and throw your hands up and tell me to eat better and work out.
+
+I didn't do anything clever.
+
+I just asked what she had.</div><div class="cta"><span class="cl">CTA · three clean beats</span>A plan you can't do isn't a plan. It's a reminder that you're failing.
+If every program you've tried was built for someone else's life, that was never your fault.
+Follow along.</div><p class="note">"I just asked what she had" is the landing. It reveals your whole method without one word of self-praise. Do NOT add "and that's what I do differently." The reader already got there.</p></div></div></details><details class="story"><summary><span class="idx">07</span><span class="stitle">They stopped needing me</span><span class="tag ready">READY · NEEDS THEIR YES</span></summary><div class="body"><p class="oneline">A couple you worked with for three months went off the peptides and kept the weight off, because what they actually kept were the habits. Proof that you're not building dependence.</p><div class="consent"><b>Ask them first.</b> No names, but they'd know. Low sensitivity and it's flattering, so this is a small ask.</div><p class="quote">Your words, from the session: "She went off of it completely for several months, and she didn't gain back the weight... they had maintained that habit." / Kindra, in the session: "You aren't looking to be a crutch. You're looking to empower them to not need you."</p><div class="fmt"><h4>Story post · single photo or b-roll, story in caption</h4><p class="meta">Depth. A quiet flex. The point is that they left and it held.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>The best text I got this year was from someone who doesn't need me anymore. <span>intrigue</span></li><li>They went off it months ago and the weight stayed off. That's the whole job. <span>contrarian</span></li></ul></div><div class="post">A couple came to me a while back. She'd hit the point in midlife where everything that used to work stopped working, and the two of them were living the way a lot of people live. Constantly moving. Grabbing food on the way home or not eating at all.
+
+We worked together closely for about three months.
+
+We got her symptoms settled. We figured out what her body actually needed. And we did a lot of work that had nothing to do with food, mostly about boundaries with her grown kids and not running herself into the ground on everyone else's schedule.
+
+They each lost about forty pounds.
+
+Here's the part that matters to me. She's been off it completely for months now. She hasn't gained it back. She changed jobs, she's out hiking, and every so often she microdoses for the inflammation in her joints, not for her weight.
+
+They kept it because what they actually kept was everything else. How they shop. How they eat. How they move on a normal Tuesday.
+
+They don't need me.
+
+That was always the goal.</div><div class="cta"><span class="cl">CTA · three clean beats</span>If a plan only works while you're paying someone, it wasn't a plan.
+If you've been afraid of what happens when you stop, that's the right question to be asking.
+Follow along.</div><p class="note">"They don't need me. That was always the goal." is the landing and it's the whole differentiator. Everything else in your industry is built on dependence. Let this one sit.</p></div></div></details><details class="story"><summary><span class="idx">08</span><span class="stitle">She came to lose weight for her wedding</span><span class="tag tender">PERSONAL · HER CALL</span></summary><div class="body"><p class="oneline">The biggest transformation in this bank, and the one with the most other people in it. She came for a wedding dress and ended up with her daughter living with her.</p><div class="consent"><b>This one needs her explicit yes, and probably a conversation, not a text.</b> It involves her ex, a custody arrangement, and a teenage daughter. Even with no names, the details are specific enough that people who know her would know. If she says yes, consider cutting the custody part entirely and keeping the boudoir shoot and the shaking legs, which are hers alone. The strongest version might be the smaller one.</div><p class="quote">Your words, from the session: "She couldn't stop moving. She had restless leg... her nervous system was just a wreck." / "She's like, I rocked it, and I felt so confident." / "Now her legs don't even shake anymore. It's almost non-existent."</p><div class="fmt"><h4>Story post · the smaller, safer version (recommended)</h4><p class="meta">Keeps only what is hers. No ex, no custody, no child. Depth.</p><div class="hooks"><span class="hlabel">Hook options</span><ul><li>She couldn't sit still. Her legs shook the entire first time we talked. <span>intrigue</span></li><li>She came to me to lose weight for her wedding. <span>context</span></li></ul></div><div class="post">The first time we talked, she couldn't sit still.
+
+Her legs went the entire conversation. Restless, constant, the whole time. Her nervous system was running at a level she'd clearly been living with for years and had stopped noticing.
+
+She came to me to lose weight for her wedding.
+
+So we worked on food, and we worked on all the other things. Boundaries. Downtime, which she never took. Getting her kids involved in dinner instead of coming home angry about the mess. She travels every week for work and had built a life with no gaps in it anywhere.
+
+She did every single thing I taught her. She kept her logs. She showed up.
+
+A while later she did a boudoir shoot she had been terrified of. She texted me after and said, I rocked it. I felt so confident.
+
+She's down about thirty pounds and she gets married this fall.
+
+And her legs don't shake anymore.
+
+That's the part I think about. Not the thirty pounds. The stillness.</div><div class="cta"><span class="cl">CTA · three clean beats</span>Sometimes the thing you came for isn't the thing you needed.
+If your body has been running at a level you've stopped noticing, that's worth looking at.
+Follow along.</div><p class="note">"Her legs don't shake anymore. That's the part I think about. Not the thirty pounds. The stillness." That's the landing and it's beautiful. The custody story is real and it's bigger, and it belongs to more people than her. If she wants it told, build it separately and carefully.</p></div></div></details><details class="story"><summary><span class="idx">09</span><span class="stitle">The one who got out</span><span class="tag held">HELD · NOT DRAFTED</span></summary><div class="body"><p class="oneline">You helped someone leave a situation that was making her physically sick, one small step a week, and she is a different person now. Real, and not ready to be content.</p><div class="consent"><b>Held on purpose.</b> This involves an abusive relationship, someone who worked for you, and a person who has since rebuilt her whole life somewhere else. Even with every detail changed, a post about it puts her safety and privacy in someone else's hands. If she ever wants that story told, it's hers to tell, in her words, on her timeline. What you can carry forward from it, without her story attached, is the method: one thing a week, and a small list she could actually finish, which is the same thing you did for the client with one pot and an air fryer.</div><div class="fmt"><h4>Not drafted, on purpose</h4><p class="meta">Captured so you can see it exists.</p><p class="note">If you ever want the principle without the person, it's already available to you: momentum comes from one small thing a week, not from a plan that requires a different life. That belief can be told with no story attached, or with your own.</p></div></div></details>
+  <p class="foot">Built with Kindra Morse &nbsp;·&nbsp; The Throughline Method. Every draft is a starting point in your voice, rewrite freely. Stories that involve someone else need their yes before they go anywhere. Nothing here is posted until you post it.</p>
+</div>
+</body></html>
