@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wendy Jordan · Story Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#1E1620;
+    --plum-2:#271C2C;
+    --orchid:#CB6CE6;
+    --blossom:#F4CBFF;
+    --parchment:#FAF8F4;
+    --muted:#B49CC0;
+    --line:rgba(244,203,255,.16);
+    --ready:#7BD4A6;
+    --personal:#F2C14E;
+    --held:#8FA8FF;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--plum);
+    color:var(--parchment);
+    font-family:'Archivo Narrow',system-ui,sans-serif;
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:56px 22px 120px;}
+  h1,h2,h3,.serif{font-family:'Playfair Display',Georgia,serif;}
+  header.top{border-bottom:1px solid var(--line);padding-bottom:34px;margin-bottom:12px;}
+  .eyebrow{font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--orchid);font-weight:600;margin:0 0 14px;}
+  h1{font-size:64px;line-height:1.02;margin:0 0 18px;font-weight:900;letter-spacing:-.01em;}
+  h1 .sub{display:block;font-size:22px;font-weight:500;font-style:italic;color:var(--blossom);letter-spacing:0;margin-top:12px;}
+  .frame{font-size:19px;color:var(--parchment);max-width:660px;}
+  .frame em{color:var(--blossom);font-style:italic;}
+  .howto{background:var(--plum-2);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin:30px 0 10px;}
+  .howto h3{font-size:20px;margin:0 0 12px;color:var(--parchment);}
+  .howto p{margin:0 0 12px;color:var(--muted);font-size:16.5px;}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .tag{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;border:1px solid currentColor;background:rgba(0,0,0,.15);}
+  .tag.ready{color:var(--ready);}
+  .tag.personal{color:var(--personal);}
+  .tag.held{color:var(--held);}
+  .tag .dot{width:8px;height:8px;border-radius:50%;background:currentColor;}
+  .legend .tag small{color:var(--muted);font-weight:500;text-transform:none;letter-spacing:0;}
+  .sectionhead{font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:var(--orchid);font-weight:700;margin:56px 0 6px;padding-top:24px;border-top:1px solid var(--line);}
+  .sectionhead + .sectionsub{color:var(--muted);font-size:16px;margin:0 0 20px;}
+  details.story{background:var(--plum-2);border:1px solid var(--line);border-radius:16px;margin:16px 0;overflow:hidden;}
+  details.story[open]{border-color:rgba(203,108,230,.45);}
+  summary{list-style:none;cursor:pointer;padding:22px 26px;display:flex;align-items:flex-start;gap:16px;}
+  summary::-webkit-details-marker{display:none;}
+  summary .num{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--orchid);line-height:1;min-width:34px;}
+  summary .stitle{flex:1;}
+  summary .stitle .t{font-family:'Playfair Display',serif;font-size:23px;font-weight:700;line-height:1.15;color:var(--parchment);display:block;margin-bottom:9px;}
+  summary .chev{color:var(--orchid);font-size:15px;margin-top:8px;transition:transform .2s;}
+  details[open] summary .chev{transform:rotate(90deg);}
+  .body{padding:2px 26px 30px;}
+  .oneline{color:var(--blossom);font-style:italic;font-size:17.5px;margin:0 0 22px;padding-left:16px;border-left:2px solid var(--orchid);}
+  .block{margin:22px 0;}
+  .label{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--orchid);margin:0 0 9px;}
+  .handling{background:rgba(143,168,255,.09);border:1px solid rgba(143,168,255,.3);border-radius:12px;padding:16px 18px;}
+  .handling .label{color:var(--held);}
+  .handling p{margin:0 0 8px;font-size:16px;color:var(--parchment);}
+  .handling p:last-child{margin:0;}
+  .words{background:rgba(0,0,0,.22);border-radius:12px;padding:16px 20px;}
+  .words .label{color:var(--muted);}
+  .words blockquote{margin:0;font-size:16.5px;color:var(--blossom);}
+  .words blockquote p{margin:0 0 10px;}
+  .words blockquote p:last-child{margin:0;}
+  .format{border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:18px 0;background:rgba(255,255,255,.015);}
+  .format .fname{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--parchment);margin:0 0 4px;}
+  .format .deliv{font-size:14px;color:var(--muted);margin:0 0 16px;text-transform:uppercase;letter-spacing:.1em;}
+  .hooks{margin:14px 0;}
+  .hook{margin:0 0 10px;padding-left:14px;position:relative;font-size:16.5px;}
+  .hook .htype{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--plum);background:var(--blossom);border-radius:5px;padding:2px 7px;margin-right:8px;vertical-align:middle;}
+  .draft{white-space:pre-wrap;font-size:16.5px;line-height:1.72;background:rgba(0,0,0,.18);border-radius:12px;padding:18px 20px;color:var(--parchment);margin:12px 0;}
+  .slide{border-bottom:1px dashed var(--line);padding:11px 0;}
+  .slide:last-child{border-bottom:none;}
+  .slide .sn{color:var(--orchid);font-weight:700;font-size:13.5px;letter-spacing:.08em;text-transform:uppercase;}
+  .cta{margin:12px 0;}
+  .cta .beat{display:flex;gap:12px;margin:8px 0;align-items:baseline;}
+  .cta .beat b{color:var(--orchid);font-size:13px;min-width:70px;text-transform:uppercase;letter-spacing:.08em;}
+  .loop{background:rgba(203,108,230,.08);border-radius:12px;padding:14px 18px;font-size:15.5px;}
+  .loop .label{color:var(--orchid);}
+  .loop ul{margin:6px 0 0;padding-left:18px;}
+  .loop li{margin:4px 0;color:var(--muted);}
+  .loop li b{color:var(--parchment);font-weight:600;}
+  .notes{font-size:15.5px;color:var(--muted);}
+  .notes b{color:var(--blossom);font-weight:600;}
+  .heldbody p{font-size:16.5px;}
+  .placeholder{color:var(--orchid);font-weight:700;}
+  footer.foot{margin-top:60px;border-top:1px solid var(--line);padding-top:34px;color:var(--muted);font-size:15.5px;}
+  footer.foot h3{color:var(--parchment);font-size:22px;margin:0 0 14px;}
+  footer.foot ol{padding-left:20px;}
+  footer.foot li{margin:8px 0;}
+  footer.foot b{color:var(--blossom);}
+  a{color:var(--orchid);}
+  @media(max-width:600px){
+    h1{font-size:44px;}
+    .wrap{padding:40px 16px 90px;}
+    summary{padding:18px 18px;}
+    .body{padding:2px 18px 24px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Story Bank · From one excavation session</p>
+  <h1>Wendy Jordan
+    <span class="sub">The stories your ideal client is living right now, and doesn't have words for yet.</span>
+  </h1>
+  <p class="frame">Every story below came out of <em>one</em> session. You lived all of it. None of it is content until you decide it is, and you are the only one who would ever post it. Read these as options, not a to-do list. Each draft is a starting point in your voice, meant to be rewritten freely until it sounds like you talking.</p>
+
+  <div class="howto">
+    <h3>How to read this</h3>
+    <p>Each story is tagged for readiness. Open the ones that pull at you. Inside you will find your own quoted words from the session (the accuracy anchor, so you can check nothing was invented), then one or more post formats with hook options, a full draft, a three beat call to action, and a note on what to protect.</p>
+    <p style="margin-bottom:0;">The rule underneath all of it: character can't be claimed, only revealed. These posts stage a moment and get out of the way, so your reader reaches the conclusion herself. That conclusion is trust.</p>
+    <div class="legend">
+      <span class="tag ready"><span class="dot"></span>Ready <small>· your lane, start here</small></span>
+      <span class="tag personal"><span class="dot"></span>Personal <small>· true and tender, your call</small></span>
+      <span class="tag held"><span class="dot"></span>Held <small>· captured, not drafted, needs distance or a blessing</small></span>
+    </div>
+  </div>
+</header>
+
+<section class="howto" style="border-color:rgba(203,108,230,.5);">
+  <h3>What changed in this version</h3>
+  <p style="color:var(--parchment);">This revision applies three updates from the refreshed build protocol and operating manual, and adds one new post.</p>
+  <p><b style="color:var(--blossom)">1. The work you want more of.</b> A new rule says content is a filter, not a net: only make posts about the work you want more of. Story 10 was reframed so it attracts clients who want to be truly seen, not the most draining custom cases, and a new Story 12 points at the in-person retreat direction you said you are building toward.</p>
+  <p><b style="color:var(--blossom)">2. Cleaner landings.</b> The marquee carousels (01, 02, 03) no longer stack two closing beats. Each now ends on a single landing, or the one sanctioned two-beat move: a reader turn, then a mirror reflection.</p>
+  <p style="margin-bottom:0;"><b style="color:var(--blossom)">3. A sharper image.</b> Where it fits her photo stories, a post now uses the go-forward line, you cannot see the picture when you are the one inside the frame.</p>
+</section>
+
+<!-- =================== READY =================== -->
+<p class="sectionhead">Ready · your lane</p>
+<p class="sectionsub">Tied straight to what you do. Cleanest to post. Start here.</p>
+
+<!-- STORY 1 -->
+<details class="story" open>
+  <summary>
+    <span class="num">01</span>
+    <span class="stitle">
+      <span class="t">The 6am photo in the rain</span>
+      <span class="tag ready"><span class="dot"></span>Ready</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">The camera used to make you sick. Now the worst lit, most unposed photo you own is the one you keep looking at. The proof isn't the body. It's that you stopped abandoning yourself.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"Every single picture of me was just, like, the worst angle. I just remember hating those pictures, just like I felt like I wanted to throw up."</p>
+        <p>"Bob snapped that selfie of us on the hike last week... I like, could see I looked happy."</p>
+        <p>"Despite what my hair looked like, or the angle, or whatever, I felt that sense of self-love towards myself."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p>This is yours to tell, no permission needed. The relative with the camera stays anonymous and stays a person you love, never the villain. The villain is the dread itself, the bracing. Keep it that way and the post is safe and truer.</p>
+    </div>
+
+    <!-- Format A: Carousel -->
+    <div class="format">
+      <p class="fname">Format A · Carousel (story post)</p>
+      <p class="deliv">9 slides · run the cover hot, let the middle breathe</p>
+
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Context</span>For years I wanted to throw up every time someone posted a photo of me.</p>
+        <p class="hook"><span class="htype">Intrigue</span>It was taken at 6am, in the rain, no makeup. I can't stop looking at it.</p>
+        <p class="hook"><span class="htype">Contrarian</span>The photo that changed how I see myself is the worst lit one I own.</p>
+      </div>
+
+      <p class="label">The carousel</p>
+      <div class="draft"><div class="slide"><span class="sn">Slide 1 · cover</span>
+It was taken at 6am, in the rain, no makeup. I can't stop looking at it.</div>
+<div class="slide"><span class="sn">Slide 2</span>
+A few years back, someone in the family loved his camera. He would walk the room all day. Then the file would show up. Every candid of me, somehow the worst angle in the whole batch.
+
+I opened it and my stomach dropped.</div>
+<div class="slide"><span class="sn">Slide 3</span>
+Tense. Stomach on the floor. That feeling of wanting to throw up. Uncomfortable in my own skin before I even scrolled.
+
+By then I already knew the picture would be terrible. I decided it before I saw it.</div>
+<div class="slide"><span class="sn">Slide 4</span>
+So I thought the problem was the angle. If I could just tilt my face right, hold myself right, stand in the right light, the dread would go.
+
+I braced for every camera for years.</div>
+<div class="slide"><span class="sn">Slide 5</span>
+Last week a friend posted a photo of me before I ever saw it. 6am. Pouring rain. We had gotten lost on the trail. Just the two of us. No makeup.
+
+I felt that old flash of oh no. Then I actually looked.</div>
+<div class="slide"><span class="sn">Slide 6 · the moment</span>
+Wrong angle. Hair a mess. Loose skin I usually hide.
+
+And I felt light. I looked happy. Not perfect. Happy.</div>
+<div class="slide"><span class="sn">Slide 7 · landing, beat 1 (reader turn)</span>
+If you flinch before you look at a photo of yourself, you already know this feeling. Not vain. Not broken. Just bracing, for a long time.</div>
+<div class="slide"><span class="sn">Slide 8 · landing, beat 2 (mirror reflection)</span>
+I wonder how many of us are still bracing for the camera, years after the thing we were bracing against actually changed.</div>
+<div class="slide"><span class="sn">Slide 9 · offer</span>
+I help women get to the version of this where the flinch is gone. If that is what you have been quietly wanting, my door is open.</div></div>
+
+      <div class="cta">
+        <p class="label">Caption CTA · three beats</p>
+        <div class="beat"><b>Close</b><span>The photo I braced for and the photo I love are the same face. Only one thing changed underneath.</span></div>
+        <div class="beat"><b>Who</b><span>If you are the one who angles, hides, deletes, and dreads the group photo,</span></div>
+        <div class="beat"><b>Action</b><span>tell me the last picture you couldn't look at. I read every reply.</span></div>
+      </div>
+
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>Stakes:</b> cover has a character, a risk (being seen), and a clock (the photo already posted, already public).</li>
+          <li><b>One question:</b> why does she love a photo she should hate?</li>
+          <li><b>Head fake:</b> the turn is that the good photo is objectively the worst one. A thing that happened, not a stated twist.</li>
+          <li><b>Rehook:</b> every slide ends pointing forward, slides 2 through 5.</li>
+          <li><b>State + ask:</b> reader is cracked open, so the ask is an invitation to reply, not a keyword.</li>
+          <li><b>Landing:</b> the sanctioned two-beat close, a reader turn to ground it, then one mirror reflection. No stacked placard.</li>
+        </ul>
+      </div>
+      <p class="notes"><b>Load bearing:</b> the physical detail (throw up, stomach drop) and the imperfect specifics of the hike photo (rain, 6am, no makeup, loose skin). Do not clean those up. The imperfection is the whole proof.</p>
+    </div>
+
+    <!-- Format B: Reel -->
+    <div class="format">
+      <p class="fname">Format B · Reel (talking head)</p>
+      <p class="deliv">30 to 45 seconds · you to camera, the two photos on screen at the end</p>
+      <div class="draft">For years I wanted to throw up every time someone posted a picture of me. I would decide it was a bad photo before I even looked.
+
+Last week a friend posted one from a hike. 6am. Pouring rain. We got lost. No makeup. And I felt that same flash of dread.
+
+Then I looked, and I just felt light. Wrong angle. Messy hair. Loose skin. Happy.
+
+Nobody warns you that you can change your whole body and still flinch at the camera. Because the flinch was never about the body. It lifts somewhere else, once you stop breaking promises to yourself.</div>
+      <p class="notes"><b>Landing:</b> held beat. End on "once you stop breaking promises to yourself" and let it sit. No spoken CTA on the reel, put the three beats in the caption.</p>
+    </div>
+  </div>
+</details>
+
+<!-- STORY 2 -->
+<details class="story">
+  <summary>
+    <span class="num">02</span>
+    <span class="stitle">
+      <span class="t">You need to exercise</span>
+      <span class="tag ready"><span class="dot"></span>Ready</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">You went in for a fall injury and walked out feeling like the number was your character. You had been doing the work for months. The verdict ignored all of it. That room is where the real search started.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"He was like, well, you need to exercise. Just the way he said it to me... like he assumed I didn't."</p>
+        <p>"He just made me feel huge and unhealthy... I've been doing HIIT workouts for the last, like, 8 months, but okay. I guess they're not doing anything."</p>
+        <p>"Sweaty, clammy, I just wanted to crawl in a hole."</p>
+        <p>"That's, like, the most I had ever weighed, ever in my life. I always promised myself I'd never let myself get above [XYZ]. That was definitely the moment."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p>Yours to tell. The doctor is never named and never the villain. The villain is the reflex that looks at a body and assumes the story: that a number tells you how hard someone is trying. Keep the injury vague (a fall on the ice) so it stays about the moment, not your medical history.</p>
+      <p><span class="placeholder">Placeholder:</span> the private line you promised yourself ("never above ___"). Only include if you want to. It is powerful and it is optional.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Carousel (story post)</p>
+      <p class="deliv">8 slides · run hot, this one is built to stop a stranger</p>
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Context</span>I went to the doctor for a fall. I left believing I was lazy.</p>
+        <p class="hook"><span class="htype">Intrigue</span>Eight months of workouts, and one sentence in that office erased all of it.</p>
+        <p class="hook"><span class="htype">Contrarian</span>The most defeated I ever felt about my body was in a room with someone paid to help.</p>
+      </div>
+      <p class="label">The carousel</p>
+      <div class="draft"><div class="slide"><span class="sn">Slide 1 · cover</span>
+Eight months of workouts, and one sentence in that office erased all of it.</div>
+<div class="slide"><span class="sn">Slide 2</span>
+I had fallen on the ice. I went in for the injury, that is all. First they put me on the scale. It was the most I had ever weighed in my life.</div>
+<div class="slide"><span class="sn">Slide 3</span>
+I asked how to help it heal. The answer I got back was, you need to exercise. Said like it was obvious. Said like the answer to a question I never asked.</div>
+<div class="slide"><span class="sn">Slide 4</span>
+Here is what he could not see. I had been doing HIIT workouts for eight straight months. I ate whole foods. I had been trying, hard, for a long time.
+
+None of that was in the room. Just the number, and the assumption.</div>
+<div class="slide"><span class="sn">Slide 5</span>
+Sweaty. Clammy. I wanted to crawl into a hole and cover myself up.
+
+And the worst part was the sentence I said to myself walking out: I guess the workouts aren't doing anything.</div>
+<div class="slide"><span class="sn">Slide 6 · the moment</span>
+I did not argue. I did not defend the eight months. I just sat there feeling like the number was my whole character.
+
+Then I got in the car and thought, if I have done everything right and it still isn't working, maybe the rules I was given were never built for my body.</div>
+<div class="slide"><span class="sn">Slide 7 · the one law</span>
+A number cannot tell you how hard a person is fighting. It just gets treated like it can. In offices, in photos, in your own head.</div>
+<div class="slide"><span class="sn">Slide 8 · the landing (mirror reflection)</span>
+I wonder how many of us walked out of a room like that believing the verdict, when the only thing that room actually measured was a number.</div></div>
+      <div class="cta">
+        <p class="label">Caption CTA · three beats</p>
+        <div class="beat"><b>Close</b><span>I spent that whole drive home ashamed. It was the drive that changed everything.</span></div>
+        <div class="beat"><b>Who</b><span>If you have been doing the work and getting the lazy look anyway,</span></div>
+        <div class="beat"><b>Action</b><span>reply and tell me the moment you got written off. I want to hear it.</span></div>
+      </div>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>Stakes:</b> a woman, a fresh injury, a scale, a verdict landing in real time.</li>
+          <li><b>One question:</b> what does one careless sentence do to someone already trying?</li>
+          <li><b>Head fake:</b> the humiliating appointment becomes the exact thing that sent her looking for real answers. Shown, not announced.</li>
+          <li><b>Rehook:</b> slide 4 ("just the number, and the assumption") and slide 5 both pull forward.</li>
+          <li><b>State + ask:</b> cracked open and a little fired up, so the ask is an invitation.</li>
+          <li><b>Landing:</b> one useful law, then a single mirror reflection. The old self-statement that doubled as a second close is cut.</li>
+        </ul>
+      </div>
+      <p class="notes"><b>One belief only:</b> a number is not your character. Resist adding the peptide story here, that is Story 03. This post earns trust, it does not sell.</p>
+    </div>
+  </div>
+</details>
+
+<!-- STORY 3 -->
+<details class="story">
+  <summary>
+    <span class="num">03</span>
+    <span class="stitle">
+      <span class="t">It works for everyone but me</span>
+      <span class="tag ready"><span class="dot"></span>Ready</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">You had tried everything, so you had stopped letting yourself hope. You even lowered your own goal so you couldn't be disappointed. The hardest part wasn't the work. It was believing the size on the label was really yours.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"Logically I knew it would work, but the other side of me was like, it's not gonna work for me, though. It will work for everybody else, but not for me."</p>
+        <p>"Here I go spending money I shouldn't spend on myself, that's probably not gonna work."</p>
+        <p>"I would, like, make my goal weight less, so I wouldn't be disappointed. I couldn't even fathom it actually working."</p>
+        <p>"If you had told me I would be able to wear a pair of size 8 Old Navy skinny jeans, I would have been like, you're crazy. I had to walk through that disbelief."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p>Yours entirely. If you name peptides, keep it factual and inside your scope, no medical promises. The insulin comparison you used in session is a strong, careful frame if you want it. The villain is the belief "it works for everyone but me," a force almost every reader carries.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Carousel (belief post)</p>
+      <p class="deliv">8 slides · depth leaning, open on the seam</p>
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Context</span>I lowered my own goal on purpose, so I wouldn't be disappointed again.</p>
+        <p class="hook"><span class="htype">Intrigue</span>I stood in the fitting room sure the tag was mislabeled.</p>
+        <p class="hook"><span class="htype">Contrarian</span>The problem was never that nothing worked. It was that I had stopped letting myself hope.</p>
+      </div>
+      <p class="label">The carousel</p>
+      <div class="draft"><div class="slide"><span class="sn">Slide 1 · cover</span>
+I lowered my own goal on purpose, so I couldn't be disappointed again.</div>
+<div class="slide"><span class="sn">Slide 2</span>
+By then I had a list. Shakes. Meal plans. Beachbody. Weight Watchers. Supplements for the supplements. Being vegetarian, so half the plans didn't even fit me.
+
+Everything worked for someone. Nothing had worked for me.</div>
+<div class="slide"><span class="sn">Slide 3</span>
+So when the next thing came along, both sides of my brain spoke up. One said, the research is solid, this makes sense. The other said, sure, for everybody else. Not for you.</div>
+<div class="slide"><span class="sn">Slide 4</span>
+I almost didn't do it. Here I go, I thought, spending money I shouldn't spend on myself, on the thing that won't work either.
+
+That is the quiet part. It wasn't just doubt about the method. It was doubt that I was worth the spend.</div>
+<div class="slide"><span class="sn">Slide 5</span>
+So I protected myself the only way I knew. I set my goal lower than I wanted it. If I aimed small, I couldn't fall far.</div>
+<div class="slide"><span class="sn">Slide 6 · the moment</span>
+Months later I was in a fitting room holding a pair of jeans I was sure were mislabeled. They fit.
+
+I bought a top from a thrift store with a size I did not recognize. It fit too. I actually had to stand there and talk myself into believing it.</div>
+<div class="slide"><span class="sn">Slide 7 · the one law</span>
+When you have failed enough times, disbelief stops feeling like fear and starts feeling like wisdom. It isn't. It is just an old bruise pretending to be the truth.</div>
+<div class="slide"><span class="sn">Slide 8 · the landing (mirror reflection)</span>
+I wonder how many of us are standing in a fitting room right now, sure the tag is wrong, because you cannot see the picture when you are the one inside the frame.</div></div>
+      <div class="cta">
+        <p class="label">Caption CTA · three beats</p>
+        <div class="beat"><b>Close</b><span>I could not fathom my own goal. I am within a few pounds of it now, and I still catch myself surprised.</span></div>
+        <div class="beat"><b>Who</b><span>If you have talked yourself out of hoping because everything failed before,</span></div>
+        <div class="beat"><b>Action</b><span>comment or message me the word ready and I will send you where I would start.</span></div>
+      </div>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>Stakes:</b> the risk is hope itself. The clock is the purchase decision, the moment before she commits.</li>
+          <li><b>One question:</b> does the thing she is sure will fail actually work?</li>
+          <li><b>Head fake:</b> the fitting room. The win arrives as disbelief, not celebration.</li>
+          <li><b>Rehook:</b> slides 2 to 5 each end mid tension.</li>
+          <li><b>State + ask:</b> a mix of cracked open and practical. The keyword door fits if you want leads, swap to a pure invitation if you want conversations.</li>
+          <li><b>Landing:</b> one law, then a single mirror reflection that borrows the new "inside the frame" image, since she literally could not see her own change.</li>
+        </ul>
+      </div>
+      <p class="notes"><b>Protect:</b> "spending money I shouldn't spend on myself." That line is the real cost and the real permission. Keep the exact number private unless you want it in (see the totals in Story 03 notes: you said 77 pounds, size 8, near goal). <b><span class="placeholder">Confirm before posting any figure.</span></b></p>
+    </div>
+  </div>
+</details>
+
+<!-- STORY 4 -->
+<details class="story">
+  <summary>
+    <span class="num">04</span>
+    <span class="stitle">
+      <span class="t">Do I even need a top</span>
+      <span class="tag ready"><span class="dot"></span>Ready</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">A small morning. You almost grabbed the cover up out of habit, then didn't. You walked the dog in a sports bra with the loose skin still there. Comfort showed up before the body was ever "finished."</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"I was gonna put a top over it. I was like, do I even need a top? It's already hot out."</p>
+        <p>"I have a lot of loose skin on my tummy and whatever... but I think it looks pretty good. I'm just gonna go walk like this."</p>
+        <p>"It covers all the stuff I don't want people to see, but I feel comfortable and confident in it."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p>A found moment, fully yours, very low risk. This one is quiet. It does not need a sales bridge, and it is stronger without one. The loose skin detail is what makes it real, keep it.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Single image plus caption (found moment)</p>
+      <p class="deliv">One photo, morning light or the dog walk · caption carries it</p>
+      <div class="hooks">
+        <p class="label">Hook options (first line of caption)</p>
+        <p class="hook"><span class="htype">Context</span>This morning I stood in front of the mirror and asked, do I even need a top.</p>
+        <p class="hook"><span class="htype">Intrigue</span>I walked out of the house today in something I would have hidden in for years.</p>
+        <p class="hook"><span class="htype">Contrarian</span>The loose skin is still there. I wore the sports bra anyway.</p>
+      </div>
+      <p class="label">The caption</p>
+      <div class="draft">This morning I got dressed to walk the dog before it got hot. Sports bra, biker shorts. I reached for a top to throw over it, the way I always do.
+
+Then I stopped and looked in the mirror. I have loose skin on my tummy, some on my arms. I know exactly what I usually hide.
+
+And I thought, I think it looks pretty good. I am just going to go walk like this.
+
+So I did. Out the door, down the street, nothing over it. The skin I did not want anyone to see, still there. And I felt comfortable. I felt like myself.
+
+I keep waiting to feel finished before I let myself feel good. Turns out it works the other way around.</div>
+      <p class="notes"><b>Landing:</b> mirror reflection, phrased as a wondering is optional. This post is a "no ask." Let it end on "the other way around." An ask here would make the moment look instrumental. If you truly want a door, use the softest invitation only ("if today was a hide it kind of day for you, I see you"), never a keyword.</p>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>Stakes:</b> small and intimate, the reach for the cover up is the risk beat.</li>
+          <li><b>One belief:</b> comfort in your skin can come before the body is "done."</li>
+          <li><b>State + ask:</b> quiet. No ask. This is the right call, not an omission.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- STORY 5 -->
+<details class="story">
+  <summary>
+    <span class="num">05</span>
+    <span class="stitle">
+      <span class="t">Building it almost in secret</span>
+      <span class="tag ready"><span class="dot"></span>Ready</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">You started putting yourself first and were braced to be called selfish. You even built your coaching business quietly at first. The turn was deciding you didn't need to be secret about becoming yourself.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"I started putting myself first, but most moms or women think if we put ourselves first, like we're being selfish to our family or our friends."</p>
+        <p>"I was building my coaching business almost secretly... at first it was kind of like a secret thing, but it was that realization of, I don't need to be secretive about it. This is who I am, I just need to be me."</p>
+        <p>"It really comes back to that self-love and self-respect more than anything."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p>Yours. This is a conviction post, no three act arc. One held image (getting ready in secret) plus your stance. The villain is the belief that a woman choosing herself is taking something from everyone else.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Conviction post (talking head or text on screen)</p>
+      <p class="deliv">20 to 40 seconds · low production, high conviction</p>
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Context</span>For a while, I built this whole thing in secret.</p>
+        <p class="hook"><span class="htype">Contrarian</span>Putting myself first was the least selfish thing I have ever done.</p>
+        <p class="hook"><span class="htype">Intrigue</span>I was quietly becoming a different person and hoping no one would notice yet.</p>
+      </div>
+      <p class="label">The draft</p>
+      <div class="draft">For a while, I did all of it quietly. The new habits. The research. Building this business. Like if I kept it small, no one could tell me it was selfish.
+
+Because that is the story a lot of us carry. That a mom, a wife, a woman who puts herself first is taking something away from everyone she loves.
+
+Here is what actually happened when I chose myself out loud. I did not have less to give. I had more. The version of me that keeps her own promises is the one my family actually gets to keep.
+
+I stopped being secretive about becoming myself. That was the whole turn.</div>
+      <p class="notes"><b>Landing:</b> held beat, end on "That was the whole turn." This is a "no ask" or, at most, a quiet invitation. It works on moral clarity, not the loop. Do not bolt an offer on.</p>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>Stakes:</b> the held image is doing it in secret, which carries quiet risk.</li>
+          <li><b>One belief:</b> choosing yourself gives your people more of you, not less.</li>
+          <li><b>Dial:</b> conviction, barely touch the loop. Sharpen the one image, leave the rest.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- STORY 6 -->
+<details class="story">
+  <summary>
+    <span class="num">06</span>
+    <span class="stitle">
+      <span class="t">Two years ago I would have lost it</span>
+      <span class="tag ready"><span class="dot"></span>Ready</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">The engine under your whole change was your nervous system, not willpower. Two years ago a hard day spilled into everything. Now you feel it, and you come back faster. Your clients think they are buying weight loss. This is what they are actually getting.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"Two years ago, I'd be screaming the [expletive] out on Mark. And I'm not. I'm keeping my nervous system relatively calm."</p>
+        <p>"It doesn't mean I'm not upset or angry, but I have been able to quickly re-regulate and work through those feelings a lot faster."</p>
+        <p>"My nervous system was so dysregulated... small things would trigger me... I would either eat too much, or I wouldn't eat."</p>
+        <p>Kindra: "And they think they're just getting weight loss." Wendy: "Crazy."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p>Yours. Mark is named in your quote from a private moment, keep him out of the post entirely, or make the trigger generic ("a hard day," "a hard season"). The point is not the fight, it is your recovery speed. Villain: a dysregulated nervous system running the show.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Conviction post (talking head)</p>
+      <p class="deliv">30 to 45 seconds · the hidden engine post</p>
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Contrarian</span>My clients think they are hiring me to lose weight. They are not.</p>
+        <p class="hook"><span class="htype">Context</span>Two years ago, a hard day would have spilled into everything.</p>
+        <p class="hook"><span class="htype">Intrigue</span>The thing that changed my body the most has nothing to do with food.</p>
+      </div>
+      <p class="label">The draft</p>
+      <div class="draft">Two years ago, a hard day did not stay a hard day. It spilled into everything. I would get snappy, small things would set me off, and it always landed on my body. I would eat too much, or I would not eat at all.
+
+I did not know it then, but my nervous system was running the whole show.
+
+Lately I have been through some genuinely heavy seasons. And I still get upset. I still get angry. The difference is I come back now. I feel it, I move through it, and I am not a basket case for three days over it.
+
+That is the part no one puts on the sales page. My clients come to lose weight. What they actually learn is how to stop abandoning themselves every time life gets loud.</div>
+      <p class="notes"><b>Landing:</b> reader turn or held beat. Strong ending as is. This can carry a light keyword door because it also teaches ("comment calm and I will send the reset I use"), your call based on whether you want leads or conversations that week.</p>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>Stakes:</b> "a hard day did not stay a hard day," instant relatability with tension.</li>
+          <li><b>One belief:</b> regulation, not willpower, is what actually changed the body.</li>
+          <li><b>Head fake:</b> the pivot from weight loss to nervous system is the surprise, kept for the middle.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- STORY 7 -->
+<details class="story">
+  <summary>
+    <span class="num">07</span>
+    <span class="stitle">
+      <span class="t">The plateau nobody wants to look at</span>
+      <span class="tag ready"><span class="dot"></span>Ready</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">A short, honest expertise post. People say they don't know why they've stalled. Often they do, and the shame is what keeps the food log hidden. You say the quiet part with care, which is exactly why they trust you.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"The ones that are like, I'm plateauing, I've been plateaued for like three months, and I'll be like, send me your food, and they won't."</p>
+        <p>"They're like, I don't know why I'm not losing weight. And it's like, I do. It's because you're either eating [junk] still, or you're eating too little, and you're not actually taking care of your body."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p>Fully yours, no client identified. The tone is the whole thing: this lands as care, not scolding. The villain is the shame that makes someone hide the log, never the person. Aim it at the shame.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Straight talk (talking head or text on screen)</p>
+      <p class="deliv">20 to 30 seconds · expertise, the move</p>
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Contrarian</span>When someone says they don't know why they stalled, they usually do.</p>
+        <p class="hook"><span class="htype">Intrigue</span>The most honest thing I ask a client is also the one they avoid.</p>
+        <p class="hook"><span class="htype">Context</span>Three months plateaued, and I ask one simple thing.</p>
+      </div>
+      <p class="label">The draft</p>
+      <div class="draft">When a client tells me she has been stuck for three months, I ask for one thing. Send me your food.
+
+And often, she goes quiet.
+
+Not because she is lazy. Because somewhere she already suspects the answer, and looking at it feels like being caught. Usually it is one of two things. She is still eating the stuff she knows about, or she is eating so little her body has locked the doors.
+
+The plate is not a confession. It is just information. The day you can show me the real one without flinching is usually the day the plateau starts to move.</div>
+      <p class="notes"><b>Landing:</b> reader turn. Keyword door fits well here ("comment food and I will show you what I actually look for"). This teaches, so a resource ask matches the state.</p>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>One belief:</b> the plateau is information, not a character flaw, and hiding it is what keeps it stuck.</li>
+          <li><b>Head fake:</b> "she goes quiet" reframes the whole thing from willpower to shame.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- STORY 8 -->
+<details class="story">
+  <summary>
+    <span class="num">08</span>
+    <span class="stitle">
+      <span class="t">You can order a peptide online</span>
+      <span class="tag ready"><span class="dot"></span>Ready</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">Your method as a story, not a lecture. The tool is not the transformation. Anyone can buy the shortcut. The part that holds after the shortcut ends is the part you actually do.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"You can order a peptide online, but you're not gonna get, like... you'll drop weight, but are you really healing your body?"</p>
+        <p>"You're gonna be skinny fat, no muscle, and you're gonna be on those peptides, and because you go off them, you for sure will gain weight back."</p>
+        <p>"Muscle is what rules your metabolism." (on the phases: foundation, then integrate into daily life, then plateau and maintenance)</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p>Yours. This one carries the most compliance risk of the set. Keep every claim factual and inside your scope, no promises, no dosing talk in the caption. Peptide and medical language can also trip platform rules, so soften wording for the feed and keep specifics for the DM. The villain is the quick fix culture that sells the shortcut and skips the healing.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Carousel (expertise, the move)</p>
+      <p class="deliv">6 slides · teach through a stance, not a syllabus</p>
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Contrarian</span>You can order the shortcut online. That is not the part that lasts.</p>
+        <p class="hook"><span class="htype">Intrigue</span>Two people lose the same 40 pounds. A year later only one kept it. Here is the difference.</p>
+        <p class="hook"><span class="htype">Context</span>Dropping the weight and healing your body are not the same project.</p>
+      </div>
+      <p class="label">The carousel</p>
+      <div class="draft"><div class="slide"><span class="sn">Slide 1 · cover</span>
+You can order the shortcut online. That is not the part that lasts.</div>
+<div class="slide"><span class="sn">Slide 2</span>
+The tool can help you drop weight. Real question is whether you are healing anything underneath while it happens.</div>
+<div class="slide"><span class="sn">Slide 3</span>
+Skip that part and here is the usual ending. Little muscle. A body that only works while you are on the thing. The day you stop, it comes back.</div>
+<div class="slide"><span class="sn">Slide 4</span>
+So I work in phases. First, a foundation of habits while the weight moves. Then we integrate it into your actual life, what you eat, how you move on a normal Tuesday.</div>
+<div class="slide"><span class="sn">Slide 5</span>
+Then the phase most people quit inside of. Slowing down, maintenance, building muscle. Because muscle is what runs your metabolism, and that is what makes the results yours to keep.</div>
+<div class="slide"><span class="sn">Slide 6 · turn to reader</span>
+If you have lost weight before and watched it come back the second you stopped, it was never a willpower problem. Nobody built you the part that holds.</div></div>
+      <div class="cta">
+        <p class="label">Caption CTA · three beats</p>
+        <div class="beat"><b>Close</b><span>The shortcut is easy to buy. The part that lasts is the part I actually coach.</span></div>
+        <div class="beat"><b>Who</b><span>If you have lost it and regained it more than once,</span></div>
+        <div class="beat"><b>Action</b><span>comment phases and I will send you how the maintenance stage actually works.</span></div>
+      </div>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>One belief:</b> the tool drops weight, the habits keep it, and only one of those is the real work.</li>
+          <li><b>Head fake:</b> slide 3, the shortcut quietly guarantees the regain.</li>
+          <li><b>State + ask:</b> practical and curious, so the keyword door fits.</li>
+        </ul>
+      </div>
+      <p class="notes"><b>Compliance flag:</b> have your own eye (or your regulatory line) on any peptide post before it publishes. Keep it educational, keep it yours.</p>
+    </div>
+  </div>
+</details>
+
+<!-- =================== PERSONAL =================== -->
+<p class="sectionhead">Personal · your call</p>
+<p class="sectionsub">Powerful, true, and tender. These are about real clients. Draft carefully, land on the repair, and get a clear yes before anything goes out. A new post about the same person needs a new yes.</p>
+
+<!-- STORY 9 -->
+<details class="story">
+  <summary>
+    <span class="num">09</span>
+    <span class="stitle">
+      <span class="t">She came to lose weight for her wedding</span>
+      <span class="tag personal"><span class="dot"></span>Personal</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">A bride whose nervous system was a wreck learned to steady herself, and the steadiness spilled into the hardest conversation of her life. The weight loss was the least of what changed.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"When I first met her, she couldn't stop moving. She had restless leg... her nervous system was just a wreck."</p>
+        <p>"She did her boudoir photoshoot, which she was so terrified to do because of confidence... she's like, I rocked it, and I felt so confident."</p>
+        <p>"I'll just go in the bathroom for a minute and do some deep breathing and recenter myself, and then I can be there for my employees."</p>
+        <p>Kindra: "She started working with you to lose weight, and she ended up getting custody of her daughter." Wendy: "Yeah."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note · read before drafting further</p>
+      <p><b>Consent required, and this one needs care.</b> Show her the exact words before anything. Approval to share her story is not approval of this specific framing.</p>
+      <p><b>Anonymize hard.</b> A bride plus a boudoir shoot plus a custody outcome is highly identifiable together. The custody thread, the ex, and anything about her daughter's diagnosis are the tender core and are hers alone to release. The draft below deliberately keeps the custody outcome vague ("a conversation she had been avoiding for years") and leaves the daughter out. Only sharpen it if she explicitly wants it in, in her own words.</p>
+      <p><b>Land on the repair, never the wound.</b> The post is about what her steadiness made possible, not about what was hard before.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Carousel (transformation, heavily anonymized)</p>
+      <p class="deliv">7 slides · draft, then send to her before anything else</p>
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Context</span>She came to me to lose weight before her wedding.</p>
+        <p class="hook"><span class="htype">Intrigue</span>The weight was the smallest thing that changed for her.</p>
+        <p class="hook"><span class="htype">Contrarian</span>We spent our sessions on her weight. The breakthrough happened in a bathroom at her job.</p>
+      </div>
+      <p class="label">The carousel</p>
+      <div class="draft"><div class="slide"><span class="sn">Slide 1 · cover</span>
+She came to me to lose weight before her wedding. The weight was the smallest thing that changed.</div>
+<div class="slide"><span class="sn">Slide 2</span>
+The first time we talked, she could not sit still. Her leg bounced the entire session. Her whole system was running at a hum she could not turn down.</div>
+<div class="slide"><span class="sn">Slide 3</span>
+She did everything. Kept her logs. Showed up. And slowly the thing that changed was not the number, it was her hands. They got still.</div>
+<div class="slide"><span class="sn">Slide 4</span>
+She started telling me small things. How she would step into the bathroom at work for one minute of breathing, come back, and actually be there for her team instead of white knuckling the day.</div>
+<div class="slide"><span class="sn">Slide 5</span>
+Then she booked a photoshoot she had been terrified of for years. The kind that requires you to believe you are worth looking at. She texted me after. I rocked it. I felt so confident.</div>
+<div class="slide"><span class="sn">Slide 6 · the moment</span>
+And then she had a conversation she had been avoiding for years, one that mattered more than any dress size. She walked in steady. She was heard differently, because she was different.</div>
+<div class="slide"><span class="sn">Slide 7 · turn to reader</span>
+This is the part the before and after photo never shows. You do not just get smaller. You get to become someone your own life responds to differently.</div></div>
+      <div class="cta">
+        <p class="label">Caption CTA · three beats</p>
+        <div class="beat"><b>Close</b><span>She thought she was signing up to fit a dress. She left steadier than I have ever seen her.</span></div>
+        <div class="beat"><b>Who</b><span>If you think this work is only about the scale,</span></div>
+        <div class="beat"><b>Action</b><span>message me and tell me what you would actually want to change. It is usually bigger than the number.</span></div>
+      </div>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>Stakes:</b> a bride, a wedding clock, a body at a hum.</li>
+          <li><b>One belief:</b> the real change is who you become, and the body is the door in.</li>
+          <li><b>Head fake:</b> the breakthrough happens in a bathroom, not on a scale.</li>
+          <li><b>Subject test:</b> she should feel understood, not exposed. That is why the custody and the daughter stay out unless she puts them in.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- STORY 10 -->
+<details class="story">
+  <summary>
+    <span class="num">10</span>
+    <span class="stitle">
+      <span class="t">You are the first person who actually listened</span>
+      <span class="tag personal"><span class="dot"></span>Personal</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">A woman had been handed the same useless advice by everyone, a plan for a life she did not have. You built one around her actual kitchen. Her reply was the proof: she could finally do it, because someone finally listened.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"She's like, I'm staying with someone, so I have one pot I can cook with and an air fryer, pretty much. So I built her whole plan around that."</p>
+        <p>"She emailed me back the nicest email. She's like, you are the first person that's actually put something together that I can actually do. You actually listened to me."</p>
+        <p>"You're not looking at me like, oh, this person is a mess, and just throwing your hands up, like, well, you just need to eat and work out."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p><b>Consent required.</b> Her specific illnesses and circumstances are very identifying, generalize to "a chronic illness" and "a temporary place to stay." Drop the location entirely.</p>
+      <p><b><span class="placeholder">Placeholder:</span></b> the exact wording of her email. You said in session you would send it to Kindra. Use her real line only with her yes, otherwise paraphrase and mark it as paraphrase.</p>
+      <p>Land on what your listening made possible for her, not on how sick she was. The villain is one size fits all advice that ignores the person in front of you.</p>
+      <p><b style="color:var(--blossom)">Rule 18 check (work you want more of):</b> the first draft aimed the proof at the most complex, highest effort case, which would recruit more of exactly that. This version keeps the belief that you actually listen, but points it at "I build around your real life," a promise that travels into your group and retreat work instead of filtering only for the most draining custom cases.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Single image plus caption (caring, the move)</p>
+      <p class="deliv">One quiet image · caption carries the whole thing</p>
+      <div class="hooks">
+        <p class="label">Hook options (first line)</p>
+        <p class="hook"><span class="htype">Intrigue</span>She has one pot and an air fryer. So that is what I built the plan around.</p>
+        <p class="hook"><span class="htype">Contrarian</span>Most plans are built for a life the client does not have.</p>
+        <p class="hook"><span class="htype">Context</span>She had been handed the same advice by everyone. None of it fit her life.</p>
+      </div>
+      <p class="label">The caption</p>
+      <div class="draft">Most plans are built for a life the client does not actually have.
+
+When one woman started with me, she told me the truth about her setup. She was staying somewhere temporary. One pot. An air fryer. That was the whole kitchen.
+
+Everyone before me had handed her the same speech. Just eat better. Just move more. As if the only missing ingredient was effort.
+
+So I did not write her a plan for someone else's kitchen. I built one around the pot and the air fryer she actually had. I found what could be delivered to her. I worked with her real life instead of pretending it away.
+
+She wrote me back and said I was the first person who gave her something she could actually do. That I actually listened.
+
+That is the part I will never hand off. Before the food, before the movement, someone has to be willing to see the life you are really living.</div>
+      <p class="notes"><b>Landing:</b> reader turn, gentle. This can carry a soft invitation ("if every plan has felt built for someone else's life, tell me"). Cracked open state, so keep the ask human, not a keyword.</p>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>One belief:</b> being truly seen is the first ingredient, before any food plan.</li>
+          <li><b>Head fake:</b> "one pot and an air fryer" as the design constraint, not a limitation to pity.</li>
+          <li><b>Cost as proof:</b> the care shows in the specifics you tracked, that is what turns "she cares" into "I watched her care."</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- STORY 11 -->
+<details class="story">
+  <summary>
+    <span class="num">11</span>
+    <span class="stitle">
+      <span class="t">I coach them to not need me</span>
+      <span class="tag personal"><span class="dot"></span>Personal</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">A couple lost the weight together, weaned off the tool, and kept it off on the habits alone. You could have made yourself the thing they always need. You built them to stand without you instead.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"Her and her husband went on the journey together... they went off of it completely for several months, and she didn't gain back the weight."</p>
+        <p>"They maintained that habit... they were more active, they were still hiking, they were meal prepping for the week."</p>
+        <p>Kindra: "You're looking to empower them to not need you." Wendy: "Right, right."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p><b>Consent required,</b> though this one is lower sensitivity, no trauma. Anonymize to "a couple I worked with," no ages or town. The arthritis and any ongoing use stay out of the public post unless they want it in. Villain: the idea that a coach should make you dependent.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Conviction post (talking head)</p>
+      <p class="deliv">30 seconds · integrity as the proof</p>
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Contrarian</span>My goal with every client is to make myself unnecessary.</p>
+        <p class="hook"><span class="htype">Intrigue</span>A couple I worked with went off everything months ago. They still kept it off.</p>
+        <p class="hook"><span class="htype">Context</span>The best text I got this year was proof that someone did not need me anymore.</p>
+      </div>
+      <p class="label">The draft</p>
+      <div class="draft">A lot of this industry is built to keep you coming back. Stay on the thing, keep the subscription, need us forever.
+
+I worked with a couple who did it together. They lost the weight, then they slowly stepped off the tool completely. Months went by. Nothing came back.
+
+Because by then it was not the tool holding it. It was them. Still hiking. Still prepping their week. Still making the choices we built together, on a normal Tuesday, without me in the room.
+
+I am not trying to be your crutch. I am trying to hand you something you get to keep long after we stop working together.</div>
+      <p class="notes"><b>Landing:</b> held beat or reader turn. Light keyword door works ("comment keep and I will send the habits that survive without the tool"). Practical state, resource ask fits.</p>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>One belief:</b> a good coach builds your independence, not your dependence.</li>
+          <li><b>Cost as proof:</b> you give up recurring reliance on purpose, that choice is the receipt.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- =================== HELD =================== -->
+<p class="sectionhead">Held · not drafted on purpose</p>
+<p class="sectionsub">Captured so you can see they exist. These are raw, or they belong to someone else, or they are too close to a nerve to shape into a caption right now. No drafts. If one ever calls to you, we build it slowly, with distance and with the right blessing, or we leave it alone. Leaving it alone is a complete and good answer.</p>
+
+<!-- HELD 1 -->
+<details class="story">
+  <summary>
+    <span class="num">H1</span>
+    <span class="stitle">
+      <span class="t">The escape plan, one week at a time</span>
+      <span class="tag held"><span class="dot"></span>Held</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline heldbody">A woman came to you sick, and you saw that the illness and what she was living inside were the same story. You built her a quiet way out, one small step a week, before the weight was ever the point.</p>
+    <div class="block words">
+      <p class="label">The shape (your words)</p>
+      <blockquote>
+        <p>"We basically came up with a plan of escape... we just have to focus on one thing a week to get momentum to get him out of your house."</p>
+        <p>"She's a different person now. She doesn't even live here anymore."</p>
+      </blockquote>
+    </div>
+    <div class="block handling">
+      <p class="label">Why this is held</p>
+      <p class="heldbody">This is the most powerful story in the session and the one most in need of protection. It involves intimate partner abuse, someone who was your employee, and a real plan to leave. Even fully anonymized, the details are identifying to the people who know her, and a story about leaving can carry real world safety weight for the person who left.</p>
+      <p class="heldbody">This is hers, not content. If she ever, entirely on her own and with distance, wanted her story told, it could become something quietly powerful about the fact that healing the body sometimes starts by helping someone feel safe enough to leave. Until she raises it herself, with no nudge from anyone, we do not draft it. We do not hint at it. We hold it.</p>
+    </div>
+  </div>
+</details>
+
+<!-- HELD 2 -->
+<details class="story">
+  <summary>
+    <span class="num">H2</span>
+    <span class="stitle">
+      <span class="t">The thing said in the fight</span>
+      <span class="tag held"><span class="dot"></span>Held</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline heldbody">The person closest to you once said the exact thing you feared most, in the heat of an argument. It was a moment, not the marriage. It surfaced sideways in session, which is part of why it is not yours to spend.</p>
+    <div class="block words">
+      <p class="label">The shape (your words)</p>
+      <blockquote>
+        <p>"There was a time that Mark said [a cruel thing about weight, tied to our son]. That's the only time he's ever said anything like that to me. He's never made me feel like that. We had been in an argument. This was years ago."</p>
+      </blockquote>
+    </div>
+    <div class="block handling">
+      <p class="label">Why this is held</p>
+      <p class="heldbody">It names your spouse and pulls in your child. It came out fast, mid session, while you were working something else out, which is usually the sign that a thing escaped rather than was offered. That is exactly the material to protect, not publish.</p>
+      <p class="heldbody">If a version of this ever gets told, the villain could never be Mark. It would have to be the fear itself, the way a single sentence in a fight can hand you the exact words you already use against yourself. That is a real and universal post. It is also not close to ready, and it may simply never be one. That is okay.</p>
+    </div>
+  </div>
+</details>
+
+<!-- =================== NEW · RULE 18 =================== -->
+<p class="sectionhead">New · the work you want more of</p>
+<p class="sectionsub">Added this revision under Rule 18. This points the filter at the in-person direction you said you are building toward. The stance is ready to post now. It needs one real detail dropped in.</p>
+
+<details class="story">
+  <summary>
+    <span class="num">12</span>
+    <span class="stitle">
+      <span class="t">This was never meant to happen on a screen</span>
+      <span class="tag ready"><span class="dot"></span>Ready</span>
+    </span>
+    <span class="chev">▶</span>
+  </summary>
+  <div class="body">
+    <p class="oneline">A conviction post that points at the work you said you want more of: the wellness room, the deck, the Wellness Day retreat, the group hikes. The stance is ready now. It needs one real scene from you to anchor it.</p>
+
+    <div class="block words">
+      <p class="label">Your actual words</p>
+      <blockquote>
+        <p>"We are building out my wellness room, which is exciting, and now we're gonna build a deck for me to do a Wellness Day retreat."</p>
+        <p>"She went on the first group hike we did, and she showed up with her fiance, and she's just confident, carefree."</p>
+      </blockquote>
+    </div>
+
+    <div class="block handling">
+      <p class="label">Handling note</p>
+      <p><b style="color:var(--blossom)">Rule 18, on purpose.</b> This one exists because you told me the in-person work is what you want more of. Content is a filter, so this post points at the retreat and the room, not at more of what drains you. The villain is the isolation of doing this alone through a phone.</p>
+      <p><b><span class="placeholder">Placeholder:</span></b> the held image. Drop in one real detail, the wellness room going up, the deck getting framed, a face on that first group hike. A conviction post can run on a stance, but it lands harder with one true thing a camera could see. Keep anyone else anonymous, and out of it entirely if they have not said yes.</p>
+    </div>
+
+    <div class="format">
+      <p class="fname">Format A · Conviction post (talking head or text on screen)</p>
+      <p class="deliv">30 to 40 seconds · a stance, not an arc</p>
+      <div class="hooks">
+        <p class="label">Cover hook options</p>
+        <p class="hook"><span class="htype">Contrarian</span>I ran this whole thing through a phone for years. It was never supposed to live there.</p>
+        <p class="hook"><span class="htype">Intrigue</span>The most important part of this work does not happen in an app.</p>
+        <p class="hook"><span class="htype">Context</span>I am building a room for the part of this that a screen could never hold.</p>
+      </div>
+      <p class="label">The draft</p>
+      <div class="draft">For a long time I ran all of this through a phone. The check-ins, the plans, the encouragement. All of it on a screen.
+
+It worked. And something about it always felt a size too small.
+
+Because the change I actually care about does not happen in an app. It happens on a trail at 6am. In a quiet room where someone finally exhales. Next to other people who are doing the hard thing at the same time.
+
+So I am building the space for it. [PLACEHOLDER: the wellness room, the deck, the first group hike.]
+
+I do not think you were ever meant to do this alone, quietly, on a screen.</div>
+      <p class="notes"><b>Landing:</b> single held beat, end on "alone, quietly, on a screen." This is quiet and warm, so the ask is a soft invitation or none at all. Do not weld an offer on. When the retreat is real and dated, this same post can carry a clean three-beat CTA.</p>
+      <div class="loop">
+        <p class="label">Loop check</p>
+        <ul>
+          <li><b>One belief:</b> this transformation was meant to be in person and shared, not solo through a screen.</li>
+          <li><b>Dial:</b> conviction, so the loop stays loose. One held image, one stance.</li>
+          <li><b>Rule 18:</b> the proof points at the in-person work you want to grow.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</details>
+
+<footer class="foot">
+  <h3>Before anything publishes</h3>
+  <ol>
+    <li><b>Show them the exact post.</b> Not the idea, the words. For every story that involves a client (09, 10, 11, and 12 once you add a real person), and any time another real person appears, they read the actual caption first and say yes to it.</li>
+    <li><b>A new post about the same person needs a new yes.</b> Approval of one scene is not approval of the next, and this matters most when the new one is flattering.</li>
+    <li><b>Anonymize by default.</b> No names, no tagging, unless that is a separate and explicit ask. "A woman I worked with" is the setting.</li>
+    <li><b>The villain stays a force.</b> Never the doctor, never a family member, never a client's ex. Aim every story at the pressure, the belief, the system.</li>
+    <li><b>Keep the numbers honest and confirmed.</b> Figures noted from the session (for example 77 pounds, a size 8, roughly 40 pounds for the couple, 30 plus for the bride) are placeholders until you confirm each one. <span class="placeholder">Verify before posting any figure.</span></li>
+    <li><b>Fresh wounds wait.</b> The Held stories are held for a reason. No nudging. If they ever move, they move because their owner moved them.</li>
+  </ol>
+  <p style="margin-top:22px;">The rules built these drafts. You decide every one. And the last read before anything goes live is always a human who was in the room.</p>
+</footer>
+
+</div>
+</body>
+</html>
