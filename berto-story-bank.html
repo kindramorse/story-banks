@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berto · Story Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Archivo+Narrow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#1E1620;
+    --plum-2:#2A1F30;
+    --plum-3:#362742;
+    --orchid:#CB6CE6;
+    --blossom:#F4CBFF;
+    --parchment:#FAF8F4;
+    --muted:#B9A9C4;
+    --line:rgba(244,203,255,.16);
+    --ready:#7BE0A6;
+    --personal:#F6C56E;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--plum);
+    color:var(--parchment);
+    font-family:'Archivo Narrow',system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:56px 22px 120px}
+
+  /* ---------- Header ---------- */
+  .kicker{
+    font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--orchid);font-weight:600;margin:0 0 18px;
+  }
+  h1{
+    font-family:'Playfair Display',serif;
+    font-weight:900;font-size:clamp(52px,11vw,104px);
+    line-height:.92;margin:0 0 6px;color:var(--parchment);
+    letter-spacing:-.01em;
+  }
+  h1 .sub{display:block;font-size:clamp(20px,4vw,30px);font-weight:500;font-style:italic;color:var(--blossom);margin-top:14px;letter-spacing:0}
+  .frame{
+    border-left:3px solid var(--orchid);
+    padding:14px 0 14px 20px;margin:34px 0 0;
+    color:var(--parchment);font-size:19px;line-height:1.55;
+    max-width:640px;
+  }
+  .frame em{color:var(--blossom);font-style:italic}
+
+  /* ---------- How to read ---------- */
+  .howto{
+    background:var(--plum-2);border:1px solid var(--line);
+    border-radius:16px;padding:26px 28px;margin:38px 0 0;
+  }
+  .howto h2{font-family:'Playfair Display',serif;font-weight:700;font-size:22px;margin:0 0 14px;color:var(--parchment)}
+  .howto p{margin:0 0 14px;color:var(--muted)}
+  .howto p:last-child{margin-bottom:0}
+  .tags-legend{display:flex;flex-direction:column;gap:10px;margin:16px 0 4px}
+  .legend-row{display:flex;gap:12px;align-items:flex-start}
+  .chip{
+    display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;padding:4px 11px;border-radius:100px;white-space:nowrap;flex:none;margin-top:2px;
+  }
+  .chip.ready{background:rgba(123,224,166,.15);color:#8FE9B4;border:1px solid rgba(123,224,166,.4)}
+  .chip.personal{background:rgba(246,197,110,.14);color:#F6C56E;border:1px solid rgba(246,197,110,.38)}
+  .chip.held{background:rgba(185,169,196,.14);color:#CBB9D6;border:1px solid rgba(185,169,196,.34)}
+  .legend-row span.def{color:var(--muted);font-size:15px}
+  .legend-row span.def b{color:var(--parchment);font-weight:600}
+
+  /* ---------- Pillars ---------- */
+  .pillars{margin:46px 0 0}
+  .section-label{
+    font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--orchid);
+    font-weight:600;margin:0 0 18px;
+  }
+  .pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .pillar{background:var(--plum-2);border:1px solid var(--line);border-radius:14px;padding:18px 18px 20px}
+  .pillar h3{font-family:'Playfair Display',serif;font-size:18px;margin:0 0 6px;color:var(--blossom);font-weight:700}
+  .pillar p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.5}
+  @media(max-width:640px){.pillar-grid{grid-template-columns:1fr}}
+
+  /* ---------- Stories ---------- */
+  .stories{margin:54px 0 0}
+  details.story{
+    background:var(--plum-2);border:1px solid var(--line);
+    border-radius:18px;margin:0 0 18px;overflow:hidden;
+  }
+  details.story[open]{border-color:rgba(203,108,230,.45)}
+  summary{
+    list-style:none;cursor:pointer;padding:24px 26px;display:flex;
+    gap:16px;align-items:flex-start;
+  }
+  summary::-webkit-details-marker{display:none}
+  .s-num{
+    font-family:'Playfair Display',serif;font-weight:700;font-size:26px;
+    color:var(--orchid);line-height:1;flex:none;width:34px;opacity:.85;
+  }
+  .s-head{flex:1;min-width:0}
+  .s-title{font-family:'Playfair Display',serif;font-weight:700;font-size:23px;line-height:1.2;margin:0 0 8px;color:var(--parchment)}
+  .s-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  .s-summary{color:var(--muted);font-size:15.5px;margin:0}
+  .s-toggle{flex:none;color:var(--orchid);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+  details[open] .s-toggle .open-t{display:none}
+  .s-toggle .close-t{display:none}
+  details[open] .s-toggle .close-t{display:inline}
+
+  .s-body{padding:2px 26px 30px;border-top:1px solid var(--line);margin-top:2px}
+  .block-label{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--orchid);font-weight:700;margin:26px 0 10px}
+
+  .handling{background:rgba(246,197,110,.08);border:1px solid rgba(246,197,110,.3);border-radius:12px;padding:16px 18px;margin:22px 0 0}
+  .handling.hard{background:rgba(230,120,120,.08);border-color:rgba(230,120,120,.34)}
+  .handling .h-t{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#F6C56E;margin:0 0 6px}
+  .handling.hard .h-t{color:#F09B9B}
+  .handling p{margin:0;font-size:15px;color:var(--parchment)}
+
+  blockquote.words{
+    margin:10px 0 0;padding:14px 20px;border-left:3px solid var(--orchid);
+    background:var(--plum-3);border-radius:0 10px 10px 0;color:var(--blossom);
+    font-style:italic;font-size:16px;
+  }
+  blockquote.words span{display:block;margin-top:8px;color:var(--muted);font-style:normal;font-size:13.5px;letter-spacing:.04em}
+
+  .format{border:1px solid var(--line);border-radius:14px;padding:20px 20px 22px;margin:14px 0 0;background:var(--plum)}
+  .format .f-name{font-family:'Playfair Display',serif;font-weight:700;font-size:18px;color:var(--parchment);margin:0 0 3px}
+  .format .f-deliver{color:var(--muted);font-size:13.5px;margin:0 0 16px;letter-spacing:.02em}
+
+  .hooks{list-style:none;padding:0;margin:0 0 6px}
+  .hooks li{padding:10px 0 10px 0;border-bottom:1px dashed var(--line);font-size:16px}
+  .hooks li:last-child{border-bottom:none}
+  .hooks .htype{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orchid);margin-right:8px}
+  .hooks .htxt{color:var(--parchment)}
+
+  .draft{white-space:pre-wrap;background:var(--plum-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:2px 0 0;font-size:16px;line-height:1.66;color:var(--parchment)}
+
+  .cta{margin:14px 0 0;border:1px dashed rgba(203,108,230,.5);border-radius:12px;padding:16px 20px;background:rgba(203,108,230,.05)}
+  .cta ol{margin:6px 0 0;padding-left:20px}
+  .cta li{margin:0 0 4px;font-size:15px;color:var(--parchment)}
+  .cta li b{color:var(--blossom)}
+
+  .notes{margin:12px 0 0;font-size:14.5px;color:var(--muted)}
+  .notes b{color:var(--parchment);font-weight:600}
+  .loopcheck{font-size:14px;color:var(--muted);margin:14px 0 0;padding:14px 18px;background:var(--plum-3);border-radius:10px}
+  .loopcheck b{color:var(--blossom);font-weight:600}
+
+  /* Held */
+  .held-list{margin:14px 0 0}
+  .held-item{border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:0 0 12px;background:var(--plum-2)}
+  .held-item h4{font-family:'Playfair Display',serif;font-size:18px;margin:0 0 6px;color:var(--blossom);font-weight:700}
+  .held-item p{margin:0;color:var(--muted);font-size:15px}
+  .held-item p.why{margin-top:8px;color:var(--parchment);font-size:14.5px}
+
+  /* Footer */
+  .foot{margin:56px 0 0;border-top:1px solid var(--line);padding-top:30px}
+  .foot h2{font-family:'Playfair Display',serif;font-size:24px;margin:0 0 16px;color:var(--parchment)}
+  .foot ol{padding-left:20px;margin:0;color:var(--muted)}
+  .foot ol li{margin:0 0 10px;font-size:15px}
+  .foot ol li b{color:var(--parchment);font-weight:600}
+  .sig{margin:34px 0 0;color:var(--muted);font-size:14px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="kicker">The Throughline Method · Story Bank</p>
+  <h1>Berto<span class="sub">Every story below came out of one conversation.</span></h1>
+
+  <div class="frame">
+    You lived all of it. <em>None of it is content until you decide it is, and you are the only one who would ever post it.</em> This bank exists so you can see what is possible and pick. Every draft is a starting point in your own voice, meant to be rewritten freely.
+  </div>
+
+  <div class="howto">
+    <h2>How to read this</h2>
+    <p>Each story is built the same way: your actual words from the call, then the moment underneath, then drafts you can post. The drafts follow one law. Character can't be claimed, only revealed. So none of them announce who you are. They stage a moment and let the reader arrive at the conclusion themselves. That is on purpose. The instant a post explains itself, it hands the discovery away, and the discovery was the whole point.</p>
+    <p>Delivery is what you already know works for you: a 7 second B-roll clip, the hook on screen, the story in the caption. No talking head required.</p>
+    <div class="tags-legend">
+      <div class="legend-row"><span class="chip ready">Ready</span><span class="def"><b>Tied straight to your lane.</b> Clean enough to post once you have read the words and they sound like you. Start here.</span></div>
+      <div class="legend-row"><span class="chip personal">Personal</span><span class="def"><b>Powerful, true, and tender.</b> Yours to sit with. Post only if and when you want to, and only after you have read the exact words.</span></div>
+      <div class="legend-row"><span class="chip held">Held</span><span class="def"><b>Captured so you can see it exists, deliberately not drafted.</b> Needs distance, or someone else's blessing, or both.</span></div>
+    </div>
+  </div>
+
+  <div class="pillars">
+    <p class="section-label">The three lanes you named</p>
+    <div class="pillar-grid">
+      <div class="pillar"><h3>Putting self first</h3><p>You named it first and know it cold from what it cost you to ignore it. Still needs one concrete story. Flagged below to dig.</p></div>
+      <div class="pillar"><h3>Couple entrepreneurship</h3><p>Building a business with your wife, handing her the lead, learning when not to save her. You are living the material right now.</p></div>
+      <div class="pillar"><h3>Owning your time</h3><p>The 15x15 and 30x30. A system you built as a kid to survive, that now runs a business and an 18 year old's whole week.</p></div>
+    </div>
+  </div>
+
+  <div class="stories">
+    <p class="section-label" style="margin-top:54px">The stories</p>
+
+    <!-- STORY 1 -->
+    <details class="story" open>
+      <summary>
+        <span class="s-num">01</span>
+        <span class="s-head">
+          <span class="s-meta"><span class="chip ready">Ready · your lane</span></span>
+          <p class="s-title">"What else have I told myself is a lie?"</p>
+          <p class="s-summary">The corporate meeting where you walked in with proof and walked out questioning everything. This is the moment that made you the person who can actually see people.</p>
+        </span>
+        <span class="s-toggle"><span class="open-t">Open</span><span class="close-t">Close</span></span>
+      </summary>
+      <div class="s-body">
+
+        <div class="block-label">Your actual words</div>
+        <blockquote class="words">
+          "What if the guy was just trying to save himself? He wasn't lying to disrespect you, he was lying because of his own self and his own insecurities."<span>The director's line, in your retelling · 01:24:48</span>
+        </blockquote>
+        <blockquote class="words">
+          "It was like time slowed down for a minute. What I interpreted in real time was, what else have I told myself that's a lie?"<span>You, on the moment it landed · 01:32:34</span>
+        </blockquote>
+
+        <div class="block-label">The moment underneath</div>
+        <p class="notes"><b>The fork:</b> stay right, or let your worldview crack. <b>The cost:</b> your certainty. You had built your whole life on systems so you would never get caught off guard, and you just had. <b>The villain (a force, never the trainer):</b> the belief that a lie is always an attack on you. That belief is exactly what kept you from seeing the person in front of you.</p>
+
+        <div class="handling">
+          <div class="h-t">Handling</div>
+          <p>The trainer and the director both stay unnamed. The trainer is not the villain, the pressure to sandbag a number is. The director is a positive force, keep him as "a man I worked under." No company named.</p>
+        </div>
+
+        <div class="block-label">Format · B-roll + caption</div>
+        <div class="format">
+          <p class="f-name">The belief post</p>
+          <p class="f-deliver">7 sec B-roll: you driving, or a slow pan of the gym floor. Hook on screen. Story in the caption.</p>
+
+          <ul class="hooks">
+            <li><span class="htype">Context</span><span class="htxt">I was 23, and I walked into that meeting to ruin someone's day.</span></li>
+            <li><span class="htype">Intrigue</span><span class="htxt">I had the texts that proved he lied to my face. My boss made me the problem.</span></li>
+            <li><span class="htype">Contrarian</span><span class="htxt">The one man I never heard curse in nine years cursed at me. Then I understood why.</span></li>
+          </ul>
+
+          <div class="draft">I was 23, running a corporate gym, and I had the messages that proved one of my trainers lied straight to my face.
+
+End of the month. Christmas in July, our biggest promo of the year. A client was set to re-sign. My trainer let her walk out the door and told my manager she had to rush to work.
+
+The client had already texted us. She was home. She said she would come back in if we needed her.
+
+So I went in there to handle it. Off the rails. I had the evidence, and being right felt like fuel.
+
+My director walked in at the end. This man had not cursed once in the nine years I had known him. He pulled me aside and asked me what I was doing.
+
+He had my attention now.
+
+He said, okay, he lied, that is unacceptable. But why are you this fired up about why someone else lied?
+
+I said because if you lie, you are being deliberately disrespectful. If I lied to my mom growing up, she would tell me exactly how disrespectful I was being.
+
+He said, cool. So now you know where it came from.
+
+Then he said, what if he was not lying to disrespect you. What if he was just trying to save himself.
+
+Time slowed down. He was still talking. I was not hearing him anymore.
+
+I was stuck on one question. What else have I told myself is a lie?
+
+I started sweating. Something dropped into the pit of my stomach. I had built my whole life on systems so I would never get caught off guard. And I just had.</div>
+
+          <div class="cta">
+            <ol>
+              <li><b>Close:</b> Fifteen years later, that one question is the reason I can sit across from a stranger and actually see them.</li>
+              <li><b>Who it's for:</b> If you are the one everyone calls when it hits the fan, and you have never once been the one who got to fall apart,</li>
+              <li><b>Action:</b> tell me about the moment someone cracked your certainty. I read every reply.</li>
+            </ol>
+          </div>
+
+          <div class="loopcheck"><b>Loop check.</b> Stakes: 23, power, a lie with proof, month-end clock. Question: what did the director see that you didn't? Head fake: the man who never curses, curses. It happened, so it is legal, and it lands mid-story, not on the cover. Rehook: every line ends pointing forward ("he had my attention now," "time slowed down").</div>
+          <p class="notes"><b>Load-bearing:</b> the sweating and the pit in the stomach. That is the cost, shown in the body, not named. Do not cut it to end on the question. <b>Don't add</b> a lesson after the last line. The reveal is that you were the one who was wrong, and that you let it change you.</p>
+        </div>
+      </div>
+    </details>
+
+    <!-- STORY 2 -->
+    <details class="story">
+      <summary>
+        <span class="s-num">02</span>
+        <span class="s-head">
+          <span class="s-meta"><span class="chip personal">Personal · your lane</span></span>
+          <p class="s-title">The system a 12 year old built to survive</p>
+          <p class="s-summary">Where the 15x15 actually came from. The discipline people call your gift was a defense you built in a room you were trying to get through.</p>
+        </span>
+        <span class="s-toggle"><span class="open-t">Open</span><span class="close-t">Close</span></span>
+      </summary>
+      <div class="s-body">
+
+        <div class="block-label">Your actual words</div>
+        <blockquote class="words">
+          "For me, putting together my time was creating a counter reason where they can't make it mine."<span>You, on why you started · 00:54:41</span>
+        </blockquote>
+        <blockquote class="words">
+          "Your gifts always come at a cost."<span>Kindra, naming it back to you · 01:04:04</span>
+        </blockquote>
+
+        <div class="block-label">The moment underneath</div>
+        <p class="notes"><b>The fork:</b> sit in it as a victim, or build a system to rise above it. <b>The cost:</b> your childhood, and your bond with your sister. You became Mr. Perfect, Mr. Know-It-All, and she pushed back hard. <b>The gift (why the cost matters):</b> the reason you can run a business and see a problem fifteen moves out. <b>The villain (a force, never your parents):</b> a house where the rules changed by mood and someone always had to be at fault.</p>
+
+        <div class="handling">
+          <div class="h-t">Handling</div>
+          <p>Kindra flagged the childhood lane as the trickiest to make public. Your parents stay human, not villains. You said it yourself: they did the best they could. The force is the chaos and the shifting rules, not them. Read the exact words before this goes anywhere, and decide how much of the house you want online.</p>
+        </div>
+
+        <div class="block-label">Format · B-roll + caption</div>
+        <div class="format">
+          <p class="f-name">The origin / permission post</p>
+          <p class="f-deliver">7 sec B-roll: your 18 year old's schedule on the whiteboard, or you writing out a day. Hook on screen. Story in caption.</p>
+
+          <ul class="hooks">
+            <li><span class="htype">Context</span><span class="htxt">I was 12 the first time I used a schedule as armor.</span></li>
+            <li><span class="htype">Contrarian</span><span class="htxt">Everyone calls my discipline a gift. It started as a defense.</span></li>
+            <li><span class="htype">Intrigue</span><span class="htxt">The system that runs my business was built by a 12 year old trying not to get in trouble.</span></li>
+          </ul>
+
+          <div class="draft">I grew up in a small bungalow on the edge of Chicago, sharing a room with my sister, in a house where the rules changed depending on the mood.
+
+I was the oldest. Which meant if the dishes were not done, they were mine. If something got dropped, it was mine. It did not matter whose job it actually was. I saw it, I was the oldest, so it was mine.
+
+Getting it wrong meant the lights went out. No friends. No games. The whole night, gone.
+
+So at 12, in that room, I stopped asking why it was fair. I started asking a different question. How do I get ahead of it.
+
+I figured if I did the thing before anyone told me to, if I did enough of the right things without being asked, maybe they could not make it mine. Maybe I could build a reason they could not touch.
+
+I told my time exactly where to go. Every block of it.
+
+It worked. I got in trouble less.
+
+It also made me Mr. Perfect. Mr. Know-It-All. My sister got the version of me that had to be ten steps ahead of everything, and she pushed back hard, and I do not blame her.
+
+That 12 year old is the reason I can run a business now and see a problem fifteen moves before it lands. The exact thing people call my gift, I built it in a room I was trying to survive.</div>
+
+          <div class="cta">
+            <ol>
+              <li><b>Close:</b> The thing you are smoothest at was probably forged under a pressure nobody saw.</li>
+              <li><b>Who it's for:</b> If people call your discipline a gift and you know exactly what it cost to build,</li>
+              <li><b>Action:</b> tell me the thing you are best at, and I will show you where it started. My DMs are open.</li>
+            </ol>
+          </div>
+
+          <div class="loopcheck"><b>Loop check.</b> Stakes: a kid, punishment, a house that could turn any minute. Question: did the system actually save him? Head fake: it worked, and it still cost him his sister. Rehook: "It worked. I got in trouble less." then the turn.</div>
+          <p class="notes"><b>Load-bearing:</b> the sister. That is the cost that keeps this from reading as a flex. <b>Placeholder to fill:</b> one concrete day would sharpen the open (the specific chore, the specific room, what was said). If the DM screenshots have a moment like that, drop it into the first two lines. <b>Second post hiding in here:</b> the 15x15 itself, taught plainly, driving to a free planner or exercise. Same excavation, different rung.</p>
+        </div>
+      </div>
+    </details>
+
+    <!-- STORY 3 -->
+    <details class="story">
+      <summary>
+        <span class="s-num">03</span>
+        <span class="s-head">
+          <span class="s-meta"><span class="chip personal">Personal</span></span>
+          <p class="s-title">The $28,000 joke</p>
+          <p class="s-summary">Your dad pulled up a salary and called your dream a joke. You passed him years later and felt sad instead of victorious. That is the whole story.</p>
+        </span>
+        <span class="s-toggle"><span class="open-t">Open</span><span class="close-t">Close</span></span>
+      </summary>
+      <div class="s-body">
+
+        <div class="block-label">Your actual words</div>
+        <blockquote class="words">
+          "He went on Glassdoor and saw that the average trainer made like $28,000, and looked me dead in the face and goes, how are you gonna provide for a family on $28,000. This is a joke."<span>You · 01:29:15</span>
+        </blockquote>
+        <blockquote class="words">
+          "By the time it does prove them wrong, I don't have any desire to be like, I told you so. It's more like, I'm sad that I even had to get to this."<span>You · 01:30:07</span>
+        </blockquote>
+
+        <div class="block-label">The moment underneath</div>
+        <p class="notes"><b>The fork:</b> believe the number, or bet your life against it in silence. <b>The cost:</b> years of proving, and a distance with your dad that surpassing him never closed. <b>The middle-beat lie:</b> that passing him would settle it. It didn't. The W-2 proved the number wrong and you still felt sad. <b>The villain:</b> the idea that a man's worth is a figure on a screen.</p>
+
+        <div class="handling hard">
+          <div class="h-t">Handling · read before posting</div>
+          <p>Your dad is in this one. He stays human, not a villain. The force is worth measured as salary. This lands because of restraint, not because it drags him. Do not add a line that makes him the bad guy. The sadness at the end is what makes it true. Sit with whether this is one you want public before it goes up.</p>
+        </div>
+
+        <div class="block-label">Format · B-roll + caption</div>
+        <div class="format">
+          <p class="f-name">The wound-behind-the-drive post</p>
+          <p class="f-deliver">7 sec B-roll: something ordinary from your day, the gym, your kid. Let the caption carry the weight. Hook on screen.</p>
+
+          <ul class="hooks">
+            <li><span class="htype">Intrigue</span><span class="htxt">He looked up the average salary for my dream and called it a joke to my face.</span></li>
+            <li><span class="htype">Contrarian</span><span class="htxt">I proved my dad wrong. It did not feel like anything I thought it would.</span></li>
+            <li><span class="htype">Context</span><span class="htxt">I had a kid who wasn't one yet when my dad told me my plan was a joke.</span></li>
+          </ul>
+
+          <div class="draft">When I dropped out of college, my dad told me I was one of the biggest disappointments he could imagine. How do you throw away a free education.
+
+Then I told him the plan. I was going to be a personal trainer.
+
+He did not argue. He pulled up Glassdoor. Found the average trainer salary. Twenty-eight thousand dollars. He turned the screen around and asked how I planned to provide for a family on that. He said, this is a joke.
+
+I had a kid who was not even one yet.
+
+I did not say much back. That is not how I work. I do not announce it. I go quiet, and I work, and I let the thing get built.
+
+Years later I opened my W-2 and did the math. I had passed him. Any year he ever worked. I knew it for a fact, in writing.
+
+And I did not want to call him and say I told you so.
+
+I just felt sad that I had to climb that high to feel like I was allowed to be here.</div>
+
+          <div class="cta">
+            <ol>
+              <li><b>Close:</b> Some of us did not build to win. We built to finally feel allowed.</li>
+              <li><b>Who it's for:</b> If you passed the person who doubted you and felt sad instead of victorious,</li>
+              <li><b>Action:</b> tell me who you were trying to prove wrong. I want to hear it.</li>
+            </ol>
+          </div>
+
+          <div class="loopcheck"><b>Loop check.</b> Stakes: a father's verdict, a newborn, a number. Question: did proving him wrong fix it? Head fake: the win arrives, and it feels like sadness. Rehook: "I had a kid who was not even one yet" drops right where the reader is judging the dad.</div>
+          <p class="notes"><b>Load-bearing:</b> the last line. It is one useful placard (a law the reader could not reach alone), so it earns its place. Everything before it is a moment. <b>Don't</b> soften the $28,000 or round it. The exact number is the proof.</p>
+        </div>
+      </div>
+    </details>
+
+    <!-- STORY 4 -->
+    <details class="story">
+      <summary>
+        <span class="s-num">04</span>
+        <span class="s-head">
+          <span class="s-meta"><span class="chip personal">Personal · needs her blessing</span></span>
+          <p class="s-title">The two days I sat on my hands</p>
+          <p class="s-summary">Your wife ran the gym alone. You are the fixer, and the hardest thing you did all week was let her carry it. Then the 11:11 text came.</p>
+        </span>
+        <span class="s-toggle"><span class="open-t">Open</span><span class="close-t">Close</span></span>
+      </summary>
+      <div class="s-body">
+
+        <div class="block-label">Your actual words</div>
+        <blockquote class="words">
+          "I'm Mr. Fix-It, so I'm Mr. Save-It. I want to constantly jump in and save her from the pain and the experiences that are necessary for her to evolve into the leader she desires to be."<span>You · 00:27:35</span>
+        </blockquote>
+        <blockquote class="words">
+          "She sent me a message and she's like, this week I really have felt supported and seen. I can see how hard you're trying to help me weather through this storm. I thought that I'd been shitting the bed."<span>You · 00:28:58</span>
+        </blockquote>
+
+        <div class="block-label">The moment underneath</div>
+        <p class="notes"><b>The fork:</b> step in and be the hero, or sit down and let her walk it. <b>The cost:</b> your self-image as the man who saves, sitting in two days of feeling like you were failing. <b>The middle-beat lie:</b> that a good husband steps in, so staying out meant you were failing her. The 11:11 text disproved it. <b>The villain:</b> the story that being a man means staying in control.</p>
+
+        <div class="handling hard">
+          <div class="h-t">Handling · do not post without her yes</div>
+          <p>Your wife is a co-subject here, not a mention. The "the gym is yours" argument and the 11:11 text are as much hers as yours, and 11:11 is your private ritual (your anniversary). Show her the exact words below and let her decide before this goes anywhere. If she is in, it is one of the strongest couple-entrepreneurship pieces you have. If she is not, it stays held. That is the whole rule.</p>
+        </div>
+
+        <div class="block-label">Format · B-roll + caption</div>
+        <div class="format">
+          <p class="f-name">The couple-entrepreneurship post</p>
+          <p class="f-deliver">7 sec B-roll: the gym, or a quiet shot of your desk down the hall. Hook on screen. Story in caption.</p>
+
+          <ul class="hooks">
+            <li><span class="htype">Contrarian</span><span class="htxt">By every standard I was raised on, I failed my wife this week.</span></li>
+            <li><span class="htype">Intrigue</span><span class="htxt">The hardest thing I did as a husband this week was keep my mouth shut.</span></li>
+            <li><span class="htype">Context</span><span class="htxt">My wife ran our gym alone for two days. I sat down the hall and did nothing.</span></li>
+          </ul>
+
+          <div class="draft">Four years ago my wife told me the gym was not hers. She said, I just do what you tell me to. She owned half of it and felt like she owned none of it.
+
+That stuck with me. So two years ago I made her the head coach, and I started handing it over. Slowly. All of it.
+
+This week one of our coaches was on vacation. She had to open in the morning and coach again at night. Two days of it, back to back.
+
+I was down the hall the whole time. Building things. And every part of me wanted to walk in and take it off her plate.
+
+I am the fixer. I am the one who saves it. That is the guy I have always been.
+
+But I have watched this movie. If I save her, we just run the same lesson again later, and she never gets to become the leader she is trying to be. So I sat there. I let her carry it.
+
+And it messed with me. Because the man I was raised to be steps in. By that standard, I was not being a husband at all.
+
+Then at 11:11, she texted me. She said this week she had felt supported and seen. She said she could tell how hard I was working to help her weather the storm.
+
+I had spent two days sure I was failing her.</div>
+
+          <div class="cta">
+            <ol>
+              <li><b>Close:</b> Sometimes the most protective thing a leader does is keep their hands off.</li>
+              <li><b>Who it's for:</b> If you are the fixer, and the hardest work you do is trusting someone else to struggle,</li>
+              <li><b>Action:</b> tell me the time you held back and it turned out to be the right call.</li>
+            </ol>
+          </div>
+
+          <div class="loopcheck"><b>Loop check.</b> Stakes: a marriage, a business, two days, a man's whole idea of himself. Question: is he actually failing her? Head fake: he is sure he is failing, and the 11:11 text says the opposite. Rehook: "It messed with me" then the turn.</div>
+          <p class="notes"><b>Load-bearing:</b> the last line. The reveal is that he was wrong about failing, shown by her text, not narrated. <b>Placeholder:</b> if you want a sharper open, one concrete beat from those two days (a moment you almost walked in) would land harder than "every part of me wanted to." The screenshots or a voice note could give that.</p>
+        </div>
+      </div>
+    </details>
+
+    <!-- STORY 5 -->
+    <details class="story">
+      <summary>
+        <span class="s-num">05</span>
+        <span class="s-head">
+          <span class="s-meta"><span class="chip ready">Ready · positioning</span></span>
+          <p class="s-title">The tissue box</p>
+          <p class="s-summary">A stranger walks in to lose ten pounds. Two hours later a different person walks out. This is the piece that names your gift without you ever claiming it.</p>
+        </span>
+        <span class="s-toggle"><span class="open-t">Open</span><span class="close-t">Close</span></span>
+      </summary>
+      <div class="s-body">
+
+        <div class="block-label">Your actual words</div>
+        <blockquote class="words">
+          "We'd be 5, 10 minutes into the appointment, this is a brand new stranger I've never even made contact with, and I'm walking out to grab the tissue box because they're crying everywhere."<span>You · 00:08:08</span>
+        </blockquote>
+        <blockquote class="words">
+          "She's like, you gave me a piece of me back that I didn't even know I was missing, and that I need right now."<span>A client of four years, in your retelling · 01:14:14</span>
+        </blockquote>
+
+        <div class="block-label">The moment underneath</div>
+        <p class="notes">This one is a <b>conviction post</b>, not a story arc. A single held image (you getting up for the tissues) plus a stance (something happens in a real conversation that no tactic makes happen). Do not bolt three acts onto it. The reveal is your gift, shown through the moment, so the reader concludes it instead of hearing you claim it.</p>
+
+        <div class="handling">
+          <div class="h-t">Handling</div>
+          <p>Clients stay anonymous. "A stranger," "a client of four years." No names, no identifying details. The four-year client's line is powerful because it is specific, keep it exactly, just unattributed.</p>
+        </div>
+
+        <div class="block-label">Format · B-roll or talking head</div>
+        <div class="format">
+          <p class="f-name">The conviction / positioning post</p>
+          <p class="f-deliver">Works as text on screen over a slow B-roll of the gym floor, or as a rare talking head if you want your face on this one. Hook on screen.</p>
+
+          <ul class="hooks">
+            <li><span class="htype">Intrigue</span><span class="htxt">Five minutes into meeting a stranger, I get up to grab the tissues.</span></li>
+            <li><span class="htype">Context</span><span class="htxt">My wife used to ask what I could possibly be saying to make these people cry.</span></li>
+            <li><span class="htype">Contrarian</span><span class="htxt">People hire me to lose ten pounds. That is never what they leave with.</span></li>
+          </ul>
+
+          <div class="draft">A stranger walks into my office. We have never spoken. Not a call, not a text, nothing.
+
+Five minutes in, I am getting up to grab the tissue box.
+
+My wife used to laugh at me about it. She would ask what I could possibly be saying to these people. I was not saying anything clever. I was not running a script. I just had a real conversation with someone who had been walled off for years, and the wall came down.
+
+Two hours later a different person walks out of that room.
+
+I have stopped trying to explain it. It is not a technique. You do not funnel your way into someone's soul.
+
+People come in to lose ten pounds. They walk out having met someone they had locked away years ago, and did not know was gone.</div>
+
+          <div class="cta">
+            <ol>
+              <li><b>Close:</b> I have stopped apologizing for the part of this I cannot explain.</li>
+              <li><b>Who it's for:</b> If people leave every real conversation with you lighter than they came in,</li>
+              <li><b>Action:</b> tell me what happens in your room. I collect these.</li>
+            </ol>
+          </div>
+          <p class="notes"><b>Load-bearing:</b> the tissue box. It is the whole post, an image a camera could film, doing the work a claim never could. <b>Don't</b> add "and that is what I do for my clients." That welds the reveal to a pitch and kills it. Let the image stand.</p>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- HELD -->
+  <div class="stories">
+    <p class="section-label">Held and exploratory · captured, not drafted</p>
+    <div class="held-list">
+      <div class="held-item">
+        <h4>The cage</h4>
+        <p>"The gift part of me feels like it's in a cage. I keep feeding it, I keep making sure it's okay, but it's still in the cage. I'm afraid for what happens if it comes out and I didn't get the appropriate reps in to wield it."</p>
+        <p class="why">Why it's held: this is present tense and raw. It is you mid-process, not a resolved story. It will make a devastating post the day you are on the other side of it, or a real-time "I am in it right now" piece if you ever want to be that open. Not yet, and only if you choose.</p>
+      </div>
+      <div class="held-item">
+        <h4>Putting self first</h4>
+        <p>You named this as lane number one and said you have "powerful stories around what happened when you didn't do that." You did not tell one on the call.</p>
+        <p class="why">Why it's held: no concrete moment yet. This is the first thing to dig on next, or the first place the DM screenshots might already hold a story.</p>
+      </div>
+      <div class="held-item">
+        <h4>The pattern: winning the room, losing the people beside you</h4>
+        <p>It showed up twice. Your sister as a kid. Then the corporate team who had your back while the higher-ups tried to make you "more like them." Kindra caught it live: you were trying to win over authority and it cost you the people next to you.</p>
+        <p class="why">Why it's held: it is a real throughline and a strong future post, but it needs more digging and it touches your sister. Build it later, with you, only if you want to.</p>
+      </div>
+      <div class="held-item">
+        <h4>The gym origin ($47.26)</h4>
+        <p>"I opened a gym with $47.26 to my name, three months before the world shut down." Kindra already built you a post with three hooks on this one.</p>
+        <p class="why">Why it's here: not re-dug on this call, but it belongs in your bank. Post it on your personal page as B-roll and tag the gym, so the gym's audience sees the origin story too.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <h2>Before anything goes up</h2>
+    <ol>
+      <li><b>You read the exact words first.</b> Not the idea, the words. If a line does not sound like you, change it. These are your stories, elevated, not rewritten.</li>
+      <li><b>Story 04 needs your wife's yes</b> on the specific post, and Story 03 has your dad in it. A real person in a story gets a real look before it is public.</li>
+      <li><b>The villain stays a force</b> in every one. Not your parents, not the trainer, not your dad. The pressure, the chaos, the belief. Truer, and safer.</li>
+      <li><b>Pace the heavy ones.</b> Do not run two confessional posts back to back. Alternate heavy and light. Story 01 or 05 is a strong pin.</li>
+      <li><b>The reply has to be human.</b> The invitation CTAs only work if someone who answers gets you, not a template.</li>
+    </ol>
+    <p class="sig">Five stories drafted, four more held. Send me the DM screenshots and I will fill the placeholders flagged above and pull anything new worth adding, especially a self-care story. You lived all of it. I just organized the words.</p>
+  </div>
+
+</div>
+</body>
+</html>
