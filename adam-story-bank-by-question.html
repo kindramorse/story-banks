@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam's Story Bank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Archivo+Narrow:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --plum:#17111E; --panel:#1F1828; --panel2:#251C30;
+    --orchid:#CB6CE6; --blossom:#F4CBFF; --parch:#FAF8F4;
+    --muted:#B7A9C4; --faint:#7C6E8A; --line:#352A44;
+    --display:'Fraunces',Georgia,serif; --body:'Archivo Narrow',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--plum); color:var(--parch);
+    font-family:var(--body); font-size:18px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:64px 24px 120px;}
+
+  /* Header */
+  .eyebrow{font-family:var(--body); text-transform:uppercase; letter-spacing:.28em;
+    font-weight:700; font-size:12px; color:var(--orchid);}
+  h1{font-family:var(--display); font-weight:400; font-size:54px; line-height:1.04;
+    margin:16px 0 14px; letter-spacing:-.01em;}
+  h1 em{font-style:italic; color:var(--blossom);}
+  .lede{color:var(--muted); font-size:18px; max-width:60ch; margin:0 0 10px;}
+  .howto{background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:22px 24px; margin:34px 0 8px;}
+  .howto h2{font-family:var(--body); text-transform:uppercase; letter-spacing:.2em;
+    font-size:12px; font-weight:700; color:var(--orchid); margin:0 0 12px;}
+  .howto p{margin:0 0 10px; color:var(--muted); font-size:16.5px;}
+  .howto p:last-child{margin-bottom:0;}
+  .howto b{color:var(--parch); font-weight:500;}
+
+  .sectionlabel{font-family:var(--body); text-transform:uppercase; letter-spacing:.24em;
+    font-weight:700; font-size:12px; color:var(--faint); margin:56px 0 18px;
+    border-bottom:1px solid var(--line); padding-bottom:10px;}
+
+  /* Story panel */
+  details.story{background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    margin:0 0 18px; overflow:hidden;}
+  details.story[open]{border-color:#4a3a5e;}
+  summary{list-style:none; cursor:pointer; padding:24px 26px; display:flex; gap:18px;
+    align-items:baseline; transition:background .2s;}
+  summary::-webkit-details-marker{display:none;}
+  summary:hover{background:var(--panel2);}
+  .num{font-family:var(--display); font-style:italic; font-size:26px; color:var(--orchid);
+    flex:0 0 auto; line-height:1;}
+  .sumtext{flex:1;}
+  .sumtitle{font-family:var(--display); font-size:25px; line-height:1.15; color:var(--parch);}
+  .tag{display:inline-block; margin-top:9px; font-family:var(--body); text-transform:uppercase;
+    letter-spacing:.18em; font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:20px;}
+  .tag.story-t{background:rgba(203,108,230,.16); color:var(--blossom);}
+  .tag.conv-t{background:rgba(244,203,255,.10); color:var(--parch);}
+  .tag.howto-t{background:rgba(250,248,244,.09); color:var(--parch);}
+  .tag.invite-t{background:rgba(203,108,230,.30); color:#fff;}
+  .tag.build-t{background:rgba(124,110,138,.18); color:var(--muted);}
+  .chev{flex:0 0 auto; color:var(--faint); font-size:14px; transition:transform .25s; margin-top:6px;}
+  details[open] .chev{transform:rotate(90deg);}
+
+  .body{padding:4px 26px 30px;}
+
+  /* The Story block */
+  .core{background:var(--panel2); border-left:3px solid var(--orchid); border-radius:0 10px 10px 0;
+    padding:18px 22px; margin:6px 0 30px;}
+  .core .lbl{font-family:var(--body); text-transform:uppercase; letter-spacing:.2em;
+    font-size:11px; font-weight:700; color:var(--orchid); margin-bottom:10px;}
+  .core p{margin:0 0 12px; color:var(--parch); font-size:17px;}
+  .core p:last-child{margin-bottom:0;}
+  .core .said{color:var(--blossom); font-style:italic;}
+
+  /* Format cards */
+  .fmt{border-top:1px solid var(--line); padding:24px 0 4px;}
+  .fmt:first-of-type{border-top:none;}
+  .fmt .flabel{font-family:var(--body); text-transform:uppercase; letter-spacing:.2em;
+    font-size:11px; font-weight:700; color:var(--blossom); margin-bottom:4px;}
+  .fmt .fnote{color:var(--faint); font-size:14px; font-style:italic; margin:0 0 16px;}
+  .fmt p{margin:0 0 12px;}
+  .cardtag{font-family:var(--body); text-transform:uppercase; letter-spacing:.18em; font-size:10px;
+    font-weight:700; color:var(--orchid); margin:0 0 7px;}
+  .cardtag.cap{color:var(--faint);}
+
+  /* carousel slides */
+  ol.slides{list-style:none; counter-reset:s; margin:0; padding:0;}
+  ol.slides li{counter-increment:s; position:relative; padding:11px 0 11px 44px; border-bottom:1px solid var(--line);
+    color:var(--parch); font-size:16.5px;}
+  ol.slides li:last-child{border-bottom:none;}
+  ol.slides li::before{content:counter(s,decimal-leading-zero); position:absolute; left:0; top:11px;
+    font-family:var(--display); font-style:italic; color:var(--orchid); font-size:15px;}
+  .addnote{color:var(--faint); font-style:italic;}
+
+  /* on-image line */
+  .imgline{background:linear-gradient(135deg,#2a1c38,#1d1526); border:1px solid #4a3a5e; border-radius:12px;
+    padding:26px 24px; font-family:var(--display); font-size:23px; line-height:1.3; color:var(--parch);
+    text-align:center; margin:4px 0 14px;}
+  .imgline em{font-style:italic; color:var(--blossom);}
+
+  /* caption */
+  .caption{background:#16101d; border:1px solid var(--line); border-radius:10px; padding:18px 20px;
+    color:var(--muted); font-size:16px;}
+  .caption p{margin:0 0 11px; color:var(--muted);}
+  .caption p:last-child{margin-bottom:0;}
+  .caption .open{color:var(--parch);}
+
+  /* reel beats */
+  .beats{margin:0; padding:0; list-style:none;}
+  .beats li{padding:10px 0; border-bottom:1px dashed var(--line); display:flex; gap:14px;}
+  .beats li:last-child{border-bottom:none;}
+  .beats .cue{flex:0 0 96px; font-family:var(--body); text-transform:uppercase; letter-spacing:.12em;
+    font-size:10.5px; font-weight:700; color:var(--orchid); padding-top:4px;}
+  .beats .say{flex:1; color:var(--parch); font-size:16.5px;}
+  .beats .say.hook{font-family:var(--display); font-size:19px;}
+
+  /* flags */
+  .flags{margin-top:24px; background:#1a1322; border:1px dashed #4a3a5e; border-radius:10px; padding:16px 20px;}
+  .flags .lbl{font-family:var(--body); text-transform:uppercase; letter-spacing:.2em; font-size:10.5px;
+    font-weight:700; color:var(--orchid); margin-bottom:10px;}
+  .flags ul{margin:0; padding-left:18px;}
+  .flags li{color:var(--muted); font-size:15px; margin-bottom:9px;}
+  .flags li:last-child{margin-bottom:0;}
+
+  /* pipeline placeholder */
+  details.story.pipe{opacity:.92;}
+  .pipe .core{border-left-color:var(--faint);}
+  .pipe .pconcept{color:var(--parch); font-size:16.5px; margin:0 0 14px;}
+  .formats-line{font-family:var(--body); text-transform:uppercase; letter-spacing:.14em; font-size:11px;
+    font-weight:700; color:var(--faint);}
+  .formats-line span{color:var(--blossom);}
+  .status{margin-top:14px; color:var(--muted); font-size:15px; font-style:italic;}
+
+  /* template */
+  .template{background:var(--panel); border:1px dashed var(--line); border-radius:14px; padding:24px 26px; margin-top:14px;}
+  .template .flabel{color:var(--orchid);}
+  .template ul{margin:8px 0 0; padding-left:18px; color:var(--muted); font-size:15.5px;}
+  .template li{margin-bottom:7px;}
+
+  footer{margin-top:60px; text-align:center; color:var(--faint); font-size:14px;
+    border-top:1px solid var(--line); padding-top:26px;}
+  footer em{font-family:var(--display); font-style:italic; color:var(--muted); font-size:16px;}
+
+  @media (max-width:560px){
+    h1{font-size:40px;} .wrap{padding:44px 16px 90px;}
+    summary{padding:20px 18px; gap:12px;} .body{padding:4px 18px 26px;}
+    .beats li{flex-direction:column; gap:3px;} .beats .cue{padding-top:0;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+
+<style>
+.qwrap{max-width:840px;margin:0 auto;padding:0 20px}
+.qhead{text-align:center;margin:8px auto 44px}
+.qhead h1{margin:0 0 10px}
+.qhead p{opacity:.75;font-size:1rem;max-width:640px;margin:0 auto}
+.qsection{margin:0 auto 52px}
+.qq{font-size:1.45rem;font-weight:800;margin:0 0 4px;padding-bottom:10px;border-bottom:2px solid rgba(140,120,150,.35)}
+.qq .qwho{font-weight:400;opacity:.7;font-size:.95rem;display:block;margin-top:4px;font-style:italic}
+.qcov{font-size:.88rem;opacity:.7;margin:10px 0 26px}
+.qcard{margin:0 0 26px;padding:0 0 4px}
+.qc-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin:0 0 10px;flex-wrap:wrap}
+.qc-title{font-weight:700;font-size:1.08rem}
+.qc-status{font-size:.68rem;opacity:.6;white-space:nowrap;text-transform:uppercase;letter-spacing:.05em}
+.qcard.empty{opacity:.7;border:1px dashed rgba(140,120,150,.4);border-radius:12px;padding:16px 20px}
+.qempty-note{font-size:.9rem;opacity:.8;margin:6px 0 0}
+.qxref{font-size:.85rem;opacity:.65;font-style:italic;margin:0 0 24px}
+</style>
+</head>
+<body>
+<div class="qwrap">
+<div class="qhead">
+<h1>Adam's Story Bank</h1>
+<p>The same stories, organized by the question in a client's head when they are deciding whether to trust a lawyer. Strongest questions first, thin and empty ones last, so the gaps are easy to see. Each card shows the post's lead format. The full multi-format versions live in the main bank.</p>
+</div>
+<section class="qsection"><div class="qq">The Mirror<span class="qwho">Have you ever been where I am? Do you understand what this feels like?</span></div><p class="qcov">One post, and it is a bullseye. This whole question rests on a single story. Worth a second one.</p><div class="qcard"><div class="qc-head"><span class="qc-title">I Was the Client Who Got Told No</span><span class="qc-status">Story &middot; verified clean</span></div><div class="fmt">
+        <div class="flabel">B-Roll Caption</div>
+        <p class="fnote">The lead format, and his exposure-therapy piece. B-roll should just be him being a normal human, t-shirt not suit. Two hook options for the on-screen text (pick one): "I wasn't wearing my seatbelt. That's the part I'm embarrassed to say out loud." / "An attorney told me I had no case. She was wrong, and it took me years to know it."</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">I wasn't wearing my seatbelt. <em>That's the part I'm embarrassed to say out loud.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>I was in college and I hit a curb with my tire.</p>
+          <p>My own fault. I was messing around trying to burn out, lost control, and broke the tire and the rim.</p>
+          <p>The insurance company looked at it and told me the tire was fine. Didn't need replacing. Just a technicality, they said. They were convincing that it wasn't a big deal, and they offered me a deal where I wouldn't have to pay the deductible.</p>
+          <p>I took it. I was a kid with no money. I worked for everything I had and I'd spent all of it on that car.</p>
+          <p>Then that same tire blew on the freeway. My car flipped four times, I was ejected, and I got flown to the hospital in a helicopter.</p>
+          <p>I lived. Obviously. But that's not the part I think about.</p>
+          <p>Here's the part I'm really embarrassed to say out loud.</p>
+          <p>I wasn't wearing my seatbelt.</p>
+          <p>My dad knew an attorney, and she told us that because of the seatbelt we couldn't go after them. That was that.</p>
+          <p>I remember sitting with my dad thinking, really? They told us that tire was totally fine and it obviously was not.</p>
+          <p>But my dad's a smart guy and he knew her, so I figured if she said that's it, that's it. And some part of me thought it was kind of my fault anyway.</p>
+          <p>Now I know that's complete BS.</p>
+          <p>I know it because I do this for a living now. Because I've sat across from people who were sure they'd done something that disqualified them. They waited too long. They said the wrong thing at the scene. They didn't go to the doctor for a week. They weren't wearing a seatbelt.</p>
+          <p>And every single time, some part of me is looking at a kid in his first year of college who took a bad deal because somebody told him his own mistake meant he didn't get to ask for anything.</p>
+          <p>I've never put this story anywhere online. I told myself it was too old to matter.</p>
+          <p>That's not why.</p>
+          <p>If you got hurt and you're already building the case against yourself in your head, I want you to know the other side has a department for that.</p>
+          <p>If you're not sure whether you have a case because of something you did or didn't do, that's exactly when you should ask.</p>
+          <p>Ask me. That's the whole reason I do this.</p>
+        </div>
+      </div></div></section>
+<section class="qsection"><div class="qq">The Correction<span class="qwho">What is everyone in your business getting wrong, at my expense?</span></div><p class="qcov">His strongest lane, well covered. This is where the reach-mode checks (a reason to save, a reason to follow) actually apply, and where the audit still has work to do.</p><div class="qcard"><div class="qc-head"><span class="qc-title">Why You Haven't Heard From Your Lawyer</span><span class="qc-status">How-to &middot; reach mode &middot; save/follow check pending</span></div><div class="fmt">
+        <div class="flabel">Format 1 &middot; How-to Post (primary)</div>
+        <p class="fnote">One static image, the caption runs the HEIT beats: hook, explain, illustrate a real case, teach.</p>
+        <div class="imgline">If your lawyer hasn't called you in months, <em>your case is probably sitting still.</em></div>
+        <div class="caption">
+          <p class="open">If your lawyer hasn't called you in months, your case is probably sitting still. And a case nobody is pushing settles for less.</p>
+          <p>A lot of firms would rather wait for a settlement than file a lawsuit and fight for more. Litigation is hard and slow. Waiting on a settlement is just as slow, and it pays you less. So the case sits, and you stop hearing from anyone.</p>
+          <p>Here's what most people never get told. Before a lawsuit is filed, your case sits with a mid-level adjuster who runs your injury through a computer program, and it spits out a number. Like an order screen at a drive-through. The day a suit gets filed, your case leaves that desk. A manager has to weigh in, the other side has to bring in a real attorney, and the number moves.</p>
+          <p>I had one where the initial number came back estimated at $17,000. We filed, and about sixteen weeks later it settled for $200,000.</p>
+          <p>I file fast. It's the quickest way to get you the most, before evidence quietly disappears.</p>
+          <p>You don't have to hire me. But hire someone who files.</p>
+        </div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">Why the First Number Is Rarely the Real On</span><span class="qc-status">How-to &middot; reach mode &middot; save/follow check pending</span></div><div class="fmt">
+        <div class="flabel">Format 1 &middot; How-to Post (primary)</div>
+        <p class="fnote">One static image, the caption runs the HEIT beats: hook, explain, illustrate a real case, teach.</p>
+        <div class="imgline">The first number they hand you <em>is rarely the real one.</em></div>
+        <div class="caption">
+          <p class="open">The first number an insurance company hands you is rarely the real one.</p>
+          <p>Most injury payouts are capped by the policy. What almost nobody checks is whether there's more than one. A second policy, an umbrella policy, coverage on another party who was also at fault. The adjuster quotes the first one and stops. So does a lot of the intake at a high-volume firm, because pulling every policy takes time no one there is paid to spend.</p>
+          <p>I had a client handed a $15,000 offer and told that was the ceiling. It would have been easy to agree. Instead I read the second policy nobody had pulled. His case was worth $75,000.</p>
+          <p>So before you sign anything, ask one question. Has every policy that could apply to my case been pulled and read. If the answer comes slow, that's your answer.</p>
+          <p>If you've been handed a number and told that's all your case is worth, send me a message. Let me read the pages first.</p>
+        </div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">One Missed Detail</span><span class="qc-status">Belief &middot; reach mode</span></div><div class="fmt">
+        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <p class="fnote">One static image, the story in the caption.</p>
+        <div class="imgline">One missed detail can turn a million-dollar case <em>into pennies.</em></div>
+        <div class="caption">
+          <p class="open">At a high-volume firm, I caught a case where a single missed deadline almost forced a multimillion-dollar matter in front of a judge instead of a jury. That one detail would have gutted its value.</p>
+          <p>The case had already passed through three different attorneys. That's what happens when a firm runs people at two hundred files each, with people always coming and going. Things slip.</p>
+          <p>I caught it and filed the motion that saved it. That's why I read every page myself now, in a firm I built so nothing has to slip.</p>
+        </div>
+      </div></div></section>
+<section class="qsection"><div class="qq">The Proof<span class="qwho">Can you actually win a case like mine?</span></div><p class="qcov">Deep. Three built, one still to come.</p><div class="qcard"><div class="qc-head"><span class="qc-title">The Case Everyone Passed On</span><span class="qc-status">Story &middot; deepened &middot; permission open</span></div><div class="fmt">
+        <div class="flabel">B-Roll Caption</div>
+        <p class="fnote">The lead format. Three hook options (pick one): "A widow called me after every other lawyer had already told her no." / "The case that means the most to me is one every other lawyer called a waste of time." / "A car came through the wall of a man's hotel room while he slept. A year later, his widow couldn't find a lawyer who'd take the case." Deepened from the session, but it hasn't had the line-by-line pass the tire story got, so read it against his exact words first, and keep the medical causation as the case he made, not a medical claim.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">Every lawyer told her <em>the case was unwinnable.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>A car came through the wall of a man's hotel room while he was sleeping.</p>
+          <p>He was a long-haul trucker, out on the road, staying somewhere for the night. He survived the crash. But he never really recovered from it. He carried it every day after, and a little over a year later, he developed pneumonia and died.</p>
+          <p>His widow went looking for a lawyer. Every single one told her the same thing. There's no connection. A car crash and a case of pneumonia, a year apart, you can't tie those together. It's unwinnable. It's not worth your time or ours.</p>
+          <p>I looked at it and I understood why they passed. It was a longshot. Proving the crash led to the death he died of, more than a year later, was going to be the entire fight, and there was no guarantee I'd win it.</p>
+          <p>I took it anyway. And taking it meant asking this woman, who had already buried her husband, to sit with me and relive the worst year of her life, out loud, in detail, again and again. For months I couldn't promise her it would be worth it. I just kept working, kept building the line from the crash to the pneumonia, one piece at a time.</p>
+          <p>The day the verdict came in, she and her two sons were in the room. So was I.</p>
+          <p>And here's the part I'm proudest of. Even after it was over, after we'd won, I went back. We had dinner together. Years later, they still call me.</p>
+          <p>If you've been told your case is too hard, too strange, too far gone to bother with, those are the ones I refuse to walk away from.</p>
+          <p>Send me a message.</p>
+        </div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">The Verdict I Can't Forget</span><span class="qc-status">Story &middot; reflection</span></div><div class="fmt">
+        <div class="flabel">B-Roll Caption</div>
+        <p class="fnote">The lead format. A reflection, not a plot. Opens on the contradiction, lands on the relationship.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">I've handled cases worth millions. <em>I barely remember them.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>I've handled cases with millions of dollars on the line. I can barely remember most of them.</p>
+          <p>The biggest ones were between large organizations. Numbers moving from one account to another.</p>
+          <p>The one I think about most was a fraction of the size. $375,000. It went to a widow and her two sons, who had already lost the man who held their family together.</p>
+          <p>It never made the news. Years later, that family still calls me.</p>
+          <p>If your case will never make a headline but it's everything to you, I'll fight it like it's the only one I have.</p>
+          <p>Send me a message.</p>
+        </div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">The Page Nobody Pulled</span><span class="qc-status">Story &middot; built</span></div><div class="fmt">
+        <div class="flabel">Format 1 &middot; Carousel</div>
+        <p class="fnote">8 slides. Ends on the find, not on "I always dig deeper."</p>
+        <ol class="slides">
+          <li>Another lawyer told him his case was worth $15,000. He was about to sign.</li>
+          <li>He sat across from me with the offer already in his hand. Resigned to it.</li>
+          <li>Everything pointed to taking it. The number was on paper. Someone had already looked.</li>
+          <li>It would have been easy to agree that $15,000 was the ceiling.</li>
+          <li>Instead I read the file again. Then the policy. Then the second policy nobody had pulled.</li>
+          <li>Page after page, there it was. The second policy took his case to seventy-five thousand.</li>
+          <li>He'd already made peace with fifteen thousand. He never had to.</li>
+          <li>If you've been handed a number and told that's all your case is worth.</li>
+          <li>Let me read the pages first. <span class="addnote">(Send a message @sdaccidentlaw)</span></li>
+        </ol>
+      </div></div><div class="qcard empty"><div class="qc-head"><span class="qc-title">The Case the Judge Said You Couldn't Win</span><span class="qc-status">Not built</span></div><p class="qempty-note">Not built yet. A Proof story to excavate with Adam.</p></div></section>
+<section class="qsection"><div class="qq">The Origin<span class="qwho">Why do you really do this, or is it just a paycheck?</span></div><p class="qcov">Deep. Four stories, two of them fully excavated.</p><div class="qcard"><div class="qc-head"><span class="qc-title">Why I Walked Away</span><span class="qc-status">Story &middot; deepened</span></div><div class="fmt">
+        <div class="flabel">B-Roll Caption</div>
+        <p class="fnote">The lead format. Three hook options (pick one for the on-screen text): "I walked away from the safest job in law." / "Everyone told me I'd be crazy to leave. By every measure, I'd already made it." / "The day I decided to blow up my safe legal career, I was standing on a dock looking at a stranger's yacht." Deepened from the session, but it hasn't had the line-by-line pass the tire story got, so read it against his exact words before it runs.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">I walked away from <em>the safest job in law.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>For years I had the safest version of a legal career you can have.</p>
+          <p>I was a government attorney with a pension that would pay me one hundred percent of my salary. A straight line to retirement in about ten years. I was in line to become a city attorney, and another city had already offered me the role. In this profession, that's supposed to be the finish line. You get there, and you never have to worry again.</p>
+          <p>But I was good at the safe stuff. Contracts, real property, the transactional work. And I'd hit the ceiling of it. What I actually wanted was to stand up in a courtroom, pick a jury, give an opening, and fight for one person. I'd never gotten to do it.</p>
+          <p>One afternoon I walked out of the county building. It sits right on the bay in San Diego. And parked out front was a billionaire's yacht with a helicopter on the back of it.</p>
+          <p>I still don't totally know why that was the thing that did it. It was never about the yacht. I just stood there and thought about the kid I used to be, the one who wanted to take on the world. And it hit me that if I stayed, I'd be comfortable for the rest of my life, and I'd never once find out what I could actually do.</p>
+          <p>So I gave it up. The pension, the security, the title I was next in line for. I walked away to build something of my own, where the only job I had was to fight for the person in front of me.</p>
+          <p>The yacht was never the point. I just couldn't spend the rest of my life playing not to lose.</p>
+          <p>If you're hurt, and everyone around you is quietly telling you to take the safe number and be grateful for it, know there's a kind of lawyer who gave up a safe, sure thing precisely because he couldn't stand to do that.</p>
+          <p>That's the fight I want.</p>
+          <p>Send me a message.</p>
+        </div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">The Moment I Knew I Made the Right Call</span><span class="qc-status">Story &middot; deepened &middot; also answers The Room</span></div><div class="fmt">
+        <div class="flabel">B-Roll Caption</div>
+        <p class="fnote">The lead format. Family b-roll (T-ball field, home, kids). Three hook options (pick one): "I gave up half a million dollars to start my own firm. For months I thought I'd made a terrible mistake." / "Everyone told me I was crazy to walk away. Leaving was the best decision I've ever made." / "The day I knew I'd made the right call, I was standing on a T-ball field on a Tuesday afternoon." Deepened from the session, but read it against his exact words first, and keep the hospital detail about the volume model, never about how the firm treated him, which is confidential.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">Everyone said I was crazy <em>to leave.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>I gave up half a million dollars in cases and bet everything on starting my own firm. For months, I lay awake wondering if I'd lost my mind.</p>
+          <p>I'd come from a firm that ran on volume. I carried more files than any human being could actually keep straight. Everybody there did. That was the model.</p>
+          <p>I'll tell you how far it went. My wife went into labor, and I was somewhere else in that hospital, running a mediation. The night before she gave birth, I was two hours away taking a deposition. My whole family was welcoming our new baby, and I was working a file.</p>
+          <p>And here's the part that finally broke it for me. Even giving up that much, even missing that, I still couldn't give any single one of those cases everything it deserved. There were just too many. The volume wouldn't let me.</p>
+          <p>So I left, and I built the exact opposite. Fewer cases. And I read every page of every one of them myself.</p>
+          <p>The day I knew I'd made the right call, I was standing on a field on a Tuesday afternoon, coaching my kid's T-ball team. Somewhere I never could have been before. And I was home for my daughter's first steps. Not a video someone sent me. The actual moment.</p>
+          <p>These days I know every client's name. And I make every game.</p>
+          <p>If you want a lawyer whose caseload is small enough that yours gets all of him, that's the whole reason I built it this way.</p>
+          <p>Send me a message.</p>
+        </div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">The Silver Platter</span><span class="qc-status">Story &middot; one gap: his real basketball moment</span></div><div class="fmt">
+        <div class="flabel">B-Roll Caption</div>
+        <p class="fnote">The lead format. Quiet footage (walking into the office, at your desk, courthouse steps) with the story in the caption.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">They said I only got the job <em>because of my dad.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>Early in my career, a newspaper wrote that the only reason I had my job was my last name, and that I should go earn my spurs somewhere my father wasn't calling the shots.</p>
+          <p>I'd given up my own firm and the clients already paying me to take that job. Now there were meetings among city officials about whether I should keep it at all. The man who recruited me said, "Well, I guess we'll find out if you still have a job." I figured I'd be gone within the week.</p>
+          <p>My dad coached me my whole childhood and expected more of me than anyone on the team. I could play the best game of my life and the whole ride home would be about the one shot I missed. He knew I was capable of more, so anything less meant I hadn't given it everything. What he was teaching me was that every shot counts, and a win means little if you left one on the table.</p>
+          <p>So I didn't argue. I refused to leave a single case, motion, or negotiation with anything on the table. I won or settled every case I had, and I argued an appellate motion most lawyers never get to touch, and won that one too.</p>
+          <p>The doubt never really flipped. I just out-worked it until there was nothing left to say.</p>
+          <p>If you're up against someone counting on you to give up, or to take less than your case is worth, that's the fight I want.</p>
+          <p>Send me a message.</p>
+        </div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">How Sports Made Me a Litigator</span><span class="qc-status">Story &middot; one gap: the bench beats</span></div><div class="fmt">
+        <div class="flabel">B-Roll Caption</div>
+        <p class="fnote">The lead format. B-roll (you at work late, prepping, or an old sports photo if he has one) with the story in the caption.</p>
+        <p class="cardtag">Text on the video</p>
+        <div class="imgline">I sat the bench <em>all year.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption">
+          <p>As a freshman, I was the only eighth grader pulled up to varsity. Then I sat the bench almost every game.</p>
+          <p>Everyone told me I was good. So sitting there felt like proof I was a loser.</p>
+          <p>Here's what I didn't want to admit. I had the talent. I just hadn't put in the work. I was coasting on whatever came naturally. I told myself it didn't matter. It did. I never forgot how it felt to know I could have done more, and didn't.</p>
+          <p>Years later, in the biggest trial of my life, that old fear came roaring back. The fear of not having done enough. But this time I'd left nothing on the table. Every fact, every angle, every possibility. So when the surprises came in that courtroom, and they did, I was ready.</p>
+          <p>I haven't sat a bench since. Not in any room that mattered.</p>
+          <p>So when your case is mine, I leave nothing on the table. I know exactly what it costs not to.</p>
+          <p>Send me a message.</p>
+        </div>
+      </div></div></section>
+<section class="qsection"><div class="qq">The Line<span class="qwho">What won't you do? What do you actually stand for?</span></div><p class="qcov">Covered, three stances. None audited against reach mode yet.</p><div class="qcard"><div class="qc-head"><span class="qc-title">Why I Don't Take Every Case</span><span class="qc-status">Belief &middot; reach mode</span></div><div class="fmt">
+        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <p class="fnote">One static image, the stance in the caption. Frame it so the reader thinks "I hope he picks me."</p>
+        <div class="imgline">I don't take every case. <em>That should tell you something.</em></div>
+        <div class="caption">
+          <p class="open">I turn cases down. If I don't believe you, or I don't believe in what we'd be fighting for, I won't take it.</p>
+          <p>Not because I'm picky. Because when I say yes, I'm with you for a year or more, and I'm going to pour everything into it.</p>
+          <p>The clients I say yes to get all of me. That's only possible because I say no to the ones I can't fight for like that. So if I take your case, know that I chose it.</p>
+        </div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">Same Job, Different Rules</span><span class="qc-status">Belief &middot; reach mode</span></div><div class="fmt">
+        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <p class="fnote">5 slides, or one static image. A held image plus a stance. Deliver to camera, don't bolt a story arc on.</p>
+        <ol class="slides">
+          <li>She tapes a sign to her door every morning, accounting for her time. The man beside her, same job, never has to.</li>
+          <li>Same title. Same work. Same hours.</li>
+          <li>Only one of them gets watched like that. And it isn't because of the work.</li>
+          <li>I won't call that normal. Two people doing the same job should answer to the same rules. Full stop.</li>
+          <li>If you're held to a standard the person beside you isn't, you're not imagining it. <span class="addnote">(That's worth a conversation @sdaccidentlaw)</span></li>
+        </ol>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">Led By Example</span><span class="qc-status">Belief &middot; reach mode</span></div><div class="fmt">
+        <div class="flabel">Format 1 &middot; Conviction Post (primary)</div>
+        <p class="fnote">One static image, the stance in the caption.</p>
+        <div class="imgline">My dad never told us to run. <em>He ran next to us.</em></div>
+        <div class="caption">
+          <p class="open">When my dad coached, he didn't stand on the sideline. If we had a two-mile run, he ran it with us.</p>
+          <p>You don't tell someone to do something you're not willing to do yourself. That stuck.</p>
+          <p>I run my firm the same way. I won't ask my team to do anything I haven't done, and I still put my own eyes on every case. I do it out of respect, for them and for the people who trust us.</p>
+        </div>
+      </div></div></section>
+<section class="qsection"><div class="qq">The Room<span class="qwho">What are you like when it is hard and no one is watching?</span></div><p class="qcov">Thin and fragile. The one post built for it is a live case that cannot run yet, and its only backup lives under The Origin.</p><p class="qxref">The Moment I Knew (filed under The Origin) also reaches into this room, behind the curtain on why he left the volume model.</p><div class="qcard"><div class="qc-head"><span class="qc-title">The Deposition Prep</span><span class="qc-status">Story &middot; held, live case</span></div>
+<div class="fmt">
+<div class="flabel">B-Roll Caption</div>
+<p class="fnote">Held out of the main bank: live case, deposition about two weeks out. Anonymize or age the railroad-tie detail, or get his okay, before it runs. Hook options: "I asked a client how his injury changed his work, and he told me he can't lift things." / "Whether you win your case can come down to one sentence about what you can't do anymore." / "He almost answered the most important question of his case with three words that would have sunk it."</p>
+<p class="cardtag">Text on the video</p>
+<div class="imgline">His first answer <em>would have sunk his own case.</em></div>
+<p class="cardtag cap">The caption</p>
+<div class="caption">
+<p>I asked a client how his injury changed his work, and he told me he can't lift things.</p>
+<p>He works construction, and he'd never sat for a deposition. In a couple of weeks a lawyer he's never met will question him for hours and try to make him look like he's exaggerating. Whatever he says in that room, we're stuck with, all the way to trial.</p>
+<p>So I told him that "I can't lift things" wouldn't land, and I asked him for something real, something that happened on a job.</p>
+<p>He thought about it, and then he told me about the railroad ties. He used to carry one himself, a six by ten board eight feet long, cut it, and set it into a fence on his own. Now it takes two men to lift the same board he used to carry alone.</p>
+<p>His deposition is still a couple of weeks out, and however it goes, he walks in able to tell them what the accident took from him, in his own words.</p>
+<p>Putting words to what you lost, so a stranger believes it, is one of the hardest parts of being hurt.</p>
+<p>If you're carrying an injury the people around you don't seem to understand.</p>
+<p>Send me a message.</p>
+</div>
+</div></div><div class="qcard empty"><div class="qc-head"><span class="qc-title">You Will Not Be Forgotten</span><span class="qc-status">Not built</span></div><p class="qempty-note">Not built yet. A Room story to excavate with Adam.</p></div></section>
+<section class="qsection"><div class="qq">The Found Moment<span class="qwho">Are you someone I can trust as a person, not just as a lawyer?</span></div><p class="qcov">The gap. Nothing built. This is the type that proves 'the attorney you can trust' most directly, and it is exactly what his trustworthiness log is meant to feed.</p><div class="qcard empty"><div class="qc-head"><span class="qc-title">Coaching My Own Kid</span><span class="qc-status">Not built</span></div><p class="qempty-note">Not built yet. A Found Moment to excavate with Adam.</p></div><div class="qcard empty"><div class="qc-head"><span class="qc-title">Giving Back</span><span class="qc-status">Not built</span></div><p class="qempty-note">On hold. A Found Moment, pending the real cause from him.</p></div></section>
+<section class="qsection"><div class="qq">Two more slots, outside the seven<span class="qwho"></span></div><p class="qcov">The intro, the direct ask, and the attorney-audience post do not answer a client question, so they sit on their own.</p><div class="qcard"><div class="qc-head"><span class="qc-title">The Meet Adam Highlight</span><span class="qc-status">Start here &middot; pinned intro</span></div><div class="fmt">
+        <div class="flabel">Frame 1</div>
+        <div class="imgline">Getting hurt is scary. <em>Getting ignored after is worse.</em></div>
+        <p class="cardtag cap">The caption</p>
+        <div class="caption"><p>You're in pain, the bills are stacking up, and the one person who's supposed to be fighting for you won't return a call. You start to feel like a case number instead of a person.</p></div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">If You're Not Sure You Even Have a Case</span><span class="qc-status">Invitation &middot; the ask</span></div><div class="fmt">
+        <div class="flabel">Format 1 &middot; Invitation Post (primary)</div>
+        <p class="fnote">One static image, the ask in the caption. Opens with a short warm beat, then states everything plainly.</p>
+        <div class="imgline">Not sure you even have a case? <em>That's exactly the call to make.</em></div>
+        <div class="caption">
+          <p class="open">The most common thing people tell me when they finally call is some version of the same sentence. I wasn't sure it was worth bothering anyone.</p>
+          <p>So let me say this plainly. You don't need to know whether you have a case. That's my job. You need to make the call before a deadline passes or the evidence quietly disappears.</p>
+          <p>When you work with me, you get a real person who reads every page of your file, files fast so the other side takes it seriously, and checks in every two weeks. You're never sitting at home wondering what's happening with your own life.</p>
+          <p>If you were hurt and you've been talking yourself out of the call, this is your sign.</p>
+          <p>Send me a message, or call the office, and just tell me what happened. The first conversation is free, and it's a conversation, not a commitment.</p>
+        </div>
+      </div></div><div class="qcard"><div class="qc-head"><span class="qc-title">Your CRM Is Dead</span><span class="qc-status">Belief &middot; attorney audience</span></div><div class="fmt">
+        <div class="flabel">Format 1 &middot; Belief-Shift Post (primary)</div>
+        <p class="fnote">One static image plus caption. Plant the flag in their language.</p>
+        <div class="imgline">Your case management system is dead. <em>It's just the last one to know.</em></div>
+        <div class="caption">
+          <p class="open">Your CRM is quietly slowing your practice down.</p>
+          <p>Think about what it takes to answer one question about a client right now. You open the case management system. You scroll to see who talked to them last. You dig through your emails. You check the documents, which live somewhere else. Maybe you ask your assistant. Thirty minutes, gone, for one answer.</p>
+          <p>While you were doing all that, my all-in-one system already pulled it, cross-checked it, and told me the next move before I thought to ask.</p>
+          <p>Five tools doing five jobs is just five things you maintain. If you run a practice and you're still stitching it together by hand, there's a better way. I teach it.</p>
+        </div>
+      </div></div></section>
+</div>
+</body>
+</html>
