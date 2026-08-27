@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>David Hori: The Story Bank</title>
+<style>
+:root{
+  --plum:#1E1620; --parchment:#FAF8F4; --orchid:#CB6CE6; --blossom:#F4CBFF;
+  --ink:#251C28; --muted:#6B5F70; --rule:#E4DDE6; --panel:#FFFFFF;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:18px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px}
+a{color:inherit}
+
+/* ---- hero ---- */
+.hero{background:var(--plum);color:var(--parchment);padding:72px 0 60px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+  background:linear-gradient(90deg,var(--orchid),var(--blossom))}
+.eyebrow{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--blossom);margin:0 0 18px}
+.hero h1{font-size:clamp(38px,7vw,60px);line-height:1.05;margin:0;font-weight:600;letter-spacing:-.02em}
+.hero .sub{color:#C9BACE;font-size:19px;margin:22px 0 0;max-width:52ch}
+
+/* ---- letter ---- */
+.letter{padding:54px 0 10px}
+.letter p{margin:0 0 20px;font-size:19px}
+.letter p:first-child{font-size:22px}
+.sig{font-style:italic;color:var(--muted)}
+
+/* ---- through line ---- */
+.through{background:var(--panel);border:1px solid var(--rule);border-left:5px solid var(--orchid);
+  border-radius:4px;padding:32px 34px;margin:40px 0 10px}
+.through h2{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:12px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--orchid);margin:0 0 18px;font-weight:700}
+.through p{margin:0 0 16px}
+.through p:last-child{margin-bottom:0}
+.through strong{font-size:26px;display:inline-block;letter-spacing:-.01em}
+
+/* ---- toc ---- */
+.tocbox{margin:46px 0 10px;padding:30px 0 6px;border-top:1px solid var(--rule)}
+.tocbox h2{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:12px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 20px;font-weight:700}
+ol.toc{list-style:none;margin:0;padding:0;counter-reset:none}
+ol.toc li{border-bottom:1px solid var(--rule)}
+ol.toc a{display:flex;gap:16px;align-items:baseline;padding:13px 4px;text-decoration:none;transition:.15s}
+ol.toc a:hover{background:var(--blossom);padding-left:10px}
+.tnum{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:12px;font-weight:700;color:var(--orchid);
+  min-width:20px;letter-spacing:.05em}
+.tochold{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);margin:26px 0 8px;font-weight:700}
+ul.toc.hold{list-style:none;margin:0;padding:0}
+ul.toc.hold li{border-bottom:1px solid var(--rule)}
+ul.toc.hold a{display:block;padding:12px 4px;text-decoration:none;color:var(--muted);font-style:italic}
+ul.toc.hold a:hover{background:var(--blossom);color:var(--ink);padding-left:10px}
+
+/* ---- posts ---- */
+.post{margin:70px 0;padding-top:44px;border-top:1px solid var(--rule)}
+.posthead{display:flex;gap:20px;align-items:flex-start;margin:0 0 6px}
+.pnum{font-family:ui-sans-serif,-apple-system,sans-serif;font-weight:700;font-size:13px;color:var(--parchment);
+  background:var(--plum);border-radius:50%;width:34px;height:34px;flex:0 0 34px;
+  display:flex;align-items:center;justify-content:center;margin-top:9px}
+.post h2,h2.plain{font-size:clamp(28px,4.6vw,36px);line-height:1.15;margin:0;font-weight:600;letter-spacing:-.02em}
+h2.plain{margin:0 0 18px}
+.banner{background:var(--blossom);border-radius:3px;padding:12px 16px;margin:20px 0 26px;
+  font-size:16px;line-height:1.5}
+.banner.warn{background:var(--plum);color:var(--parchment)}
+.banner.warn strong{color:var(--blossom)}
+
+.meta{margin:24px 0 30px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:6px 0}
+.metarow{display:flex;gap:18px;padding:11px 0;align-items:baseline}
+.metarow + .metarow{border-top:1px solid var(--rule)}
+.mlabel{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);font-weight:700;flex:0 0 112px;line-height:1.9}
+.mval{font-size:16.5px;color:var(--ink)}
+
+.block{margin:28px 0}
+.block h3{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 14px}
+.block h3 .sub{color:#B3A4B8;letter-spacing:.14em;font-weight:600}
+
+.hooks ul{list-style:none;margin:0;padding:0}
+.hooks li{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--rule)}
+.hooks li:last-child{border-bottom:1px solid var(--rule)}
+.htype{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:700;padding:4px 8px;border-radius:3px;flex:0 0 78px;text-align:center;margin-top:3px}
+.h-context{background:#EDE7EF;color:var(--muted)}
+.h-contrarian{background:var(--orchid);color:#fff}
+.h-intrigue{background:var(--blossom);color:#6B3A7D}
+.htext{font-size:18px;line-height:1.45}
+
+.caption{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:30px 34px}
+.caption h3{color:var(--orchid)}
+.caption p{margin:0 0 17px;font-size:18.5px;line-height:1.68}
+.caption p:last-child{margin-bottom:0}
+
+.dig{background:var(--plum);color:var(--parchment);border-radius:4px;padding:18px 20px;margin:22px 0 6px;
+  font-size:16px;line-height:1.55}
+.digtag{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:10px;letter-spacing:.16em;font-weight:700;
+  background:var(--orchid);color:#fff;padding:3px 8px;border-radius:3px;margin-right:10px;vertical-align:1px}
+
+.loop p{margin:0;font-size:16.5px;color:var(--muted);line-height:1.6}
+.notes ul{margin:0;padding:0;list-style:none}
+.notes li{position:relative;padding:0 0 0 22px;margin:0 0 13px;font-size:16.5px;line-height:1.58}
+.notes li:before{content:"";position:absolute;left:0;top:11px;width:9px;height:2px;background:var(--orchid)}
+.notes li:last-child{margin-bottom:0}
+
+/* ---- divider ---- */
+.divider{margin:96px 0 26px;text-align:center;position:relative}
+.divider:before{content:"";position:absolute;top:50%;left:0;right:0;height:1px;background:var(--rule)}
+.divider span{position:relative;background:var(--parchment);padding:0 22px;
+  font-family:ui-sans-serif,-apple-system,sans-serif;font-size:13px;letter-spacing:.3em;font-weight:700;color:var(--plum)}
+.dividerlede{color:var(--muted);font-size:17px;margin:0 0 18px}
+
+/* ---- plain sections ---- */
+.plainsec{margin:70px 0;padding-top:44px;border-top:1px solid var(--rule)}
+.plainsec p{margin:0 0 18px}
+ul.plainlist{margin:20px 0;padding:0;list-style:none}
+ul.plainlist li{position:relative;padding:0 0 0 22px;margin:0 0 15px;line-height:1.58}
+ul.plainlist li:before{content:"";position:absolute;left:0;top:13px;width:9px;height:2px;background:var(--orchid)}
+
+.foot{background:var(--plum);color:#9F8FA6;margin-top:90px;padding:40px 0;
+  font-family:ui-sans-serif,-apple-system,sans-serif;font-size:13px;letter-spacing:.04em}
+.foot .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+@media(max-width:600px){
+  body{font-size:17px}
+  .wrap{padding:0 20px}
+  .hero{padding:52px 0 44px}
+  .caption{padding:24px 22px}
+  .through{padding:26px 24px}
+  .metarow{flex-direction:column;gap:4px}
+  .mlabel{flex:none}
+  .hooks li{flex-direction:column;gap:8px}
+  .htype{flex:none;display:inline-block;width:auto}
+  .posthead{gap:14px}
+}
+@media print{
+  body{background:#fff;font-size:11.5pt}
+  .hero{background:#fff;color:#1E1620;padding:0 0 24px}
+  .hero .sub{color:#555}.eyebrow{color:#CB6CE6}
+  .tocbox,.foot{display:none}
+  .post,.plainsec{page-break-inside:avoid;margin:34px 0}
+  .dig,.banner.warn{background:#F4F0F5;color:#1E1620;border:1px solid #CB6CE6}
+  .digtag{background:#CB6CE6}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Prepared for David Hori</p>
+    <h1>The Story Bank</h1>
+    <p class="sub">Five posts you can run this week, three I am holding, and eight places where only you have the missing piece.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="letter">
+  <p>David,</p>
+  <p>You gave me an hour and I put it straight through my process. You know I use AI to do the lift and I'm not going to pretend otherwise. What's mine is the method: which moment is actually the story, what gets cut, who gets protected, and what you shouldn't post at all.</p>
+  <p>Five posts, in the order I'd post them, not the order you told them. Post 1 is a kitchen where somebody said yes to you. It exists so that Post 2 can be the same kitchen where somebody said no. Run them out of order and you lose the whole thing.</p>
+  <p>Every word in these captions is yours. I didn't write in your voice, I used your sentences.</p>
+  <p>I told you at the end of the call that you hadn't handed me the hard one yet, and that was true. So this bank runs lighter on you and heavier on what you watched, and it carries eight DIG markers, five in the posts you can run today and three in the holds. Each one names exactly what's missing. It is always a room, a year, or a face, and nobody on earth has those but you.</p>
+  <p>Nobody is named in this document. Not the owner, not the manager, not the three founders you built for. The man you told me about is not in here and neither is the name of his theater. Your rule and mine: the villain is a force, never a person.</p>
+  <p>Take these and run them. No strings.</p>
+  <p class="sig">Kindra</p>
+</div>
+
+<div class="through">
+  <h2>The through line</h2>
+  <p>You gave it to me about twenty minutes in, when I asked what the theater owner should have stopped doing. You did not reach for it. It was already sitting there, and you had used it five times in the hour without noticing.</p>
+  <p><strong>Empowered.</strong></p>
+  <p>"Hire the right person and empower them."</p>
+  <p>Everything below is one of two movements. Either the years you were empowered and had no idea that was rare, or the years you watched it get taken away, first in a kitchen and then in a boardroom, until you decided the only way to see it again was to build it.</p>
+  <p>The reader never gets told you know what good leadership looks like. They watch you bring an idea to somebody who says yes, then watch somebody say no, then watch you leave. They reach it themselves, which is the only way anybody ever believes it.</p>
+  <p>House rules I held to throughout: no em dashes, the villain is always a force and never a person, and every caption ends on a moment instead of an explanation of what the moment meant. That last one will feel wrong the first few times. Trust it.</p>
+</div>
+
+<div class="tocbox">
+  <h2>What’s in here</h2>
+  <ol class="toc">
+    <li><a href="#make-it-so"><span class="tnum">01</span><span>Make it so</span></a></li>
+    <li><a href="#a-bomb-in-the-kitchen"><span class="tnum">02</span><span>A bomb in the kitchen</span></a></li>
+    <li><a href="#the-day-the-standard-left"><span class="tnum">03</span><span>The day the standard left</span></a></li>
+    <li><a href="#i-built-three-of-them"><span class="tnum">04</span><span>I built three of them</span></a></li>
+    <li><a href="#building-one-on-accident"><span class="tnum">05</span><span>Building one on accident</span></a></li>
+  </ol>
+  <p class="tochold">Not yet</p>
+  <ul class="toc hold">
+    <li><a href="#decades-ahead-of-his-industry">Decades ahead of his industry</a></li>
+    <li><a href="#the-bed-that-took-two-months">The bed that took two months</a></li>
+    <li><a href="#i-didn-t-have-an-answer">I didn't have an answer</a></li>
+  </ul>
+</div>
+
+<article class="post" id="make-it-so">
+  <div class="posthead">
+    <span class="pnum">1</span>
+    <h2>Make it so</h2>
+  </div>
+  <p class="banner"><strong>Post this first.</strong> Every other post in this bank is a room where somebody said no. This is the one where somebody said yes, and a reader has to feel that before any of the rest of it means anything.</p>
+  <div class="meta">
+    <div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+    <div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A dish pit. Bus tubs stacked to the ceiling. Hands sorting silverware. Steam. A commercial kitchen at the tail of a rush. Nothing staged and nothing pretty.</span></div>
+  </div>
+  <div class="block hooks">
+    <h3>Hooks <span class="sub">text on screen</span></h3>
+    <ul>
+      <li><span class="htype h-context">Context</span><span class="htext">My first real job was the best run business I have ever worked for. It took me until my seventeenth job to know that.</span></li>
+      <li><span class="htype h-contrarian">Contrarian</span><span class="htext">The best leader I ever had was the one I almost never saw.</span></li>
+      <li><span class="htype h-intrigue">Intrigue</span><span class="htext">We redesigned the dish pit ourselves without being asked. Then we had to go tell the person in charge.</span></li>
+    </ul>
+  </div>
+  <div class="block caption">
+    <h3>Caption</h3>
+    <p>Hundreds of dishes came back into that kitchen at the same time. Every night, the same wave.</p>
+    <p>We were losing to it. The silverware would come out of the machine still dirty and go back through again, and we would still be standing there long after the floor was clean.</p>
+    <p>So we built something. One person on silverware and nothing else. Buckets of pre-soak, so it came out clean the first time instead of the third. A triage order for everything else.</p>
+    <p>None of that was our job. Nobody asked us for it.</p>
+    <p>I remember bringing it to her. I remember not being nervous, and that is the part it took me another sixteen jobs to understand.</p>
+    <p>She asked a couple of questions. Had we thought about the layout. Where the buckets would sit.</p>
+    <p>Then she said, great, do it. Make it so.</p>
+    <p>She was barely in the building. That was the most impressive thing about her, and I could not have told you that at the time. She hired the right people, gave them the systems and the standard, held everybody to it, and got out of the way.</p>
+    <p>It was impossible to be bad at your job there. The people who were bad at it felt it, and they left before anybody had to have a conversation with them.</p>
+    <p>I thought every job was going to be like that.</p>
+    <div class="dig"><span class="digtag">DIG</span>The year, the city, and what she was doing when you brought it to her. Standing at a pass, sitting in an office, halfway out the door with her keys. Right now the reader has your words and no room to put them in. And tell me how old you were, because I have written this as a young man and if you were thirty it is a different post.</div>
+  </div>
+  <div class="block loop"><h3>Loop check</h3><p>The cover carries a character, a risk and a clock, and the clock is the wave of dishes that hits every night whether you are ready or not. One question: what does she say. The head fake is that the most impressive leader in the story turns out to be the one who is barely present, and the cover does not spend it. The last line rehooks straight into Post 2.</p></div>
+  <div class="block notes"><h3>Notes</h3><ul>
+    <li>It ends on "I thought every job was going to be like that." That is a door, not a lesson, and it is the entire reason Post 2 lands. Do not add what you learned. Post 2 is what you learned.</li>
+    <li>There is no villain in this post and that is deliberate. It is the only one in the bank without one, which is exactly what makes it the baseline everything else gets measured against.</li>
+    <li>"Make it so" is yours, verbatim. Do not tidy it into "she approved it."</li>
+    <li>The pre-soak buckets and the dedicated silverware person are the whole post. When you told me the general version, it was a paragraph about a good manager. When you told me the buckets, it became a place. That is the difference between the two, and it is the same difference every DIG marker in here is chasing.</li>
+    <li>Nobody is named and nothing is identifiable. Zero permission risk. If you want to start posting this week and think about the rest later, start here.</li>
+  </ul></div>
+</article>
+
+<article class="post" id="a-bomb-in-the-kitchen">
+  <div class="posthead">
+    <span class="pnum">2</span>
+    <h2>A bomb in the kitchen</h2>
+  </div>
+  <p class="banner"><strong>Post this second.</strong> Same kitchen as Post 1, and that is the whole engine. A reader who has just watched somebody say "make it so" is going to feel this one in their chest.</p>
+  <div class="meta">
+    <div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run hot for reach.</span></div>
+    <div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A commercial steamer. A pressure gauge. A hand hovering near a switch and not touching it. A wall phone. Steam venting. Nothing that identifies a real kitchen.</span></div>
+  </div>
+  <div class="block hooks">
+    <h3>Hooks <span class="sub">text on screen</span></h3>
+    <ul>
+      <li><span class="htype h-context">Context</span><span class="htext">A machine in our kitchen started making a noise it had never made before. We told the owner. He told us to run it anyway.</span></li>
+      <li><span class="htype h-contrarian">Contrarian</span><span class="htext">We were told to operate a pressure cooker we thought was going to fail, or be fired. So we picked a third option.</span></li>
+      <li><span class="htype h-intrigue">Intrigue</span><span class="htext">There was a bomb in our kitchen and the only person who could do anything about it had already decided we were being dramatic.</span></li>
+    </ul>
+  </div>
+  <div class="block caption">
+    <h3>Caption</h3>
+    <p>There was a piece of machinery in that kitchen that started making noises it was not supposed to make.</p>
+    <p>It was a pressure cooker. If you have never worked a line, that is basically a bomb in the kitchen. That is not a dramatic way to put it, that is what it is.</p>
+    <p>We were nervous about running it. We said so.</p>
+    <p>We also brought a workaround. There was a way to run service that would have cut how much we needed that machine, and we brought it, because that is what we had been trained to do in that building. See a problem, bring a fix.</p>
+    <p>We were told we were running it anyway. That whether we felt safe was not the point. Run it or you are fired.</p>
+    <p>I could not fathom it. I had spent that whole job being taken seriously, and I stood there in an apron trying to work out how the thing every person in the room could hear was somehow not real.</p>
+    <p>So we called OSHA.</p>
+    <p>Nobody got shut down. What happened is that he found out he could not steamroll us, and a tech came out, and we worked around that machine until somebody finally looked at it.</p>
+    <p>He did not lose a single thing he could put a number on.</p>
+    <div class="dig"><span class="digtag">DIG</span>Where you were standing when he said run it or you are fired, and who else was in the kitchen. Then the phone call. Who made it, what was said, and what the room did in the ten seconds after. Right now the reader is told OSHA got called and never gets to watch anybody pick up a phone, and that phone call is the bravest thing in this bank.</div>
+  </div>
+  <div class="block loop"><h3>Loop check</h3><p>The cover carries a character, a risk and a clock, and the clock is a machine that is getting worse while people are arguing about it. One question: do you run it. The head fake is the third option, because a reader is holding two doors, comply or quit, and you walk through a door they did not know was there. The cover does not spend it.</p></div>
+  <div class="block notes"><h3>Notes</h3><ul>
+    <li>The owner is not the villain. The villain is a business run on control, where the cheapest thing on the shelf is somebody else's nerve. He is never named and barely described, and he is the same man as Post 3, which is why these two run back to back.</li>
+    <li>This is the post that does the most work for the reader you want. A business owner reads "run it or you are fired" and does not think about you at all. They think about the last time somebody on their team said something was wrong and they decided it was drama. That is the entire job.</li>
+    <li>The last line is the one piece of placard I kept, and it stays because it is a law rather than a claim about you. What that decision cost him never showed up on any report he ever read. A reader who owns a business will run that arithmetic on their own business in about two seconds, and they will do it to themselves, which is the only way it holds.</li>
+    <li>"Basically a bomb in the kitchen" is yours, word for word. Do not soften it to unsafe equipment.</li>
+    <li>Permission: nobody named, no business named, and an OSHA call is a matter of record you were party to. This is the lowest risk of anything in here that has a villain in it. I would still keep the city and the year out of the caption.</li>
+  </ul></div>
+</article>
+
+<article class="post" id="the-day-the-standard-left">
+  <div class="posthead">
+    <span class="pnum">3</span>
+    <h2>The day the standard left</h2>
+  </div>
+  <p class="banner"><strong>Post this third.</strong> Two posts in the same kitchen, one where an idea got built and one where a warning got overruled. This is the post where a reader finds out what happened to the building.</p>
+  <div class="meta">
+    <div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run hot for reach.</span></div>
+    <div class="metarow"><span class="mlabel">B-roll</span><span class="mval">An empty dining room with the lights up. A schedule on a wall. A back door. A parking lot at close. A set of keys going down on a counter.</span></div>
+  </div>
+  <div class="block hooks">
+    <h3>Hooks <span class="sub">text on screen</span></h3>
+    <ul>
+      <li><span class="htype h-context">Context</span><span class="htext">I watched a profitable business get taken apart from the top, one decision at a time, and every one of those decisions was made to save money.</span></li>
+      <li><span class="htype h-contrarian">Contrarian</span><span class="htext">Before he stepped in, it was impossible to be bad at your job there. After, anybody could get one.</span></li>
+      <li><span class="htype h-intrigue">Intrigue</span><span class="htext">He got rid of the best manager he had. Then he did the thing that actually ended it. He took her job.</span></li>
+    </ul>
+  </div>
+  <div class="block caption">
+    <h3>Caption</h3>
+    <p>When I started there, it was impossible to be bad at your job.</p>
+    <p>Not because anyone was policing it. The standard was in the building. People who could not hold it felt it, and they opted out, or they got peer pressured out, and nobody above them ever had to do anything about it. It ran itself.</p>
+    <p>Then the owner got rid of the manager who built that, and stepped into the job himself.</p>
+    <p>What he brought with him was a vision he was going to implement regardless of what was best for the company, and a way of keeping everybody in a tiny box, because a tiny box is how you control things.</p>
+    <p>He stopped investing in good management. He hired people who did not care. He cut, and he saved, and he could show you exactly what he had saved.</p>
+    <p>Here is what he could not show you.</p>
+    <p>That place must have been enormously profitable before, because everybody in it was empowered and invested in the outcome, and every one of us worked like it was ours.</p>
+    <p>Afterward it was impossible to hire good people and impossible to keep the ones already there.</p>
+    <p>The best people left.</p>
+    <p>I was one of them.</p>
+    <div class="dig"><span class="digtag">DIG</span>The day you decided. Not the day you gave notice, the day you knew. Where you were, what had just happened in front of you, whether you told anybody that night. And one specific thing that got cut, because "he cut and he saved" is a summary and one cut is a scene.</div>
+  </div>
+  <div class="block loop"><h3>Loop check</h3><p>The cover carries a business, a risk and a slow clock. One question: what happens to the place. The head fake is that the ending is not a bankruptcy or a scandal, it is quiet, and it is one good employee walking out a door, which is considerably more frightening to an owner than a collapse. This one rehooks nowhere on purpose. It is meant to sit there.</p></div>
+  <div class="block notes"><h3>Notes</h3><ul>
+    <li>This is the paint the gap post and it is the most commercially useful thing in the bank. A strong leader reads it and feels nothing at all. A leader who is not sure reads it and starts counting who has left in the last eighteen months. You are not calling anybody out. You are handing them a mirror and stepping back out of the frame.</li>
+    <li>The villain is control. Not him. He is a set of decisions in this post and never a character, which is also the thing that keeps you out of trouble.</li>
+    <li>"Keep you in a tiny box because that's how we can control things" is yours, verbatim, and it is the best line you said all hour. It goes in exactly as you said it.</li>
+    <li>It ends on "I was one of them." Every instinct you have will want the sentence about what business owners should take from this. That sentence is the only thing that could make this post fail.</li>
+    <li>Same employer as Post 2. If you would rather not run two posts pointing at one business, run this one and hold the other. My call is run both, back to back, and let the second one land on people who have already read the first.</li>
+    <li>One thing to confirm before you post either of these. On the call you said yes when I asked whether this was the man from the theater, and then everything you described afterward was the restaurant. I have written them as two different employers, which is what you confirmed later. If it turns out to be one man, Posts 2, 3 and the held theater post are all about the same person and that changes the permission question completely. Tell me before you queue anything.</li>
+  </ul></div>
+</article>
+
+<article class="post" id="i-built-three-of-them">
+  <div class="posthead">
+    <span class="pnum">4</span>
+    <h2>I built three of them</h2>
+  </div>
+  <p class="banner"><strong>Post this fourth.</strong> The first three posts are things you watched happen to other people. This is the first one where the cost is yours, and a reader has been waiting for it whether they could name it or not.</p>
+  <div class="meta">
+    <div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+    <div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A laptop open late. An office after everyone has gone. A closing dinner you are not at. A pen on a signature line. Hands, never faces.</span></div>
+  </div>
+  <div class="block hooks">
+    <h3>Hooks <span class="sub">text on screen</span></h3>
+    <ul>
+      <li><span class="htype h-context">Context</span><span class="htext">I have helped build three companies. All three sold. I did not get an owner's benefit on a single one.</span></li>
+      <li><span class="htype h-contrarian">Contrarian</span><span class="htext">I was very good at building other people's dreams. That was the problem.</span></li>
+      <li><span class="htype h-intrigue">Intrigue</span><span class="htext">Three exits. Three founders whose lives changed. Mine did not.</span></li>
+    </ul>
+  </div>
+  <div class="block caption">
+    <h3>Caption</h3>
+    <p>I have helped build three businesses. All three of those founders sold.</p>
+    <p>I did not get the owner benefit on any of those exits.</p>
+    <p>We had millions of dollars of investor money and it was still genuinely risky. We almost failed in every possible way there is to almost fail. I know precisely what building from scratch costs, because I paid it three times.</p>
+    <p>And every time, I fell into the same seat. I was the integrator. I built their vision.</p>
+    <p>Here is the part I did not have language for at the time. I have visionary tendencies too. I could see where the openings were, and I could see real, meaningful directions the company could go, and they were not the directions the founder had in mind.</p>
+    <p>So there was friction. There was always friction.</p>
+    <p>It was life changing for them. It was not life changing for me.</p>
+    <p>That is not a complaint. I said yes three times and nobody made me.</p>
+    <p>But I am not doing it a fourth time. If I am going to put that kind of work into building a company, I want to benefit from it.</p>
+    <div class="dig"><span class="digtag">DIG</span>One of the three exits. The day it closed. Where you were when you found out, what you did that night, who you told and what you said. That day is the post and right now it is not in it. Pick whichever of the three still stings and give me the room you were standing in.</div>
+  </div>
+  <div class="block loop"><h3>Loop check</h3><p>The cover carries stakes and a number, and the number is the clock, because a reader wants to know what happens on the third one. One question: why did you keep doing it. The head fake is that this is not a story about being underpaid at all, it is you working out that you had been a visionary sitting in an integrator's chair for a decade, and the cover does not spend it. It ends on a decision rather than a lesson.</p></div>
+  <div class="block notes"><h3>Notes</h3><ul>
+    <li>The three founders are not villains and they are barely characters. They have a vision, they sell, their lives change. Every judgment in the post is yours about yourself. That is what makes it safe to post while you are still working in that world.</li>
+    <li>This is the closest you got all hour to the thing I ask everybody for, which is a fork where the easy path made perfect sense. You took the easy path three times and you say so out loud. Do not take that out. It is the only reason the last line has any weight.</li>
+    <li>"I built their dreams and visions" is yours. So is "we almost failed in every possible way." Keep both.</li>
+    <li>It ends on the decision, and nothing follows it. The temptation is to add what you are doing instead now. That sentence turns the post into an ad and the reader will feel the turn.</li>
+    <li>This is a personal branding post rather than a marketing one. It does not answer a buyer's question and it is not supposed to. It is the post that makes the other four believable.</li>
+  </ul></div>
+</article>
+
+<article class="post" id="building-one-on-accident">
+  <div class="posthead">
+    <span class="pnum">5</span>
+    <h2>Building one on accident</h2>
+  </div>
+  <p class="banner"><strong>Post this fifth.</strong> Four posts of what you have seen and what it cost you. This is the one where you say plainly where you actually are, and it is the only post in here where you have nothing figured out. That is why it goes last and it is why it will outperform the rest.</p>
+  <div class="meta">
+    <div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Conviction post. One held image, no arc. Do not let anybody bolt three acts onto it.</span></div>
+    <div class="metarow"><span class="mlabel">B-roll</span><span class="mval">You talking. A desk, a notebook, a list. Deliberately ordinary. The post is the admission, not the footage.</span></div>
+  </div>
+  <div class="block hooks">
+    <h3>Hooks <span class="sub">text on screen</span></h3>
+    <ul>
+      <li><span class="htype h-context">Context</span><span class="htext">My whole plan was to skip the hard part. Buy something that already works and make it work better.</span></li>
+      <li><span class="htype h-contrarian">Contrarian</span><span class="htext">I did not want to build a business. I am building one anyway, and not on purpose.</span></li>
+      <li><span class="htype h-intrigue">Intrigue</span><span class="htext">I have been trying to buy a company for a while now. Here is what I have instead.</span></li>
+    </ul>
+  </div>
+  <div class="block caption">
+    <h3>Caption</h3>
+    <p>I have been looking to buy a business.</p>
+    <p>That is not modesty about starting one. It is the actual plan and it is a good plan. Buying is the shortcut. Somebody has already proved people want the thing and will pay for it. I do not have to invent a product. I do not have to go find out whether anybody cares. I get to skip to the part I am good at, which is taking a working thing and making it work considerably better.</p>
+    <p>Pulling demand out of thin air is not my strength. Distilling existing demand is not my strength either. I know that about myself and I have stopped pretending otherwise.</p>
+    <p>So I went looking, and I started talking to owners, and a lot of them do not have anything sellable yet. So I started helping them fix that.</p>
+    <p>Which means I am now developing a product. Getting market validation. Finding out whether people care about this enough to spend money on it.</p>
+    <p>Every single thing I was trying to skip.</p>
+    <p>I am building a business on accident, because I have not been able to buy one.</p>
+    <div class="dig"><span class="digtag">DIG</span>How long you have been looking. A real number or at least a real span, because "a while" is the reader's cue to stop believing you. And one owner you sat across from, no name and no industry, who could not sell what they had. That conversation is what turns this from a confession into a scene.</div>
+  </div>
+  <div class="block loop"><h3>Loop check</h3><p>Conviction post, so the loops stay quiet, which is correct. The stakes sit inside the held image of you doing by accident the exact thing you set out to avoid. The contrarian hook does the scroll stopping. It ends on the admission, which is the one ending a conviction post is allowed.</p></div>
+  <div class="block notes"><h3>Notes</h3><ul>
+    <li>This is your seatbelt. It is the one place in the hour where you said something you would probably rather not have on the internet, and it is why I put it last rather than first. Four posts of watching you be right about other people's businesses buys you the room to be wrong about your own.</li>
+    <li>The risk is real and it is yours to weigh, not mine. It tells the owners you are talking to that you have not closed an acquisition yet. My read is that it costs you almost nothing with the people you actually want and saves you a great deal of time with the ones you do not, because an owner who would hold that against you was never going to let you near their books. But that is my read of your market and you know it far better than I do.</li>
+    <li>"I'm building a business on accident because I haven't been able to buy a business" is yours, word for word. It ends the post because it cannot be improved.</li>
+    <li>There is no villain here and there should not be. The force is the shortcut, and the shortcut is not evil, it just is not available. That is a much better enemy than any person could be.</li>
+    <li>Zero permission risk. Nobody is in it but you.</li>
+  </ul></div>
+</article>
+
+<div class="divider" id="not-yet"><span>NOT YET</span></div>
+<p class="dividerlede">Three more stories are in here. They are written because they are real and you should be able to see them, and I would not put any of them in a queue this week. The reason is under each one.</p>
+
+<article class="post" id="decades-ahead-of-his-industry">
+  <div class="posthead">
+    <h2>Decades ahead of his industry</h2>
+  </div>
+  <p class="banner warn"><strong>Hold.</strong> Two separate reasons, and the second one is the one I will not move on.</p>
+  <div class="meta">
+    <div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+    <div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A dark auditorium. A beam of light in dust. An empty bar with the house lights up. A blank marquee. Nothing that identifies a real theater.</span></div>
+  </div>
+  <div class="block hooks">
+    <h3>Hooks <span class="sub">text on screen</span></h3>
+    <ul>
+      <li><span class="htype h-context">Context</span><span class="htext">I worked for a man who was decades ahead of his entire industry and first to market by a mile.</span></li>
+      <li><span class="htype h-contrarian">Contrarian</span><span class="htext">His idea was right. He was the worst thing that ever happened to it.</span></li>
+      <li><span class="htype h-intrigue">Intrigue</span><span class="htext">He built the future of his industry ten years early, then spent the next decade making sure it could not get there without him.</span></li>
+    </ul>
+  </div>
+  <div class="block caption">
+    <h3>Caption</h3>
+    <p>He was decades ahead of his industry. First to market by a mile.</p>
+    <p>This was back when a movie theater still meant film in cans. He put in one of the first digital projectors anybody in the business had seen.</p>
+    <p>Then he did the thing nobody else was doing, which was to make the room worth sitting in. A cocktail bar. Drinks brought to your seat. Real food. He was building the theater everybody has now, and he was building it before anybody had thought to ask for it.</p>
+    <p>He got the hardest part right. He saw it first.</p>
+    <p>Then he ran it through his own ego.</p>
+    <p>He micromanaged it. He kept every decision and he would not trust anybody else with one, and everything that place could have become had to fit through a single person.</p>
+    <p>There was one move available that would have changed all of it. Hire the right person and empower them.</p>
+    <p>He never made it.</p>
+    <p>He was the biggest reason that business did not go to the next level, and he was the one who set it in motion in the first place. I have watched some version of that in dozens of businesses since, and the ones that die of a bad idea are not even close to the majority.</p>
+    <div class="dig"><span class="digtag">DIG</span>One thing you watched him do. Not a pattern, one afternoon. A decision he made in front of you, or an idea somebody brought him and what he did with it, and where you were standing. Everything above is characterization, and characterization is the thing a reader discounts on sight.</div>
+  </div>
+  <div class="block loop"><h3>Loop check</h3><p>The cover is a contradiction and the contradiction is the loop. One question: how does a business that far ahead not win. The head fake is that the thing that killed it is sitting in the founder's chair. Right now the post announces that turn instead of showing it, which is exactly what the DIG marker is for.</p></div>
+  <div class="block notes"><h3>Notes</h3><ul>
+    <li>First reason it is a hold: this business is identifiable. One of the first theaters in the country running a digital projector, with a martini bar and food service, is a very short list, and a reader who wants to find it will find it in about four minutes. Once they find the theater they have found him. Nothing in the caption names anybody and it will not matter.</li>
+    <li>Second reason, and this is the one. You told me he was the most traumatic person you ever worked for. Everything you gave me about him is a verdict. He ran it through ego, he micromanaged, he should have hired somebody else to run it. Not one scene. A verdict about a real, identifiable person with no scene underneath it is the exact shape of a post that comes back on you, and I am not going to be the one who hands it to you and says good luck.</li>
+    <li>The fix is not a gentler caption. The fix is one afternoon. Give me an idea somebody brought him and what he did with it, and this becomes the strongest post in the bank, because that business was genuinely remarkable and the ending is genuinely instructive.</li>
+    <li>When you do run it, blur the industry one notch. A luxury cinema, rather than the projector detail and the martini bar together, costs you a little color and buys you the whole thing.</li>
+    <li>His name is nowhere in this document and it is not in my notes either. Neither is the theater.</li>
+    <li>The villain is a founder becoming the ceiling. Never him.</li>
+  </ul></div>
+</article>
+
+<article class="post" id="the-bed-that-took-two-months">
+  <div class="posthead">
+    <h2>The bed that took two months</h2>
+  </div>
+  <p class="banner warn"><strong>Hold for now.</strong> And if you ever run it, run it as a personal brand post and never as a business one. That is my call and here is exactly why.</p>
+  <div class="meta">
+    <div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+    <div class="metarow"><span class="mlabel">B-roll</span><span class="mval">An empty room with the light coming in. A sleeping bag on bare floor. A paper catalog. A doorway. Nothing with an insignia on it.</span></div>
+  </div>
+  <div class="block hooks">
+    <h3>Hooks <span class="sub">text on screen</span></h3>
+    <ul>
+      <li><span class="htype h-context">Context</span><span class="htext">I was promised a fully furnished house. I walked into an empty one and slept on the floor.</span></li>
+      <li><span class="htype h-contrarian">Contrarian</span><span class="htext">They handed me a catalog and told me the bed would take two months. The warehouse was across town.</span></li>
+      <li><span class="htype h-intrigue">Intrigue</span><span class="htext">My safety equipment had holes in it. Asking for a set without holes turned out to be the complicated part.</span></li>
+    </ul>
+  </div>
+  <div class="block caption">
+    <h3>Caption</h3>
+    <p>I was promised a fully furnished house.</p>
+    <p>I walked into it and there was nothing in it. Not a chair. I slept on the floor.</p>
+    <p>A week and a half later somebody handed me a catalog. A physical catalog, with beds in it. I picked one out.</p>
+    <p>They told me it would take two months to requisition.</p>
+    <p>I asked whether it was not just sitting in a warehouse across town. I said I would drive over and pick it up myself.</p>
+    <p>There was a process. There were approvals.</p>
+    <p>Then I noticed my basic safety equipment had holes in it, and I asked whether I could have a set without holes in it, and that turned out to be the complicated question.</p>
+    <p>Nothing there was hard because the work was hard. It was hard because every process in that building had been designed by people who were never going to sleep on that floor.</p>
+    <div class="dig"><span class="digtag">DIG</span>What the room looked like the first night and what you actually slept on. Then the safety equipment, specifically what it was and what the holes meant if it failed, because right now the reader cannot tell whether we are talking about a jacket or a respirator, and the whole post turns on that.</div>
+  </div>
+  <div class="block loop"><h3>Loop check</h3><p>The cover carries a person, a risk and a clock, and the clock is you on a floor waiting on a bed. One question: do you get the bed. The head fake is that the bed stops mattering halfway through and the safety equipment takes over, which is a turn a reader does not see coming.</p></div>
+  <div class="block notes"><h3>Notes</h3><ul>
+    <li>Why it is a hold: you named the employer on the call and it was the government. The second a business owner hears government or military in a post, they check out, because they have decided in advance it is not about them. You could strip the identifier, and I would not, because a story about a system that is cagey about which system reads as evasive and a reader can feel that even when they cannot name it.</li>
+    <li>Where it does work is as a personal brand post, and it is a good one. It is funny, it is specific, and it is the origin of your entire allergy to process for its own sake.</li>
+    <li>If you want it to work commercially, it needs a bridge post in front of it, something that establishes you are talking about bureaucracy as a force rather than about the government as an employer. That is a real piece of work and it is not this week's.</li>
+    <li>The villain is process built by people who never have to live inside it. Nobody is named and nobody should be.</li>
+  </ul></div>
+</article>
+
+<article class="post" id="i-didn-t-have-an-answer">
+  <div class="posthead">
+    <h2>I didn't have an answer</h2>
+  </div>
+  <p class="banner warn"><strong>Hold.</strong> This is the best post in the document and I am not going to be the one who decides you post it.</p>
+  <div class="meta">
+    <div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Conviction post. One held image, no arc.</span></div>
+    <div class="metarow"><span class="mlabel">B-roll</span><span class="mval">You talking, alone, no cuts. If you record it live, do not edit the pause out.</span></div>
+  </div>
+  <div class="block hooks">
+    <h3>Hooks <span class="sub">text on screen</span></h3>
+    <ul>
+      <li><span class="htype h-context">Context</span><span class="htext">Somebody asked me why I care whether other people's businesses win. I could not answer.</span></li>
+      <li><span class="htype h-contrarian">Contrarian</span><span class="htext">I can tell you the unit economics of a company I walked into an hour ago. I could not tell a coach why I do this.</span></li>
+      <li><span class="htype h-intrigue">Intrigue</span><span class="htext">The question took me most of a minute of silence and I still did not have anything.</span></li>
+    </ul>
+  </div>
+  <div class="block caption">
+    <h3>Caption</h3>
+    <p>I got asked a simple question. Why does it matter to you that other people's businesses do well.</p>
+    <p>And I did not have an answer.</p>
+    <p>I gave the good one first, the one that is true and costs nothing to say. I solve problems other people value. They want to win. If I help them win, I have created value for them.</p>
+    <p>Then she asked again. Where does that come from.</p>
+    <p>And I sat there.</p>
+    <p>I am not somebody who sits there. I have helped build three companies. I can read a business in an hour and tell you where the money is going. And I could not tell you the first thing about why I do it.</p>
+    <p>What eventually came out was that I get intense gratification watching people achieve, and that the biggest way I can affect the largest number of people is through businesses, because a business is thousands of jobs.</p>
+    <p>Which is still an answer about scale.</p>
+    <p>I have spent my entire career being the person in the room with the answer.</p>
+    <div class="dig"><span class="digtag">DIG</span>This one is not missing a room. It is missing an ending, and the honest reason it is not ready is that you do not have one yet. Sit with the question for a week and tell me what turns up. Whatever it is, that is the last line.</div>
+  </div>
+  <div class="block loop"><h3>Loop check</h3><p>Conviction post, loops barely touched, which is correct. The stakes sit inside the held image of you, capable and articulate, with nothing to say. The contrarian hook does the scroll stopping. It currently ends on a statement rather than a turn, which is the DIG marker and not a style choice.</p></div>
+  <div class="block notes"><h3>Notes</h3><ul>
+    <li>Why it is a hold, first reason, and this one is not negotiable by me. It is my session, and the "she" in it is me. You can absolutely tell it, and you can name me or leave me anonymous, but you should choose that on purpose rather than discover it after the fact. I am not going to write myself into your feed uninvited.</li>
+    <li>Second reason: it does not have an ending. Everything else in this bank has a turn in it because the turn already happened. This one you are standing in the middle of. That does not make it unpostable, it makes it a different kind of post, and it should be a decision rather than an accident.</li>
+    <li>Here is why I wrote it anyway. You told me you were floundering and that this is not the way you are used to thinking, and those were the two most true things you said in the hour. Somebody who can read a business in an hour and tell you where the money is going, and still cannot say why they do the work, is not a weak post. It is the single most relatable thing you could put in front of a founder, because every one of them has that hole and not one of them wants to go first.</li>
+    <li>The villain is the habit of having the answer. Never the question and never the person asking it.</li>
+    <li>If you post one thing out of this document that scares you, make it this one.</li>
+  </ul></div>
+</article>
+
+<section class="plainsec" id="where-the-stories-aren-t-finished">
+  <h2 class="plain">Where the stories aren't finished</h2>
+  <p>Eight DIG markers in this document. Five are in the posts you can run today and three are in the holds. Every one of them is the same problem, and it is not a writing problem.</p>
+  <p>You gave me the shape of things instead of the moment inside them. You said it about yourself without meaning to: when I asked for one specific example of good leadership you said "I think she set a high standard," and then asked whether I needed a specific example. I did. Nine minutes later you gave me buckets of pre-soak and a dedicated silverware person, and that is the difference between a paragraph about a good manager and a kitchen a reader can stand in.</p>
+  <p>You do not need to become a more vulnerable person to fix this. You need to answer the question I asked one layer lower than feels necessary. Every marker in here is one room away from finished and nobody can supply the room but you. Sit with any single one for ten minutes and it will come.</p>
+  <p>Six more stories surfaced that I could not write yet, because each one is still a summary:</p>
+  <ul class="plainlist">
+    <li><strong>The friction, specifically.</strong> You said there was always friction between you and the founder, because you had visionary tendencies and could see meaningful directions that did not align with theirs. That is three real men who could each identify themselves, and right now it is an opinion with no scene under it. Give me one meeting. What you saw, what you said, what they said, and what happened to the company afterward. Then it is a post and not a grievance.</li>
+    <li><strong>The meal prep change.</strong> You remembered that you found a way to get the prep done faster and it bought the whole crew a longer lunch, and then you could not remember what the change was. That is a smaller and better post than the silverware, because the payoff was time rather than efficiency and every owner underestimates what that buys them. Go find the change.</li>
+    <li><strong>"It's so much fun to win."</strong> You said that almost as an aside and moved straight past it. That is the actual reason you do this, sitting right next to the answer about scale you were not satisfied with. There is a story attached to it somewhere and it is probably not a business story.</li>
+    <li><strong>The seventeen jobs.</strong> You said second, third, fourth, seventeenth job, and it went by in half a second. Seventeen jobs is a life. Somewhere in there is the one where you finally noticed the pattern instead of just living in it.</li>
+    <li><strong>The owners who cannot sell.</strong> You have been sitting across from business owners who thought they had something sellable and did not. You have that conversation regularly and you have never told one of them as a story. That is the closest thing you have to client proof and it does not need a single name in it.</li>
+    <li><strong>The second location.</strong> The theater had two locations and you ran one of them. You mentioned it once. Running one half of somebody else's business, with somebody else's judgment landing on it, is a whole story and you have not told me any of it.</li>
+  </ul>
+</section>
+
+<section class="plainsec" id="what-i-left-out-on-purpose">
+  <h2 class="plain">What I left out on purpose</h2>
+  <ul class="plainlist">
+    <li><strong>Every name.</strong> His, hers, the three founders, the theater, the restaurant, the agency. None of it is in this document and none of it is in my notes.</li>
+    <li><strong>The word traumatic.</strong> You used it about a specific real person. It is the most accurate word you gave me all hour and it is the one word that turns a story into an accusation. It is not in any caption here.</li>
+    <li><strong>The government, in anything commercial.</strong> It is a good story and it is in the holds. It is not in a post aimed at a business owner, for the reason under that hold.</li>
+    <li><strong>Anything I said about my own business.</strong> I spent a lot of that hour talking about network marketing, my own numbers and my own offer, because you asked. None of that belongs in your bank. It is mine.</li>
+    <li><strong>Every number attached to money.</strong> Not one post here rests on a revenue figure or an income claim, yours or anybody's.</li>
+    <li><strong>The word empowered, as a claim.</strong> It is your through line and it appears exactly once in one caption, as a description of a crew rather than a description of you. You never say you believe in empowering people. Five posts show it and let the reader get there.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Kindra Morse &middot; Founder Storytelling Coach</span>
+    <span>The Throughline Method</span>
+  </div>
+</footer>
+
+</body>
+</html>
