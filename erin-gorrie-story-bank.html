@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Erin Gorrie: The Story Bank</title>
+<style>
+:root{
+  --plum:#1E1620; --parchment:#FAF8F4; --orchid:#CB6CE6; --blossom:#F4CBFF;
+  --ink:#251C28; --muted:#6B5F70; --rule:#E4DDE6; --panel:#FFFFFF;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  font-size:18px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px}
+a{color:inherit}
+
+/* ---- hero ---- */
+.hero{background:var(--plum);color:var(--parchment);padding:72px 0 60px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+  background:linear-gradient(90deg,var(--orchid),var(--blossom))}
+.eyebrow{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--blossom);margin:0 0 18px}
+.hero h1{font-size:clamp(38px,7vw,60px);line-height:1.05;margin:0;font-weight:600;letter-spacing:-.02em}
+.hero .sub{color:#C9BACE;font-size:19px;margin:22px 0 0;max-width:52ch}
+
+/* ---- letter ---- */
+.letter{padding:54px 0 10px}
+.letter p{margin:0 0 20px;font-size:19px}
+.letter p:first-child{font-size:22px}
+.sig{font-style:italic;color:var(--muted)}
+
+/* ---- through line ---- */
+.through{background:var(--panel);border:1px solid var(--rule);border-left:5px solid var(--orchid);
+  border-radius:4px;padding:32px 34px;margin:40px 0 10px}
+.through h2{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:12px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--orchid);margin:0 0 18px;font-weight:700}
+.through p{margin:0 0 16px}
+.through p:last-child{margin-bottom:0}
+.through strong{font-size:26px;display:inline-block;letter-spacing:-.01em}
+
+/* ---- toc ---- */
+.tocbox{margin:46px 0 10px;padding:30px 0 6px;border-top:1px solid var(--rule)}
+.tocbox h2{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:12px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 20px;font-weight:700}
+ol.toc{list-style:none;margin:0;padding:0;counter-reset:none}
+ol.toc li{border-bottom:1px solid var(--rule)}
+ol.toc a{display:flex;gap:16px;align-items:baseline;padding:13px 4px;text-decoration:none;transition:.15s}
+ol.toc a:hover{background:var(--blossom);padding-left:10px}
+.tnum{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:12px;font-weight:700;color:var(--orchid);
+  min-width:20px;letter-spacing:.05em}
+.tochold{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);margin:26px 0 8px;font-weight:700}
+ul.toc.hold{list-style:none;margin:0;padding:0}
+ul.toc.hold li{border-bottom:1px solid var(--rule)}
+ul.toc.hold a{display:block;padding:12px 4px;text-decoration:none;color:var(--muted);font-style:italic}
+ul.toc.hold a:hover{background:var(--blossom);color:var(--ink);padding-left:10px}
+
+/* ---- posts ---- */
+.post{margin:70px 0;padding-top:44px;border-top:1px solid var(--rule)}
+.posthead{display:flex;gap:20px;align-items:flex-start;margin:0 0 6px}
+.pnum{font-family:ui-sans-serif,-apple-system,sans-serif;font-weight:700;font-size:13px;color:var(--parchment);
+  background:var(--plum);border-radius:50%;width:34px;height:34px;flex:0 0 34px;
+  display:flex;align-items:center;justify-content:center;margin-top:9px}
+.post h2,h2.plain{font-size:clamp(28px,4.6vw,36px);line-height:1.15;margin:0;font-weight:600;letter-spacing:-.02em}
+h2.plain{margin:0 0 18px}
+.banner{background:var(--blossom);border-radius:3px;padding:12px 16px;margin:20px 0 26px;
+  font-size:16px;line-height:1.5}
+.banner.warn{background:var(--plum);color:var(--parchment)}
+.banner.warn strong{color:var(--blossom)}
+
+.meta{margin:24px 0 30px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:6px 0}
+.metarow{display:flex;gap:18px;padding:11px 0;align-items:baseline}
+.metarow + .metarow{border-top:1px solid var(--rule)}
+.mlabel{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);font-weight:700;flex:0 0 112px;line-height:1.9}
+.mval{font-size:16.5px;color:var(--ink)}
+
+.block{margin:28px 0}
+.block h3{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);font-weight:700;margin:0 0 14px}
+.block h3 .sub{color:#B3A4B8;letter-spacing:.14em;font-weight:600}
+
+.hooks ul{list-style:none;margin:0;padding:0}
+.hooks li{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--rule)}
+.hooks li:last-child{border-bottom:1px solid var(--rule)}
+.htype{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:700;padding:4px 8px;border-radius:3px;flex:0 0 78px;text-align:center;margin-top:3px}
+.h-context{background:#EDE7EF;color:var(--muted)}
+.h-contrarian{background:var(--orchid);color:#fff}
+.h-intrigue{background:var(--blossom);color:#6B3A7D}
+.htext{font-size:18px;line-height:1.45}
+
+.caption{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:30px 34px}
+.caption h3{color:var(--orchid)}
+.caption p{margin:0 0 17px;font-size:18.5px;line-height:1.68}
+.caption p:last-child{margin-bottom:0}
+
+.dig{background:var(--plum);color:var(--parchment);border-radius:4px;padding:18px 20px;margin:22px 0 6px;
+  font-size:16px;line-height:1.55}
+.digtag{font-family:ui-sans-serif,-apple-system,sans-serif;font-size:10px;letter-spacing:.16em;font-weight:700;
+  background:var(--orchid);color:#fff;padding:3px 8px;border-radius:3px;margin-right:10px;vertical-align:1px}
+
+.loop p{margin:0;font-size:16.5px;color:var(--muted);line-height:1.6}
+.notes ul{margin:0;padding:0;list-style:none}
+.notes li{position:relative;padding:0 0 0 22px;margin:0 0 13px;font-size:16.5px;line-height:1.58}
+.notes li:before{content:"";position:absolute;left:0;top:11px;width:9px;height:2px;background:var(--orchid)}
+.notes li:last-child{margin-bottom:0}
+
+/* ---- divider ---- */
+.divider{margin:96px 0 26px;text-align:center;position:relative}
+.divider:before{content:"";position:absolute;top:50%;left:0;right:0;height:1px;background:var(--rule)}
+.divider span{position:relative;background:var(--parchment);padding:0 22px;
+  font-family:ui-sans-serif,-apple-system,sans-serif;font-size:13px;letter-spacing:.3em;font-weight:700;color:var(--plum)}
+.dividerlede{color:var(--muted);font-size:17px;margin:0 0 18px}
+
+/* ---- plain sections ---- */
+.plainsec{margin:70px 0;padding-top:44px;border-top:1px solid var(--rule)}
+.plainsec p{margin:0 0 18px}
+ul.plainlist{margin:20px 0;padding:0;list-style:none}
+ul.plainlist li{position:relative;padding:0 0 0 22px;margin:0 0 15px;line-height:1.58}
+ul.plainlist li:before{content:"";position:absolute;left:0;top:13px;width:9px;height:2px;background:var(--orchid)}
+
+.foot{background:var(--plum);color:#9F8FA6;margin-top:90px;padding:40px 0;
+  font-family:ui-sans-serif,-apple-system,sans-serif;font-size:13px;letter-spacing:.04em}
+.foot .wrap{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+@media(max-width:600px){
+  body{font-size:17px}
+  .wrap{padding:0 20px}
+  .hero{padding:52px 0 44px}
+  .caption{padding:24px 22px}
+  .through{padding:26px 24px}
+  .metarow{flex-direction:column;gap:4px}
+  .mlabel{flex:none}
+  .hooks li{flex-direction:column;gap:8px}
+  .htype{flex:none;display:inline-block;width:auto}
+  .posthead{gap:14px}
+}
+@media print{
+  body{background:#fff;font-size:11.5pt}
+  .hero{background:#fff;color:#1E1620;padding:0 0 24px}
+  .hero .sub{color:#555}.eyebrow{color:#CB6CE6}
+  .tocbox,.foot{display:none}
+  .post,.plainsec{page-break-inside:avoid;margin:34px 0}
+  .dig,.banner.warn{background:#F4F0F5;color:#1E1620;border:1px solid #CB6CE6}
+  .digtag{background:#CB6CE6}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Prepared for Erin Gorrie</p>
+    <h1>The Story Bank</h1>
+    <p class="sub">Eleven posts and five holds, pulled from ninety minutes on a Friday, in the order I would post them.</p>
+  </div>
+</header>
+
+<main class="wrap">
+<div class="letter">
+<p>Erin,</p>
+<p>You gave me an hour and a half on a Friday, on your husband&#x27;s birthday, with a dog going over a fence behind you, and you gave me more usable material than I get out of most people in three sessions.</p>
+<p>I put the transcript straight through my process. You know I use AI to do the lift and I am not going to pretend otherwise. What is mine is the method: which moment is actually the story, what gets cut, who gets protected, and what you should not post at all.</p>
+<p>Eleven posts, in the order I would post them, not the order you told them. That order matters more than it sounds like it does. You do not open on the collapse or on your father. You open on a woman typing a search into Google, because that is the door a stranger can walk through, and by the time somebody reaches the retreat they have watched you build the thing that earned you the right to say it.</p>
+<p>Every word in these captions is yours. I did not write in your voice, I used your sentences. The cheesecake line is yours. The thumbtacks are yours. &quot;If I can&#x27;t, I don&#x27;t&quot; is yours, and it is the spine of the whole document.</p>
+<p>Where I need a real detail you did not give me, it is marked DIG and I have said exactly what is missing. There are eleven of those in the eleven posts and five more in the holds. They are the difference between a summary and a scene, and nobody on earth can fill them but you.</p>
+<p>Your father, your sister, your mother, your sons and your ex are protected in every post here. Your sister is in one of them and she is alive inside it, because that post takes place when the two of you were kids. I know you lost her in 2020 and I did not miss it. There is a note on Post 8 that says exactly why her death is not in the caption, and that call is yours to overrule. Your former employer is never named in a single one, and neither is the incident. You told me you are allowed to talk about what you experienced, you just have to be careful how you frame it, because they are powerful. I built to that line and did not cross it.</p>
+<p>Take these and run them. No strings.</p>
+<p class="sig">Kindra</p>
+</div>
+
+<div class="through"><h2>The through line</h2>
+<p>You gave it about twenty minutes in, when I asked how you were running a business on the capacity you have left. You said it like it was obvious.</p>
+<p><strong>If I can&#x27;t, I don&#x27;t.</strong></p>
+<p>&quot;You build your business based on your own capacity and with your own limitations. That&#x27;s why my business works, because if I can&#x27;t, I don&#x27;t.&quot;</p>
+<p>Everything in this bank is one of two movements. Either the twenty years you spent saying yes to prove you were worth keeping, or the three years since, when you built a life that only asks you for what you actually have.</p>
+<p>The reader never gets told you rebuilt yourself. They watch you rent a room with no puppies in it, hand half your first two hundred dollars to a breeder, and sit in a circle of nine and say the thing out loud. They reach it themselves, which is the only way anybody ever believes it.</p>
+<p>House rules I held to throughout: no em dashes, the villain is always a force and never a person, and every caption ends on a moment instead of an explanation of what the moment meant. That last one will feel wrong the first few times you post it. Trust it. You already know it works, because your editor did exactly this to your book and people read it in one sitting.</p>
+</div>
+
+<div class="tocbox"><h2>What&rsquo;s in here</h2><ol class="toc">
+<li><a href="#yoga-studios-for-rent-near-me"><span class="tnum">01</span><span>Yoga studios for rent near me</span></a></li>
+<li><a href="#the-thumbtacks"><span class="tnum">02</span><span>The thumbtacks</span></a></li>
+<li><a href="#the-math-on-my-first-class"><span class="tnum">03</span><span>The math on my first class</span></a></li>
+<li><a href="#the-list"><span class="tnum">04</span><span>The list</span></a></li>
+<li><a href="#the-puppy-on-my-lap"><span class="tnum">05</span><span>The puppy on my lap</span></a></li>
+<li><a href="#three-years-almost-to-the-day"><span class="tnum">06</span><span>Three years, almost to the day</span></a></li>
+<li><a href="#i-thought-i-was-failing-therapy"><span class="tnum">07</span><span>I thought I was failing therapy</span></a></li>
+<li><a href="#her-shot-is-perfect"><span class="tnum">08</span><span>Her shot is perfect</span></a></li>
+<li><a href="#melted-into-the-seat"><span class="tnum">09</span><span>Melted into the seat</span></a></li>
+<li><a href="#the-room-of-nine"><span class="tnum">10</span><span>The room of nine</span></a></li>
+<li><a href="#if-i-can-t-i-don-t"><span class="tnum">11</span><span>If I can&#x27;t, I don&#x27;t</span></a></li>
+</ol>
+<p class="tochold">Not yet</p><ul class="toc hold">
+<li><a href="#the-bar-and-my-father-s-eyes">The bar, and my father&#x27;s eyes</a></li>
+<li><a href="#the-claim">The claim</a></li>
+<li><a href="#what-happens-behind-the-doors">What happens behind the doors</a></li>
+<li><a href="#the-birthday">The birthday</a></li>
+<li><a href="#the-one-who-is-going-back">The one who is going back</a></li>
+</ul></div>
+
+<article class="post" id="yoga-studios-for-rent-near-me">
+<div class="posthead"><span class="pnum">1</span><h2>Yoga studios for rent near me</h2></div>
+<p class="banner"><strong>Post this first.</strong> It is the easiest door in the bank. No trauma required to enter it, nobody has to know your story yet, and the only thing a stranger has to recognize is the feeling of wanting to start something and having no idea how. That is a very large room of people.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run hot for reach.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A laptop with a search bar. Hands on a keyboard. An empty studio floor with the light coming in. Walking into a room before anyone is in it. Nothing literal.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">Three years ago I typed &quot;yoga studios for rent near me&quot; into Google and had no idea what to do after that.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">I signed for the room before I had a single puppy, a single student, or a single clue.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">I booked a room for a class I could not run, on a date I had not picked, for people who did not exist.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>For three years I went from my bed to my couch and my couch to my bed.</p>
+<p>Then one afternoon I sat down at the computer and typed: yoga studios for rent near me.</p>
+<p>I want to be honest about how little I knew. I did not know how a person finds a room. I did not know that was a thing you could look up. I typed it the way you would ask a human being.</p>
+<p>Something came up. A yoga studio inside an art studio, and they rented the space out.</p>
+<p>So I called the man who owned it, and I asked if I could rent his room and bring puppies into it.</p>
+<p>There was a pause. He said, what?</p>
+<p>I was sure he was about to say no. Nobody wants puppies in their space.</p>
+<p>He said, if you clean up, I can&#x27;t see why not.</p>
+<p>Then he said, when you find your puppies, let us know. We don&#x27;t have anything happening Saturday mornings at eleven, if that&#x27;s what you were thinking.</p>
+<p>I was thinking Saturday morning at eleven.</p>
+<p>So I signed the little piece of paper that said I would take that room, on that day, at that time.</p>
+<p>I did not have puppies. I did not have one person who had said they would come. I had a room, a date, and my own money to cover it.</p>
+<p>And I thought, worst case, I sit in there with the puppies by myself.</p>
+<p>I was okay with that.</p>
+<div class="dig"><span class="digtag">DIG</span>What the paper actually was and where you signed it, and the first thing you said or did after you hung up that call. You told me the conversation. I do not have the room you were standing in when it ended, and that is the last image in the post.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>Cover carries a character, a risk and a clock all at once, because a booked Saturday with your own money on it is a countdown a stranger understands with no explanation. One question: does anybody come. The head fake is that you signed for the room before you had a single puppy, and the cover does not spend it. Ends on the thought you actually had, from before you knew it would work.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>The villain here is the belief that you have to know how before you are allowed to begin. Never the studio owner. He is the one who says yes, and he is the nicest man in this entire bank.</li>
+<li>&quot;If you clean up, I can&#x27;t see why not&quot; is his line and it stays exactly as you said it. That kind of quote is unforgeable and it is why the post reads as true.</li>
+<li>The ending is the whole post. Being fine with an empty room is what separates you from every person who says they want to start something. Do not add a sentence explaining that. The reader gets it.</li>
+<li>No PTSD in this one on purpose. It is in the bank, and it arrives later, once people are already following you.</li>
+</ul></div>
+</article>
+
+<article class="post" id="the-thumbtacks">
+<div class="posthead"><span class="pnum">2</span><h2>The thumbtacks</h2></div>
+<p class="banner"><strong>Post this second.</strong> It is the funniest thing in the whole ninety minutes and it is the most shareable thing you own, because everybody who has ever tried to tell the world about something has a version of this.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run hot for reach.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A printer pushing out a page. A coat pocket. A hand full of thumbtacks. A community corkboard in a coffee shop. Walking down a small main street in winter.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">The first marketing I ever did was a stack of home-printed flyers and a fistful of thumbtacks.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">Three years before 320,000 people followed me, I could not find a single bulletin board in my own town.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">Those thumbtacks stayed in my coat pocket for years. I never took them out.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>I made a flyer for my first class. I printed it off at home.</p>
+<p>Then I put thumbtacks in the pocket of my winter jacket and went into town to find a bulletin board.</p>
+<p>I was so sure there were bulletin boards in that town. I could picture them. I walked around trying to remember where I had seen one.</p>
+<p>That is how I thought you marketed something. That was the entire extent of what I knew. Years as a police officer, and a model before that, and nobody had ever taught me how a person tells the world that a thing exists.</p>
+<p>I found two. One in a coffee shop, one in a restaurant.</p>
+<p>I put a flyer on each.</p>
+<p>Then I went home and made one post on Facebook. Puppy yoga, this address, German Shepherd puppies, Saturday at eleven.</p>
+<p>That was the plan. That was all of it.</p>
+<p>Six people came. Maybe eight. I have never been sure.</p>
+<p>Those thumbtacks stayed in that coat pocket for years afterward. I would put my hand in and feel them there, and I never once took them out.</p>
+<div class="dig"><span class="digtag">DIG</span>What the flyer actually said and what it looked like. Did you use a photo, did you write it by hand, did you make it in Word at the kitchen table. And whether you still have one. If you do, that is the b-roll and you do not need anything else.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is the gap between the woman with thumbtacks and the woman with a following, and the gap is the loop. One question: did it work. The head fake is that the answer is yes, and the flyers had almost nothing to do with it. Ends on the coat pocket, which is an object, not a lesson.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>The follower count belongs on the cover line and nowhere else. Inside the caption it would read as a flex and the reader would discount everything around it. On the cover it is doing a different job: it is the reason a stranger stops.</li>
+<li>The thumbtacks are the best physical detail in the whole session. You said it as a throwaway, you laughed at yourself, and it is the single most human thing in this document.</li>
+<li>The villain is the swipe-file idea that there is a correct way to launch. You did the least sophisticated thing available and it worked, and that is not a lesson you have to state. It just sits there.</li>
+<li>Do not explain what you would do differently now. Somebody will ask in the comments. That is where it goes.</li>
+</ul></div>
+</article>
+
+<article class="post" id="the-math-on-my-first-class">
+<div class="posthead"><span class="pnum">3</span><h2>The math on my first class</h2></div>
+<p class="banner"><strong>Post this third.</strong> Two posts in, people want to know if it worked. This is the answer, and the answer is that it did not, financially, and you would do it exactly the same way. That is the first post where a reader starts trusting you rather than just enjoying you.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">Cash counted out on a table. A car with a crate in the back. Puppies coming through a doorway. Mats being rolled out on a floor.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">My first class brought in two hundred and forty dollars and I gave half of it away before I paid myself anything.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">My first class did not make money and I would run it the same way tomorrow.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">The room cost me forty-five dollars. I charged forty. Work out the rest.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>Here is the actual math on my first class.</p>
+<p>The room cost forty-five dollars. I remember thinking, why is he charging me that much.</p>
+<p>I charged forty dollars a person. Six people came. Two hundred and forty dollars.</p>
+<p>The breeder lived an hour away. She was driving her German Shepherd puppies up to me and driving them home again, and there is no puppy yoga class without puppies.</p>
+<p>So I gave her half.</p>
+<p>I do not math anymore, that was my old job, but even I could see that was not how you make money.</p>
+<p>I was not doing it to make money. I wanted puppies in a room. I needed her to come back.</p>
+<p>She came back. Two weeks later, with the same litter, a couple of weeks older, right before they went off to their forever homes. And she told me the class was doing as much for her dogs as it was doing for the people on the mats. New floors, new smells, new hands. Everything a puppy needs before it goes to live with somebody.</p>
+<p>I had spent the whole two weeks thinking I was the one asking for a favour.</p>
+<p>I have changed that split since. I had to. A business goes in the ground if nobody is counting.</p>
+<p>But that first Saturday I counted out her half, handed it over, and asked her when she could come again.</p>
+<div class="dig"><span class="digtag">DIG</span>Where you handed her the money. The parking lot, the studio floor, the back of her car, with the puppies still there or after they had gone. And what she actually said when you asked her to come back. One room and one sentence and this post is finished.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is a number that does not add up, which is a clean stakes line with the clock built into the word &quot;first.&quot; One question: did it work. The head fake is that the favour was running in the opposite direction the whole time, and it lands two thirds in. Ends on you handing over money, not on a lesson about generosity.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>The money is small and specific and real, which is the only kind of money claim I will ever put in your content. No round numbers, no annual revenue, nothing that sounds like a screenshot from somebody else&#x27;s launch.</li>
+<li>The line about changing the split is doing quiet work. It stops the post from being naive and it shows a person who learned something, without you having to say you learned something.</li>
+<li>The villain is the idea that a first attempt has to be profitable to count.</li>
+<li>&quot;I don&#x27;t math anymore, that was my old job&quot; is yours and it is funny and it is a whole personality in seven words. Keep it exactly.</li>
+</ul></div>
+</article>
+
+<article class="post" id="the-list">
+<div class="posthead"><span class="pnum">4</span><h2>The list</h2></div>
+<p class="banner"><strong>Post this fourth.</strong> Three posts of you building. Now they need to know what you were building out of. This is the floor of the story, and it is the post that will bring you the woman you actually want in your DMs.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A couch with the blinds half closed. A television paused. A book open on a lap with nothing written on the page. Do not stage it prettier than it was.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">My occupational therapist handed me a book and told me to find things I loved. I could not find one.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">I was the worst patient that woman ever had, and I was trying as hard as I have ever tried at anything.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">I went through an entire list of things a person could enjoy and said no to every single one.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>For three years I went from my bed to my couch, and my couch to my bed. I depleted all of Netflix. I ate, which was new, and after a life in modelling that was its own strange thing to be doing.</p>
+<p>I was not lying there refusing to get better. I went on a retreat. I did ayahuasca, because I was listening to a man&#x27;s book and he said it changed his life and I thought, I need that.</p>
+<p>I got something out of each of them. And then I went back to my couch.</p>
+<p>My occupational therapist gave me a book. She said, find the things you love, and we will start putting them back into your life.</p>
+<p>I said hate it. Hate it. Hate it. Don&#x27;t like it. Won&#x27;t do it.</p>
+<p>I was probably the worst she ever had.</p>
+<p>It was not stubbornness. I went down that whole list looking for one single thing I wanted, and there was nothing on it. My whole life had been my job. When the job went, everything went with it, and it turned out there had never been anything underneath.</p>
+<p>Three years of that. Therapy once a week. A retreat. A book of things people love.</p>
+<p>Nothing moved.</p>
+<div class="dig"><span class="digtag">DIG</span>The book itself. What it was called, what the pages actually looked like, and one specific thing that was on that list that you said no to. Gardening, pottery, whatever it was. One real item off that page turns this from a story about depression into a scene somebody can see, and it is probably a little bit funny, which this post needs.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is you failing at the easiest possible assignment, and the risk is that you are right about yourself. One question: does anything ever land. The head fake is held back entirely, because the answer is the next post. Ends on &quot;nothing moved,&quot; which is where you actually were, told from before you knew.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>This is the post that qualifies your audience. A woman who has tried five things and is still on her couch will read this and know you are not selling her a morning routine.</li>
+<li>Ayahuasca stays in. It is true, it is on the record in your book, and it does something important: it proves you were not passive. If you would rather it were out, say so and I will pull the sentence. It does not carry the post.</li>
+<li>The villain is not therapy and not your OT. She is doing her job well and she gets one clean line. The villain is the emptiness underneath a life that was only ever a job.</li>
+<li>No PTSD label in the caption. You never needed it. The reader who has been there recognizes the couch, and the reader who has not still understands a person who cannot find one thing she likes.</li>
+</ul></div>
+</article>
+
+<article class="post" id="the-puppy-on-my-lap">
+<div class="posthead"><span class="pnum">5</span><h2>The puppy on my lap</h2></div>
+<p class="banner"><strong>Post this fifth.</strong> This is the origin and it only works here, after four posts. Told first it is a cute story about a dog. Told fifth, after the list, it is the moment a reader has been waiting for without being told they were waiting.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A highway. A dashboard at dusk. A mat on a studio floor. A puppy climbing onto somebody&#x27;s lap, shot low. Your face is not required and probably better left out.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">I only went to that class to get my son out of his room. He was the one struggling.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">I drove two and a half hours to a yoga class for somebody else, and I am the one who came home different.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">A puppy climbed into my lap and I started crying in a room full of strangers.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>My youngest was in his first year of college and he was struggling.</p>
+<p>So I did what a mother does. I went looking for something that would ground him, and get me out of my house, and get me down to the city where he was. I googled yoga studios near his school.</p>
+<p>Puppy yoga came up.</p>
+<p>Something happened in me when I saw it. A little bit of excitement. I did not think about it much at the time. Looking back, I had not been excited about anything in three years.</p>
+<p>We went. I sat down on a mat for him.</p>
+<p>And a puppy climbed into my lap, and I started crying.</p>
+<p>I could not sort out what was happening. There were so many things arriving at once that I could not name a single one of them, and every one of them was beautiful.</p>
+<p>It is like cheesecake. You do not know what it tastes like until you taste it. You do not know what it is to not feel until you have not felt for years, and then all of a sudden you feel.</p>
+<p>When the class ended I did not want it to end. If there had been another one starting right after, I would have gone straight back in.</p>
+<p>Then I said goodbye to my son, and saying goodbye to him was always the hardest part of any visit, and this time I was so full I just said okay, bye, and went out to my car.</p>
+<p>And I drove two and a half hours home thinking, oh my God. I think I just found the thing that fixes me.</p>
+<div class="dig"><span class="digtag">DIG</span>Two things. The puppy. What it looked like, what it did, whether it stayed or wandered off, how long it was on you. Right now the most important animal in your life is a generic puppy and it deserves better. Second, what your son said, or what his face did, when he looked over and you were crying. If you would rather he stayed out of the frame entirely, tell me and I will rebuild the post without him, but it costs the head fake.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is a rescue mission for somebody else, which is the head fake sitting in plain sight and still not spent, because nobody guesses the rescue lands on you. One question: what happens in that class. Stakes are quiet on purpose here and the dial is set to depth. Ends on the drive, before you knew whether you were right.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>Your son is in this post and nothing about him is exposed except that he was having a hard first year, which happens to almost everybody. He is an adult and he can read. Give him the heads up before it runs. That is a courtesy call, not a permission problem, but make it anyway.</li>
+<li>The cheesecake line is yours and it is the best explanation of numbness I have heard from anybody. Do not let anybody talk you into cutting it for being too casual. The casualness is why it works.</li>
+<li>The villain is nothing and nobody. This post has no antagonist at all, which is rare and which is why it will be saved and sent to people.</li>
+<li>It ends on the drive. Not on what the class became. Not on the business. The reader already knows there is a business, because they have read three posts about it, and that gap is what makes this land.</li>
+</ul></div>
+</article>
+
+<article class="post" id="three-years-almost-to-the-day">
+<div class="posthead"><span class="pnum">6</span><h2>Three years, almost to the day</h2></div>
+<p class="banner"><strong>Post this sixth.</strong> Short, quiet, and the highest screenshot potential in the bank. It works here because the reader now knows both dates and can feel the distance without you explaining it.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth. This one is short enough to be a single still with text and a two-line caption if you want it that way.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A calendar. A date circled. A wall clock. Hands on a steering wheel. Keep it to one image.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">May 4th is the day I walked out of my career. I have never once had to look it up.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">I did not notice the anniversary for three years. I worked it out mid-sentence, out loud, in front of somebody else.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">There are two dates in my life and I never put them side by side until last week.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>May 4th is the day I walked out of my career and did not go back.</p>
+<p>I know that date the way you know a birthday. It does not go anywhere.</p>
+<p>For three years after it, I went from my bed to my couch and my couch to my bed.</p>
+<p>I taught my first puppy yoga class at the end of May. Three years later.</p>
+<p>I was talking to somebody about all of this last week and I stopped in the middle of a sentence, because I had never put those two dates beside each other before.</p>
+<p>I sat there and did the math twice.</p>
+<div class="dig"><span class="digtag">DIG</span>What May 4th is actually like for you now. Do you mark it, do you dread it, does it pass and you notice at nine at night. And whether you did anything that day the year the first class happened. If the answer is &quot;nothing, I was on the couch,&quot; that is the line and it is better than anything I could write.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is two dates and a gap, which is a clock with nothing else attached, and that is enough for a short post. One question: what are the two dates. No head fake and I did not force one, because the recognition happening live is the turn. Ends on you doing arithmetic, which is a physical act rather than a reflection.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>You found this on the call. Mid-sentence, you said &quot;oh, that&#x27;s interesting, I never put that together.&quot; Do not lose that. The post is not &quot;look at this meaningful anniversary,&quot; it is &quot;I just noticed this and it knocked me sideways,&quot; and the difference is everything.</li>
+<li>Do not add a line about the universe or about signs. You have somewhere else to put that, and here it would take a fact and turn it into a caption. The dates are stronger bare.</li>
+<li>The villain is absent, correctly. Some posts do not need one.</li>
+<li>If this one performs, it is the one to build a carousel out of later. Not now.</li>
+</ul></div>
+</article>
+
+<article class="post" id="i-thought-i-was-failing-therapy">
+<div class="posthead"><span class="pnum">7</span><h2>I thought I was failing therapy</h2></div>
+<p class="banner"><strong>Post this seventh.</strong> This is the first post that gives a reader something they can actually do, and it does it without a single instruction. It is also the post most likely to be sent from one woman to another.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run hot for reach.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A waiting room chair. A car parked outside a building. A door closing. A room with two chairs and nobody in them.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">I did therapy once a week for three years and I was convinced I was bad at it.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">Three years of therapy did nothing for me. Then I did something that had nothing to do with therapy, and therapy started working.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">I used to walk out of my sessions thinking, I am failing this too.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>I was in therapy once a week for three years.</p>
+<p>And most weeks I came out of it thinking the same sentence. I am failing therapy.</p>
+<p>I know how that sounds. There is no grade. Nobody hands you a mark at the end. But I had spent my entire adult life proving I was good enough at hard things, and here was a hard thing that would not move, and the only explanation I could come up with was that I was the problem.</p>
+<p>Nothing shifted. It sat exactly where it had been sitting, week after week, for three years.</p>
+<p>Then I started teaching the puppy class. Not as therapy. Not as a technique. I did it because for one hour in that room, I could feel things.</p>
+<p>And my therapy changed.</p>
+<p>Not because I brought the puppies into it. Half the time I was not even talking about the class. It was that things started unlocking. Spaces opened up that I had not been letting myself go into, and I did not know I had been keeping them shut until they were open.</p>
+<p>Three years of talking, and nothing.</p>
+<p>One class a week, and everything moved.</p>
+<p>That is not a coincidence.</p>
+<div class="dig"><span class="digtag">DIG</span>One specific thing that came up in a session after the classes started that never would have come up before. You do not have to tell me what it was, you have to tell me enough of it to be a scene. Without one, the reader has to take your word that something unlocked, and taking your word is exactly what I never want them to have to do.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is you grading yourself on something that has no grade, and the risk is that you are right. One question: what finally moved it. The head fake is that the thing that unstuck the therapy was not therapy and had nothing to do with talking, and it stays guarded until the last third. Ends on your own verdict, which is the one placard in the post and the only one it gets.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>&quot;I am failing therapy&quot; is the screenshot line in this entire bank. It is the private version of a sentence thousands of women have had and never said out loud. Do not soften it and do not put it anywhere but where it is.</li>
+<li>&quot;That is not a coincidence&quot; is yours, off the call, unchanged. It is a law rather than a claim about your character, which is why I let it stay at the end when almost nothing else is allowed to.</li>
+<li>The villain is the belief that healing is something you should be good at.</li>
+<li>Nobody is named. Your therapist does nothing wrong here and gets no description at all, which is deliberate.</li>
+</ul></div>
+</article>
+
+<article class="post" id="her-shot-is-perfect">
+<div class="posthead"><span class="pnum">8</span><h2>Her shot is perfect</h2></div>
+<p class="banner"><strong>Post this eighth.</strong> Seven posts of watching you build and heal earns you the right to show the engine underneath all of it. Told earlier it is a sad childhood story. Told here, it explains every yes in the post that follows.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A basketball hoop, ideally an outdoor one. A ball on pavement. A hallway with certificates on the wall. A course binder. Hands.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">My sister was the smart one. I was the pretty one. We were twelve months apart.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">I chose the hardest jobs in my field on purpose, so that somebody would finally call me smart.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">They told me my basketball shot was perfect. Then they told me the second half of the sentence.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>My sister and I were twelve months apart.</p>
+<p>She was the smart one. That was decided early and it never moved.</p>
+<p>The sentence in our house went: she&#x27;s smart, she&#x27;s going to university, she&#x27;s going to do something with that. Her name, her name, her name.</p>
+<p>And then. Erin looks good.</p>
+<p>Erin plays basketball, and her shot is perfect. Textbook. On point.</p>
+<p>It just does not go in.</p>
+<p>Hers does.</p>
+<p>That is how every sentence about me went. Something about how I looked, and then a second half.</p>
+<p>So here is what I did with that.</p>
+<p>I became a police officer. And once I was in, I went and found the hardest courses in the service and I took every one of them. Drug recognition expert. Collision reconstruction. The ones people avoid.</p>
+<p>I told myself I did it because I wanted to help people, and that part was true.</p>
+<p>But I picked the hard ones so that when I passed, somebody would finally say, she is so smart.</p>
+<p>Then I would pass one.</p>
+<p>And then I would sign up for the next one.</p>
+<div class="dig"><span class="digtag">DIG</span>Who actually said the basketball line, and where you were standing when you heard it. A parent, a coach, a relative at a table. And whether you can hear it in their voice now. One room and one voice and this post goes from good to permanent.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is a comparison that every reader with a sibling can feel in their body, and it carries a slow clock. One question: what does a person do with that. The head fake is that the achievements were never about the work, and it lands in the last third. Ends on you signing up again, which is the loop itself, shown instead of named.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>I know you lost her in 2020, and I want to say that plainly before anything else in this note, because you are going to read this post and wonder whether I caught it. I caught it. She is alive inside this post on purpose, and here is the reasoning, and you get to overrule me on all of it.</li>
+<li>This post takes place when the two of you were children. Writing her death into it would make it a post about losing your sister, and that is a completely different piece of content with a completely different job. It would also break the thing you told me directly: that you talk about grief as a topic and not about your grief. So she stays the smart one in that house, which is what she was on the day that sentence got said.</li>
+<li>I did change how the caption carries it. The refrain is now clearly framed as the sentence that ran in your house back then, rather than a description of a person as she is today, so nobody reads it in the present tense. That was the fix, and it was the right note.</li>
+<li>If you want her acknowledged, do not do it inside the caption. Do it in the first comment, in one line, in your words. That way the post keeps its shape and anybody who knows still sees that you know. That is what I would do, and I would only do it if it feels wrong not to.</li>
+<li>I did not use her name and I would leave it out. Not because there is any risk to her, but because the second a reader has her name, she becomes a character with a case against her, and she has none. She did nothing to you, and she is not able to weigh in on it. If you want her name in it, it is your call and I will not argue hard, but understand what it costs.</li>
+<li>Your parents are nowhere in this post. Not one line about your mother&#x27;s diagnosis, not one about where their attention went. That is deliberate. The villain is a sentence with two halves in it, and a house that had run out of room. Not two people who were drowning.</li>
+<li>Every course you named is real and verifiable and none of them are bragging, because of what the post says they were for. That is the trick: achievements only read as humble when the reader can see what they cost.</li>
+<li>This is the setup post for Post 9. Do not run them more than a week apart.</li>
+</ul></div>
+</article>
+
+<article class="post" id="melted-into-the-seat">
+<div class="posthead"><span class="pnum">9</span><h2>Melted into the seat</h2></div>
+<p class="banner"><strong>Post this ninth.</strong> The heaviest thing you can currently post, and it works here because eight posts have shown a reader who you are on the other side of it. Told first, it is a crisis. Told ninth, it is what you came back from.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A highway at night. Headlights. A closed door. A phone on a counter. A floor. Nothing from the actual job, nothing in uniform, nothing that could be mistaken for a real scene.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">For two years my job was working out how people died on the highway. I said yes to every single one.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">The thing that ended my career was a two-minute conversation about a schedule.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">I do not remember driving home that day. My sergeant told me afterward what my body did.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>For two years, my job was reconstructing fatal collisions.</p>
+<p>When people die on a highway and the road gets shut down, I am the one taking the photographs and collecting the evidence and working out what happened. Nine times out of ten, nobody saw it. The scene is the only witness there is.</p>
+<p>And a family needs to know. Did he do it, did she do it, did they do it. That is what closure is made out of.</p>
+<p>I said yes to every one of them. I said yes to everything. What workplace does not love somebody who says yes.</p>
+<p>I missed my boys&#x27; basketball games. I missed dinners and birthdays and Christmases. I gave up days off. I gave that work two years of my soul and I would have told you I was completely fine.</p>
+<p>Then I sat down for an ordinary conversation and was told I was being taken out of the unit and put back on the road.</p>
+<p>That was it. That was the entire thing that happened.</p>
+<p>If I only tell you that sentence, most people would say, so what. Why would you care.</p>
+<p>Because it was my life.</p>
+<p>I do not know what happened in my body next. My sergeant described it to me later. He said, you just melted into the seat.</p>
+<p>I said, I have to leave.</p>
+<p>I do not remember driving home. I remember being on my own floor, and my husband standing there terrified, asking what is happening, what is wrong.</p>
+<p>I called my doctor. And she said, I don&#x27;t recognize your voice. This doesn&#x27;t sound like you. I need to see you.</p>
+<p>I never went back.</p>
+<div class="dig"><span class="digtag">DIG</span>The room where that conversation happened and what you were doing in the ten minutes before it. An office, a hallway, a car, a briefing. You went straight to the sentence, and the sentence is not the story. The story is an ordinary Tuesday that had no idea what it was about to be.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is two years of fatal collision work against a two-minute conversation, which is a mismatch the reader has to resolve. One question: what was said. The head fake is that the thing that ended it was small, and the cover admits it up front and still holds, because the reader cannot believe it yet. Ends on four words and no explanation.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>Nobody is named. Not the service, not the sergeant, not the unit, not the town. Your sergeant is the one who tells you what your body did, and that is the only thing he does in the entire post. The villain is a culture that rewards yes until there is nothing left, which is a force, and it is also the truest version.</li>
+<li>This is the one post in the bank I want you to look at twice before you run it, because it touches the substance of what you are in the middle of. Everything in it is your own experience and you told me you are allowed to talk about what you experienced. There is no allegation, no incident, no named party and no claim about anybody&#x27;s conduct. That is as clean as this story gets. If you have a lawyer, run it past them anyway and let them tell you no. That is the actual risk and it is yours to weigh.</li>
+<li>&quot;You just melted into the seat&quot; is his line and it is the most vivid thing in the whole session. It also protects you, because a physical description from a witness is not an accusation against anybody.</li>
+<li>The doctor&#x27;s line ends it. Not the diagnosis, not the years that followed. A woman who does not recognize your voice on the phone tells the reader everything a clinical term would flatten.</li>
+</ul></div>
+</article>
+
+<article class="post" id="the-room-of-nine">
+<div class="posthead"><span class="pnum">10</span><h2>The room of nine</h2></div>
+<p class="banner"><strong>Post this tenth.</strong> This is the one. If a person only ever sees a single post of yours I want it to be this one, and the nine before it exist so that this one lands on a reader who already trusts you.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A circle of empty chairs. A window. A lodge or retreat hallway. Your hands. Nothing that identifies the place or anyone in it.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">I kept one secret for thirty years. I did not tell my husband, my friends, or my therapist.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">I told the most shameful thing I have ever done to nine strangers before I told the therapist I had been seeing for a year.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">A man in that room said four words to me, and thirty years of hiding ended that afternoon.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>I had a secret I kept for thirty years.</p>
+<p>I am not telling you what it is in this post. What matters here is what I believed about it. I believed it made me disgusting. I believed that if the wrong person ever found out, I would lose my job, my reputation and every person who had ever liked me.</p>
+<p>I had been in therapy for over a year and I had not told my therapist. She was the safest person in my life. I thought, no. She will judge me like everybody else.</p>
+<p>Then I was at a retreat for first responders with PTSD. Nine of us in a room with a doctor. And the doctor said, I want each of you to find the deepest thing you have.</p>
+<p>I thought, not a chance in hell.</p>
+<p>One of the mentors leaned over and said four words to me. If not now, when.</p>
+<p>And I sat there and thought, what is the worst thing that could happen. I am probably not going back to policing anyway.</p>
+<p>So I blurted it out.</p>
+<p>The doctor&#x27;s face went so sad. She looked at me and she said, Erin, you have been identifying as her for almost thirty years.</p>
+<p>I said, what?</p>
+<p>And she said, we are stupid at seventeen. You are supposed to do the dumb things. It is not shameful. You carried the shame somebody put on you that night, and you have been carrying it ever since.</p>
+<p>Then I looked around the room at the others. First responders. People whose respect I wanted. And every face was horrified and sad, and not one of them was horrified at what I had done.</p>
+<p>They were horrified that I had believed that about myself for thirty years.</p>
+<p>Nobody left. Nobody looked away.</p>
+<p>Secrets eat you alive. Shame can only live in the shadow.</p>
+<div class="dig"><span class="digtag">DIG</span>The seconds before you said it. What you were looking at, whether your voice worked, whether you had decided or whether it just came out. You told me you were half out of your body for most of that retreat, and that sentence belongs in this post. Also confirm whether that group was all women, because you said &quot;all my first responding women&quot; and I have written it as mixed to be safe.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover carries a character, a risk and a thirty-year clock, and the risk is named as the worst kind, which is being found out. One question: what is the secret, and I deliberately never answer it, which is legal here because the post is about the saying rather than the thing said. The head fake is that the person you were hiding from turned out to be you, and the retreat room delivers it as something that happened rather than a twist you announce.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>The secret stays out and the post is stronger for it, not weaker. You can run this today, with no permission calls and no legal exposure, and every reader who has their own thirty-year thing will feel it land. The people who want the whole story can buy the book, which is where it already lives.</li>
+<li>I want you to notice what just happened, because it is the answer to the thing you were stuck on. You said you do not know how to talk about yourself without talking about yourself. This post is entirely about you and it never once tells the reader what you are like. It shows a room, a sentence, and nine faces, and the reader does the rest. That is the method. It is not a personality you have to develop, it is a structure.</li>
+<li>The villain is shame. Not your father, who is not in this post at all. Not the retreat, not policing, not the doctor.</li>
+<li>Every quote in here is verbatim from you. &quot;If not now, when.&quot; &quot;You have been identifying as her for almost thirty years, Erin.&quot; &quot;We are stupid at seventeen.&quot; I have not improved a single one of them because they cannot be improved.</li>
+<li>&quot;Shame can only live in the shadow&quot; is yours and it is the only line after the last moment. Everything else that wanted to follow it is gone.</li>
+</ul></div>
+</article>
+
+<article class="post" id="if-i-can-t-i-don-t">
+<div class="posthead"><span class="pnum">11</span><h2>If I can&#x27;t, I don&#x27;t</h2></div>
+<p class="banner"><strong>Post this eleventh.</strong> The through line, saved for last, once ten posts have proved it rather than announced it. This is also the only post in the bank with a door on the end of it.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run hot for reach. This is the one to run as a carousel if you ever build one.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A calendar with almost nothing on it. A phone face down. Somebody else working at a laptop. A closed studio door. An empty Tuesday.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">I used to work at two hundred and fifty percent, seven days a week. I do not have that in me anymore and I run a business anyway.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">I built my business around what I cannot do.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">The rule my entire business runs on is four words long.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>I used to work at about two hundred and fifty percent. Seven days a week. I said yes to everything and I was extremely good at it and it very nearly finished me.</p>
+<p>I do not have that capacity now. Some days I cannot do anything at all, and I never know in advance which days those are going to be.</p>
+<p>So here is the rule my whole business runs on.</p>
+<p>If I can&#x27;t, I don&#x27;t.</p>
+<p>That is it. That is the entire policy.</p>
+<p>Then the classes started selling out. Breeders in other towns started asking us to come to them. And I sat there and thought, I actually cannot do this. Not at the size people are asking for.</p>
+<p>The old version of me would have said yes and then gone looking in my body for the hours.</p>
+<p>Instead I hired somebody. An assistant, to do the admin and all the pieces I keep dropping.</p>
+<p>I would never have come up with that on my own. It genuinely did not occur to me that hiring was something a person like me was allowed to do, because I had never once believed I was building a business. I was doing a thing that made me feel good and helped some people.</p>
+<p>You build a business at your own capacity and around your own limitations. Wherever your limits are, that is where somebody else comes in.</p>
+<p>My limits never shrank.</p>
+<div class="dig"><span class="digtag">DIG</span>This is the most important marker in the document. Give me one specific day. One task you could not do, the day you could not do it, what it actually looked like when it fell through the floor, and the moment somebody else picked it up. Not &quot;the admin.&quot; A specific unanswered email, a booking you missed, a phone call you could not make. That scene goes in at the end and it replaces the last line, and it is the difference between this post being a good idea and being a story. I know exactly why it is missing. You skipped it on the call, and I told you at the time that the summary is not the content. This is the one to sit with.</div>
+</div>
+<div class="block notes"><h3>The turn, then the door</h3><ul>
+<li>Two beats, kept separate from the story on purpose. Let the caption end on the moment, drop a line, then:</li>
+<li>If you are the one everybody used to be able to count on, and you are now living at a fraction of what you had, and you have quietly decided that means you are done building anything.</li>
+<li>Tell me what you would build if you believed you were allowed to build it at the size you actually are.</li>
+</ul></div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is a working rule stated as a refusal, which stops a scroll because it is the opposite of what every business account says. One question: how does a business survive that rule. The head fake is that the limitation is the design rather than the obstacle, and it stays unspent on the cover.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>You do not have an offer yet and I have not pretended you do. That third beat is a conversation starter, not a pitch. When you do have something, it slots into exactly that slot and nothing above it has to change. That is why the story and the turn and the door are three separate beats with air between them. Never weld them.</li>
+<li>The comments on this post are your research. My actual advice from the call, in one line: do not build the offer and then go find people, put the stories out and let the women tell you what they are actually trying to solve. This post is the instrument for that.</li>
+<li>The villain is the belief that a reduced capacity disqualifies you from building. That is the single biggest force standing between your audience and their own version of this, and it is the only one worth you fighting in public.</li>
+<li>&quot;If I can&#x27;t, I don&#x27;t&quot; is the four words your whole page should eventually be known for. Do not let it become a slogan on a graphic. Let it stay a rule you demonstrate.</li>
+</ul></div>
+</article>
+
+<div class="divider" id="not-yet"><span>NOT YET</span></div>
+
+<p class="dividerlede">Five more stories are in here. They are written because they are real and you should be able to see them, and I would not put any of them in a queue this month. The reason sits under each one.</p>
+
+<article class="post" id="the-bar-and-my-father-s-eyes">
+<div class="posthead"><h2>The bar, and my father&#x27;s eyes</h2></div>
+<p class="banner warn"><strong>Hold.</strong> Your own words, near the end of the call: &quot;we might not be putting this on the internet, I don&#x27;t know.&quot; That is not a yes, and I am not going to treat it like one. It is written in full because you should get to see what it looks like built, and because on the day you decide, it is ready.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth. Never for reach. This one is not a scroll stopper, it is a thing you hand people who already know you.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A car on a dark road. A staircase. A back door. Headlights in a parking lot. Nothing that looks like a bar and nothing that looks like you at seventeen.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">At seventeen I told my father I was waitressing in the city. He was a police officer.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">The worst night of my life was the night my father found me, and the damage was not the thing I got caught doing.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">I turned around holding a box, and my father was standing there.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<p>When I was seventeen I lied to my dad about what I did on weekends. I told him I was waitressing in the city. He was a police officer.</p>
+<p>I was not waitressing.</p>
+<p>My mother had been diagnosed with MS when I was ten, and my parents were inside their own hell with that, and my sister and I were left in a way that nobody planned and nobody noticed.</p>
+<p>I had spent my whole childhood as the one who looked good and came second.</p>
+<p>So in that bar, for the first time in my life, grown men looked at me like there was something worth looking at, and I had money in my hand, and I thought: I have power. People notice me.</p>
+<p>Every weekend I drove down and went back.</p>
+<p>Then one night just before Halloween I finished a dance, picked up the box I had been standing on, turned around, and there was my dad.</p>
+<p>My dad has the most piercing blue eyes.</p>
+<p>I looked straight into them and the only thing I could get out was, what are you doing here.</p>
+<p>Nothing on his face. Full cop mode. He said, what are you doing here.</p>
+<p>I dropped the box and ran up the stairs, and all these women are saying what&#x27;s wrong, what happened, and I said, my dad is here. And they moved fast. Grab her stuff. Get her together.</p>
+<p>And from the bottom of the stairs I could hear him yelling at the owner. Do you know how old she is. She is seventeen. I&#x27;m a cop.</p>
+<p>They got me out the back door.</p>
+<p>He had my mother waiting in the car. I did not find that part out for years. The two of them sat outside until the last person left, and then drove an hour and a half home at two in the morning.</p>
+<p>We have never spoken about it. Not that week, not that year, not once since. Not when the book came out.</p>
+<p>He knows the book exists.</p>
+<div class="dig"><span class="digtag">DIG</span>The phone call afterward, when you told them you were returning the car and moving out. Where you were calling from, who picked up, what you said first. That call is a second scene and it is the only place in this story where you are the one who acts.</div>
+</div>
+<div class="block loop"><h3>Loop check</h3><p>The cover is a lie with a police officer on the other end of it, which is a clock the reader can hear ticking. One question: does he find out. The head fake is that the story does not end with the confrontation, it ends thirty years later with a silence, and the last line spends nothing until it lands.</p></div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>Why it is a hold, first reason, and the only one that actually matters: you have not said yes. You said &quot;I don&#x27;t know how to articulate this at all,&quot; and &quot;we might not be putting this on the internet.&quot; You have also said, in the same conversation, that there is nothing you will not say, you just want to say it the right way. Both of those are true at once and only you get to resolve them.</li>
+<li>Second reason: your father is alive, identifiable, and has never once discussed this with you. This post does not accuse him of anything. He is a father who found his seventeen-year-old daughter somewhere terrifying and reacted the way a man in 1993 reacted. But the caption puts a night the two of you have never spoken about onto a public page, and he will hear about it. That is not a legal question, it is a family one, and it is exactly the kind of question this entire method takes seriously.</li>
+<li>Third: your sons.</li>
+<li>Look at what the last line is doing, because this is the craft lesson of the whole document. The original version of the ending explained that you froze at seventeen and spent thirty years outrunning a look on a man&#x27;s face. Every word of that is true and every word of it is cut, because the reader got there two lines earlier and telling them steals it. What is left is four words about a book, and it is the most devastating sentence in this bank.</li>
+<li>The villain is shame, and the thing a look can install in a person in under a second. Not your father, not the owner of that bar, though he broke the law and the post lets the reader see it without you having to say so.</li>
+<li>If you ever run this, Post 10 has to run first and it has to have been out for a while. Post 10 is the whole story with the secret removed. This one is the secret. In that order it reads as a choice you made. In the other order it reads as a confession.</li>
+</ul></div>
+</article>
+
+<article class="post" id="the-claim">
+<div class="posthead"><h2>The claim</h2></div>
+<p class="banner warn"><strong>Do not post until it is over.</strong> You told me you are in the middle of it and that it is where your apprehension is coming from. Nothing goes out that touches it. This is written for the day it closes, because on that day you will want it and you will not want to be starting from a blank page.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Conviction post. One held image and a stance. Do not put an arc on it.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A stack of paper. A file folder. A phone screen full of notifications. A quiet room.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">They accept that I have PTSD. They also believe I could work forty hours a week.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">The evidence that I am fine is a puppy yoga class and a follower count.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">I am going to have to sit in a room and explain to a group of professionals what the word media means.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<div class="dig"><span class="digtag">DIG</span>Not written. The shape is above and the stance is obvious, but every sentence in it depends on facts that are not settled yet, and a caption written today would age into something you would have to correct. When it closes, send me the two or three moments that stayed with you and I will build it in an hour.</div>
+</div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>The reason this is worth writing at all is that it is the single most useful thing you could ever say to the woman you want to reach. She believes that building something is proof she was never really injured. You are living the version where somebody wrote that down and filed it.</li>
+<li>When it does run, the villain is a system that measures a person&#x27;s capacity by their visibility. Never a named body, never a named professional, never a specific file. There is no version of this post that names anybody, ever, no matter how it ends.</li>
+<li>Your line about having to explain what the word media means is the funniest and sharpest thing you said all session, and it will still be true whenever this runs.</li>
+</ul></div>
+</article>
+
+<article class="post" id="what-happens-behind-the-doors">
+<div class="posthead"><h2>What happens behind the doors</h2></div>
+<p class="banner warn"><strong>Hold, and hold hard.</strong> Your words: &quot;that&#x27;s something I&#x27;ll get sued on if I even said it.&quot; I am not going to be the person who talks you past your own instinct on that.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Conviction post. If it ever runs, it runs as a stance about a named force and nothing else.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">None yet.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">There is a name for the kind of injury that comes from your own people. Most of us never hear it until we are already carrying one.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">The worst thing that happened to me at work was not on any of the calls.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">They have a term for it. Sanctuary trauma. Nobody warns you about that one on the way in.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<div class="dig"><span class="digtag">DIG</span>Not written, deliberately. There is a real post here and it is not about your service or your file. It is about a concept, sanctuary trauma, which is documented, named by clinicians, and belongs to nobody. A post that stays at the level of &quot;here is what this is, here is what it does to a person, and here is why the people it happens to almost never say so&quot; is defensible, useful, and touches nothing you are in the middle of. A post that reaches for one example from inside those walls is not. I will not write the second one and you should not either, and you already knew that, which is why you stopped yourself twice on the call and said &quot;I have to be careful of how I want to word this.&quot;</div>
+</div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>The version above is not a watered-down version of your story. It is a different post with a different job. Naming a force that thousands of people are living inside and cannot name is one of the four things that makes a piece of content unmistakably yours, and you can do it without one identifying detail.</li>
+<li>Even that version waits until the claim is closed. Not because it is risky, but because anything you publish about that world right now gets read by people who are looking for reasons.</li>
+<li>The villain is the culture. Always. Never a rank, never a room, never a person.</li>
+</ul></div>
+</article>
+
+<article class="post" id="the-birthday">
+<div class="posthead"><h2>The birthday</h2></div>
+<p class="banner warn"><strong>Hold, and this one is a boundary you already set, not a risk I found.</strong> You told me, in your own words: &quot;I don&#x27;t talk about my grief, I just talk about grief as a topic.&quot; I have built the rest of this bank to that line, which is why your mother and your sister appear almost nowhere in it.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run for depth. Would be very short.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A cake. Two candles. A calendar. A phone with an unsent message.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">My sister and I were twelve months apart and born on the same day.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">I have never had a birthday that belonged to me.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">For forty-some years my birthday was the best day of my year.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<div class="dig"><span class="digtag">DIG</span>Not written without your yes, and I would want more than a yes. I would want you to tell me one specific thing the two of you did on a birthday, because without it this post is only a fact about a loss, and a fact about a loss is not a story. It is the thing that makes people say sorry in the comments and move on, which is the opposite of what you want.</div>
+</div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>You said &quot;it&#x27;s freaking horrible&quot; about your shared birthday and then moved straight on, which is what people do with the things that are still live. That is the tell that this one is not ready, and readiness here has nothing to do with how long it has been.</li>
+<li>If it ever runs, the villain is grief itself, and your sister is a person you loved rather than a loss you sustained. Those are two entirely different posts and only one of them is worth reading.</li>
+<li>Your mother is in the same category and I have kept her out of everything except one line in the held post about your father, where she is sitting in a car and doing nothing but waiting.</li>
+</ul></div>
+</article>
+
+<article class="post" id="the-one-who-is-going-back">
+<div class="posthead"><h2>The one who is going back</h2></div>
+<p class="banner warn"><strong>Hold until you have her yes, and I would not ask her for it while she is in the middle of the decision.</strong> This is your ideal client standing in front of you and it is also a real woman with a name and a job.</p>
+<div class="meta">
+<div class="metarow"><span class="mlabel">Format + dial</span><span class="mval">Story post. Run hot for reach, if it ever runs.</span></div>
+<div class="metarow"><span class="mlabel">B-roll</span><span class="mval">A locker. A uniform on a hanger. A driveway. A front door. Nothing that could be her.</span></div>
+</div>
+<div class="block hooks"><h3>Hooks <span class="sub">text on screen</span></h3><ul>
+<li><span class="htype h-context">Context</span><span class="htext">A woman I worked with is going back to the job that broke her. She is brilliant. She cannot see another door.</span></li>
+<li><span class="htype h-contrarian">Contrarian</span><span class="htext">She told me I have something she does not have. She has it. She just does not believe it counts.</span></li>
+<li><span class="htype h-intrigue">Intrigue</span><span class="htext">There is a whole population of us out here who left and never told anybody what happened next.</span></li>
+</ul></div>
+<div class="block caption"><h3>Caption</h3>
+<div class="dig"><span class="digtag">DIG</span>Not written without her consent, and it needs one more thing from you first: what she actually said to you, in her words, when she told you she was going back. You paraphrased it on the call and the paraphrase is where the post falls down. Her exact sentence is the entire piece.</div>
+</div>
+<div class="block notes"><h3>Notes</h3><ul>
+<li>Why this matters more than any other held post: this woman is your audience. Not a metaphor for your audience. Her. Every post in the ready section is aimed at somebody standing exactly where she is standing, and when you write to her specifically rather than to &quot;women with PTSD,&quot; the writing gets sharper by an order of magnitude.</li>
+<li>There is a version of this that needs no consent at all, and it might be the better post. It is written to her instead of about her. No details, no job, no identifying anything. Just the thing you would say if she were sitting across the table, which on the call was: but you can. You are brilliant in all kinds of ways. If you want that one, say the word and I will build it, and it can run this month.</li>
+<li>The villain is the absence of a visible alternative. Not the job she is going back to, and never her for going.</li>
+</ul></div>
+</article>
+
+<section class="plainsec" id="where-the-stories-aren-t-finished">
+<h2 class="plain">Where the stories aren&#x27;t finished</h2>
+<p>Sixteen DIG markers in this document. Eleven in the eleven posts you can run, five in the holds.</p>
+<p>Almost every one of them is the same gap, and you named it yourself without meaning to. You told me: &quot;I don&#x27;t know how to talk about myself without talking about myself.&quot; What you were actually describing is that you tell people the shape of a thing instead of the room it happened in. You told me three years of a life in one sentence and then moved on. You told me you hired an assistant and skipped the day that made you.</p>
+<p>You are not bad at this. Your book proves you are not, and every single person who reads it does it in one sitting. What your editor did for you is exactly what these markers do: she made you go back and put the reader in the room. You said it yourself about the hardest chapter, that there was such a story around it for it to be understood.</p>
+<p>Every one of these markers is one room away from finished. Sit with any of them for ten minutes and it will come, because you were there.</p>
+<p>Six more stories surfaced that I could not write yet, because each one is still a summary:</p>
+<ul class="plainlist"><li><strong>The first time you watched the room feel it.</strong> You said, in that first class, &quot;they&#x27;re feeling what I felt, like I could see it.&quot; Women in their sixties, a young girl, a retired couple. That is a post and it is possibly the warmest thing in the whole session, and I do not have a single face in it. Give me one person in that room and what you saw happen to them.</li><li><strong>The first corporate event.</strong> You now run corporate wellness and corporate events. There is a first one, and there is almost certainly a moment where a room of people in work clothes fell apart on a floor with puppies on them. You did not mention it once and it is one of the biggest stories you have.</li><li><strong>The speaker with the terrible social media.</strong> A friend with an insane story and no idea how to tell it asked you to teach him one on one, and you said you did not know if you could commit to it. That is the exact tension of your whole next chapter in one anecdote: being wanted for something you are not sure you can carry.</li><li><strong>How you actually grew to 320,000.</strong> You said &quot;I don&#x27;t know, I just did it&quot; three times. You do know. You just never wrote it down, and I would bet the answer is four or five decisions you could name in twenty minutes.</li><li><strong>The book coming out.</strong> November, and you have barely touched it publicly. Your girlfriend&#x27;s line, &quot;Erin, God damn you, I read it in one sitting, I was supposed to do my taxes,&quot; is real proof from a real person and it is worth more than any review.</li><li><strong>The day you stopped being able to book yourself.</strong> You said you cannot do anything scheduled because you never know how you will feel. That is a live, ongoing, deeply specific constraint that almost nobody talks about publicly, and there is a day it first happened.</li></ul>
+</section>
+
+<section class="plainsec" id="what-i-left-out-on-purpose">
+<h2 class="plain">What I left out on purpose</h2>
+<ul class="plainlist"><li><strong>Your service, by name.</strong> It appears nowhere in this document, in any post, held or ready. Neither does the incident, the unit, the town or the file.</li><li><strong>The claim,</strong> except as a held post that does not run until it is closed.</li><li><strong>Anything about the culture behind those doors</strong> that could be traced to one room or one person. You used the word evil on the call and you were talking about a system. Even that word does not appear in a single caption here.</li><li><strong>Your father,</strong> everywhere except one held post, where he is a father who found his daughter and never spoke of it again.</li><li><strong>Your mother and your sister,</strong> except as weather. Your mother is a diagnosis that took the attention out of a house, and a woman sitting in a car. Your sister is the smart one in a childhood, unnamed.</li><li><strong>The fact that you lost them.</strong> Your mother in 2008, your sister in 2020. Neither death appears in a single ready post, and that is a decision rather than an oversight. You told me you talk about grief as a topic and not about your grief, so the grief lives in one held post that does not run without your yes.</li><li><strong>Your ex-husband, entirely.</strong> He said one thing to you that belongs in this story and it does not appear anywhere. &quot;I wonder what the police service would think&quot; is the reason that secret stayed a secret for another few years, and putting it in a caption turns a post about shame into a post about a man. It is not in here, and it should not be.</li><li><strong>Your sons,</strong> except one line in Post 5, where one of them is having a hard first year of college and nothing else.</li><li><strong>Any income claim.</strong> Not one post in this bank rests on a revenue number. The only money in the entire document is forty-five dollars, forty dollars, and two hundred and forty dollars, on one Saturday in May.</li></ul>
+</section>
+
+<section class="plainsec" id="the-three-filters">
+<h2 class="plain">The three filters</h2>
+<p>Run on every cover line before this shipped. Reporting the ones that failed and what changed.</p>
+<p><strong>Unique.</strong> Passes on all eleven. Put another coach&#x27;s face on any of these and they collapse immediately, because the material is a thumbtack, a box in a bar, a sergeant&#x27;s sentence and a breeder&#x27;s German Shepherds. None of it is available to anybody else.</p>
+<p><strong>Psychological specificity.</strong> Passes on all eleven, sourced entirely from your own sentences. The screenshot lines, in order of how hard they will hit: &quot;I am failing therapy,&quot; &quot;if I can&#x27;t, I don&#x27;t,&quot; &quot;her shot is perfect, it just doesn&#x27;t go in,&quot; and &quot;you don&#x27;t know what it is to not feel until you have not felt for years.&quot;</p>
+<p><strong>Addressable market.</strong> This is the one that failed, and it failed in the hooks, which is where it always fails.</p>
+<p>Three cover lines were rewritten:</p>
+<ul class="plainlist"><li>Post 4 opened on ayahuasca and a retreat, which is a small room. It now opens on a therapist handing you a book and you not being able to find one thing on it, which is enormous.</li><li>Post 8 opened on collision reconstruction and drug recognition, which is a room containing police officers. It now opens on a sister who was the smart one, which is a room containing most people who have a sibling.</li><li>Post 9 opened on the collapse itself, which reads as a story about policing. It now opens on saying yes at work until something gives, which is a room containing every high performer who has ever been rewarded for it.</li></ul>
+<p>In all three cases the story underneath is untouched. Only the first line moved. Nothing was generalized, sanded down, or made to fit more people.</p>
+<p><em>Kindra Morse · Founder Storytelling Coach · The Throughline Method</em></p>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>Kindra Morse &middot; Founder Storytelling Coach</span>
+    <span>The Throughline Method</span>
+  </div>
+</footer>
+
+</body>
+</html>
